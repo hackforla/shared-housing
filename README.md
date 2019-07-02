@@ -78,6 +78,8 @@ Project Timeline (Rough Estimate) <a name="projecttimeline"></a>
 - [A Faster, More Cost-Effective Solution to Homelessness](https://medium.com/@mikeboninla/shared-housing-a-faster-more-cost-effective-solution-to-homelessness-93f20a0e0906)
 - [Tech tool for affordable housing](https://www.marketplace.org/2019/02/21/los-angeles-homeless-advocates-have-new-tech-tool-affordable-housing/)
 - [Alternative housing review](http://ciesandiego.org/wp-content/uploads/2018/08/SAMHSA-Shared-Housing-Alt-Housing-PPT_7_23_18-_FinalPDF.pdf)
+- [Can tech fix housing market?](https://www.nytimes.com/2019/01/29/upshot/can-technology-help-fix-the-housing-market.html)
+
 ## License <a name="license"></a>
 
 
