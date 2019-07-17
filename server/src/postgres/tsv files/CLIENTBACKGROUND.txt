@@ -1,0 +1,6 @@
+clientID	relationship	num_children	children_location	smoker	drug_user	drinker	pet	religion	SP_preference	city_preference
+12345678	married	0		TRUE	TRUE	TRUE	TRUE		spa 1	
+24681012	single	1		FALSE	FALSE	TRUE	FALSE	CHRISTIAN	spa 2	
+13579111	widowed	2		FALSE	TRUE	TRUE	FALSE	BUDDHIST	spa 3	
+67184632	seperated	0		TRUE	FALSE	TRUE	FALSE		spa 4	
+98321065		3		FALSE	TRUE	TRUE		CATHOLIC	spa 5	
