@@ -46,11 +46,11 @@ source [www.lahsa.org](http://www.lahsa.org)
 
 Project Overview <a name="projectoverview"></a>
 ---
+#### Slide Deck
+Review the project overview slide deck here for detailed context: https://drive.google.com/open?id=1ZyUEjJqntZQ5SeTuT9m4hoDXytujzcmd
 
 #### Background & Client Request
 LA Family Housing engaged the help fo Hack for LA organization to identify and design a more efficient & effective solution for matching multiple individuals who experience homelessness as potential co-tenants and placing the matched individuals in suitable shared housing units.
-
-You can think of it as a *"match.com"* solution for matching individuals experiencing homeless
 
 #### Current Matching Process - Pain Points
 
