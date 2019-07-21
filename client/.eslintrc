@@ -19,6 +19,6 @@ module.exports = {
   plugins: ['react'],
   rules: {
     "comma-dangle": ["error", "never"],
-
+    "react/jsx-filename-extension": 0
   }
 };
