@@ -22,12 +22,11 @@ import Radio from '@material-ui/core/Radio';
 //     ),
 // })
 
-export default (RadioButton = ({
+export default RadioButton = ({
+  field,
   label,
   labelPlacement,
   name,
-  onBlur,
-  onChange,
   value,
   values,
   ...props
@@ -40,15 +39,14 @@ export default (RadioButton = ({
         label={name.toUpperCase()}
         labelPlacement={labelPlacement}
         name={name}
-        onBlur={onBlur}
-        onChange={onChange}
         type="radio"
         value={value}
+        {...field}
         {...props}
       />
     </div>
   );
-});
+};
 
 RadioButton.propTypes = {
   label: PropTypes.string.isRequired,
