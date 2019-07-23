@@ -43,40 +43,40 @@ const months = {
 const [, month, day, year] = new Date().toString().split(" ")
 const currentDate = [`${year}-${months[month]}-${day}`].join(" ");
 
-export default DatePickers = (handleChange) => {
+export default DatePickers = (field, ...props) => {
   const classes = useStyles();
 
   return (
-    <form className={classes.container}>
+    <div>
       <TextField
         className={classes.textField}
         defaultValue={currentDate}
         id="date"
         label="Date"
-        onChange={handleChange}
         type="date"
         InputLabelProps={{
           shrink: true
         }}
+        {...field}
+        {...props}
       />
-    </form>
+    </div>
   );
 };
 
 const [,,,,localTime] = new Date().toString().split(" ")
 const currentTime = localTime.slice(0,5)
 
-export default TimePickers = (handleChange) => {
+export default TimePickers = (field, ...props) => {
     const classes = useStyles();
 
     return (
-        <form className={classes.container}>
+        <div>
             <TextField
             className={classes.textField}
             defaultValue= {currentTime}
             id="time"
             label="Choose time"
-            onChange={handleChange}
             type="time"
             InputLabelProps={{
                 shrink: true,
@@ -84,8 +84,10 @@ export default TimePickers = (handleChange) => {
             inputProps={{
                 step: 300 // 5 min
             }}
+            {...field}
+            {...props}
             />
-        </form>
+        </div>
     );
 }
 
