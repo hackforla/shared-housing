@@ -1,0 +1,6 @@
+clientid	gender	min_age	max_age	religion	pet	smoker	drug_user	drinker	ethnicity
+12345678									
+24681012									
+13579111									
+67184632									
+98321065									

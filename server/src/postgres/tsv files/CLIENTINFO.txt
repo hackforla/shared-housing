@@ -1,0 +1,6 @@
+clientID	firstname	lastname	email	birthdate	gender	ethnicity
+12345678	dean	truong	deantruong92@gmail.com	11/27/1992	male	vietnamese
+24681012	jesus	lopez	jesuslopez@gmail.com	7/16/1988	male	mexican
+13579111	joanne	olivio	joanne.olivio@gmail.com	2/28/1965	female	ecuadorian
+67184632	cleveland	wilcox	clevelandwilcox2019@outlook.com	7/10/1993	male	
+98321065	phoebe 	buffay			female	caucasian
