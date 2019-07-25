@@ -11,8 +11,10 @@
   ],
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel src/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "parcel build src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "Roland Abregorivas",
@@ -20,8 +22,13 @@
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
@@ -37,6 +44,7 @@
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^4.0.1",
     "@material-ui/styles": "^4.0.2",
+    "clsx": "^1.0.4",
     "formik": "^1.5.8",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
