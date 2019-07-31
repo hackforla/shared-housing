@@ -11,6 +11,7 @@ Shared Housing Project
 - [Project Overview](#projectoverview)
     - [Process Flow](#processflow)
     - [Project Timeline](#projecttimeline)
+- [Getting Started](#gettingstarted)
 - [References](#references)
 - [License](#license)
 
@@ -46,11 +47,11 @@ source [www.lahsa.org](http://www.lahsa.org)
 
 Project Overview <a name="projectoverview"></a>
 ---
+#### Slide Deck
+Review the project overview slide deck here for detailed context: https://drive.google.com/open?id=1ZyUEjJqntZQ5SeTuT9m4hoDXytujzcmd
 
 #### Background & Client Request
 LA Family Housing engaged the help fo Hack for LA organization to identify and design a more efficient & effective solution for matching multiple individuals who experience homelessness as potential co-tenants and placing the matched individuals in suitable shared housing units.
-
-You can think of it as a *"match.com"* solution for matching individuals experiencing homeless
 
 #### Current Matching Process - Pain Points
 
@@ -74,6 +75,27 @@ Project Timeline (Rough Estimate) <a name="projecttimeline"></a>
 
 > Read more about mermaid diagrams here: http://knsv.github.io/mermaid/
 
+Getting Started <a name="gettingstarte"></a>
+---
+
+To get a started working on this project you will need to do the following
+ - Fork this repo to your local repository
+ - Pull your download your forked copy onto your local development environment
+ - Open terminal and follow the list of the commands
+ 
+   ```
+    cd client/
+    npm install
+   ```
+   Once all packages are added you can star the project
+   ```
+    npm run dev
+   ```
+   The project also support [storybook](https://storybook.js.org/docs/guides/guide-react/) to allow for viewing components in isolation from the project
+   ```
+    npm run storybook
+   ```
+   
 ## References <a name="references"></a>
 - [A Faster, More Cost-Effective Solution to Homelessness](https://medium.com/@mikeboninla/shared-housing-a-faster-more-cost-effective-solution-to-homelessness-93f20a0e0906)
 - [Tech tool for affordable housing](https://www.marketplace.org/2019/02/21/los-angeles-homeless-advocates-have-new-tech-tool-affordable-housing/)
