@@ -1,8 +1,12 @@
 # Shared Housing Project
 
 ![GitHub issues](https://img.shields.io/github/issues/hackforla/shared-housing.svg)
+[![styles](https://img.shields.io/badge/styleguide-airbnb-E9555C)](https://github.com/airbnb/javascript/tree/master/react)
+[![code style: prettier](https://img.shields.io/badge/formatting-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![style](https://img.shields.io/badge/uiframework-materialui-3097F3)](https://material-ui.com/)
+[![lint](https://img.shields.io/static/v1?label=eslint&logo=eslint&logoColor=4B32C3&link=https://eslint.org&message=linting)](https://eslint.org/)
 
-# Table of Contents
+## Table of Contents
 
 - [About Hack for LA](#hackforla)
 - [About LA Family Housing](#lafamilyhousing)
@@ -49,15 +53,15 @@ source [www.lahsa.org](http://www.lahsa.org)
 
 ## Project Overview <a name="projectoverview"></a>
 
-#### Slide Deck
+### Slide Deck
 
 Review the project overview slide deck here for detailed context: https://drive.google.com/open?id=1ZyUEjJqntZQ5SeTuT9m4hoDXytujzcmd
 
-#### Background & Client Request
+### Background & Client Request
 
 LA Family Housing engaged the help fo Hack for LA organization to identify and design a more efficient & effective solution for matching multiple individuals who experience homelessness as potential co-tenants and placing the matched individuals in suitable shared housing units.
 
-#### Current Matching Process - Pain Points
+### Current Matching Process - Pain Points
 
 - Process is manual (vetting & matching is done manually, via discussions among case managers)
 - Process takes too long (~1 month from unit identification to lease signing)
@@ -75,7 +79,7 @@ LA Family Housing engaged the help fo Hack for LA organization to identify and d
 
 > Read more about mermaid diagrams here: http://knsv.github.io/mermaid/
 
-## Getting Started <a name="gettingstarted"></a>
+## Getting Started <a name="gettingstarte"></a>
 
 To get a started working on this project you will need to do the following
 
@@ -83,38 +87,22 @@ To get a started working on this project you will need to do the following
 - Pull your download your forked copy onto your local development environment
 - Open terminal and follow the list of the commands
 
-  ```
+  ```bash
    cd client/
    npm install
   ```
 
   Once all packages are added you can star the project
 
-  ```
+  ```bash
    npm run dev
   ```
 
   The project also support [storybook](https://storybook.js.org/docs/guides/guide-react/) to allow for viewing components in isolation from the project
 
-  ```
+  ```bash
    npm run storybook
   ```
-
-## Technologies <a name="technologies"></a>
-
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Material UI](https://material-ui.com/)
-- [Formik](https://jaredpalmer.com/formik/)
-- [Storybook](https://storybook.js.org/)
-- [Jest](https://jestjs.io/) and [Enzyme](https://airbnb.io/enzyme/)
-- [Eslint](https://eslint.org/) and [Prettier](https://prettier.io/)
-- [Parcel](https://parceljs.org/)
-- [Python](https://www.python.org/)
-- [Flask](https://palletsprojects.com/p/flask/)
-- [PostgresSQL](https://www.postgresql.org/)
-- [Docker](https://www.docker.com/get-started)
-- [Kubernetes](https://kubernetes.io/docs/tutorials/kubernetes-basics/)
 
 ## References <a name="references"></a>
 

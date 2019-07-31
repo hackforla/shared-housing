@@ -7,6 +7,7 @@ import { Formik, Form, Field } from 'formik';
 import { Button, Welcome } from '@storybook/react/demo';
 import { BaseRadio } from '../src/components/Forms/Base';
 import { InputGroup } from '../src/components/Forms/FormGroups';
+import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
 
 storiesOf('Welcome', module).add('to Storybook', () => (
   <Welcome showApp={linkTo('Button')} />
@@ -14,19 +15,8 @@ storiesOf('Welcome', module).add('to Storybook', () => (
 
 storiesOf('Forms', module)
   .add('Input', () => (
-    <Formik
-      initialValues={{ name: 'jared' }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
-      }}
-      render={values => (
-        <Form>
-          <Field id="MyInput" label="MyInputLabel" name="name" component={InputGroup} />
-        </Form>
-      )}
+    <ExampleForm
+      initValues={{ Firstname: '', LastName: '', FavoriteColor: '' }}
     />
   ))
   .add('Radio', () => (
@@ -40,7 +30,12 @@ storiesOf('Forms', module)
       }}
       render={values => (
         <Form>
-          <Field id="MyRadio" label="MyRadioLabel" name="name" component={BaseRadio} />
+          <Field
+            id="MyRadio"
+            label="MyRadioLabel"
+            name="name"
+            component={BaseRadio}
+          />
         </Form>
       )}
     />
