@@ -5,8 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { Formik, Form, Field } from 'formik';
 import { Button, Welcome } from '@storybook/react/demo';
-import { BaseRadio } from '../src/components/Forms/Base';
-import { InputGroup } from '../src/components/Forms/FormGroups';
+import { BaseRadio, BaseCheckbox } from '../src/components/Forms/Base';
+import { InputGroup, CheckboxGroup } from '../src/components/Forms/FormGroups';
 
 storiesOf('Welcome', module).add('to Storybook', () => (
   <Welcome showApp={linkTo('Button')} />
@@ -24,7 +24,12 @@ storiesOf('Forms', module)
       }}
       render={values => (
         <Form>
-          <Field id="MyInput" label="MyInputLabel" name="name" component={InputGroup} />
+          <Field
+            id="MyInput"
+            label="MyInputLabel"
+            name="name"
+            component={InputGroup}
+          />
         </Form>
       )}
     />
@@ -40,7 +45,12 @@ storiesOf('Forms', module)
       }}
       render={values => (
         <Form>
-          <Field id="MyRadio" label="MyRadioLabel" name="name" component={BaseRadio} />
+          <Field
+            id="MyRadio"
+            label="MyRadioLabel"
+            name="name"
+            component={BaseRadio}
+          />
         </Form>
       )}
     />
