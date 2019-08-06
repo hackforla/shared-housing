@@ -42,7 +42,7 @@ clientpreference_table_create = ("""CREATE TABLE IF NOT EXISTS clientpreference(
                         smoker varchar,
                         drug_user varchar,
                         drinker varchar,
-                        ethnicity varchar""")
+                        ethnicity varchar)""")
 
 # INSERT RECORDS
 
