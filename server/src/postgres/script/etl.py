@@ -18,14 +18,14 @@ def process_clientinfo(filepath):
         print('Error inserting data for clientinfo.')
         pass
 
-def porcess_clientbackground():
+def process_clientbackground(cur, clientbackground):
     try:
         cur.execute(clientbackground_table_insert, clientbackground)
     except:
         print('Error inserting data for .')
         pass
 
-def process_clientpreference():
+def process_clientpreference(cur, clientpreference):
 
     try:
         cur.execute(clientpreference_table_insert, clientpreference)
@@ -35,7 +35,7 @@ def process_clientpreference():
 
 def main():
     #conn = psycopg2.connect("host=127.0.0.1 dbname=hackforla user=postgres password=password") #connect to the hackforla database
-    #cur = conn.cursor() 
+    #cur = conn.cursor()
 
     filepath = 'test'#'c:\user\ladbscid64\Project\postgres'
     process_clientinfo(filepath)
