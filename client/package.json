@@ -26,15 +26,18 @@
     "@storybook/addon-links": "^5.1.9",
     "@storybook/addons": "^5.1.9",
     "@storybook/react": "^5.1.9",
+    "axios": "^0.19.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
+    "babel-preset-airbnb": "^4.0.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
+    "eslint-plugin-react-hooks": "^1.6.1",
     "husky": "^3.0.0",
     "lint-staged": "^9.2.0",
     "parcel-bundler": "^1.12.3",
@@ -58,7 +61,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,css,json,md}": [
+    "*.{js,jsx}": [
+      "eslint"
+    ],
+    "*.{js,jsx,css,json,md}": [
       "prettier --write",
       "git add"
     ]

@@ -5,8 +5,12 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { Formik, Form, Field } from 'formik';
 import { Button, Welcome } from '@storybook/react/demo';
-import { BaseRadio, BaseCheckbox } from '../src/components/Forms/Base';
-import { InputGroup, CheckboxGroup } from '../src/components/Forms/FormGroups';
+import {
+  BaseRadio,
+  BaseSelect,
+  BaseCheckbox,
+} from '../src/components/Forms/Base';
+import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
 
 storiesOf('Welcome', module).add('to Storybook', () => (
   <Welcome showApp={linkTo('Button')} />
@@ -14,24 +18,8 @@ storiesOf('Welcome', module).add('to Storybook', () => (
 
 storiesOf('Forms', module)
   .add('Input', () => (
-    <Formik
-      initialValues={{ name: 'jared' }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
-      }}
-      render={values => (
-        <Form>
-          <Field
-            id="MyInput"
-            label="MyInputLabel"
-            name="name"
-            component={InputGroup}
-          />
-        </Form>
-      )}
+    <ExampleForm
+      initValues={{ Firstname: '', LastName: '', FavoriteColor: '' }}
     />
   ))
   .add('Radio', () => (
@@ -55,43 +43,63 @@ storiesOf('Forms', module)
       )}
     />
   ))
-  .add('Checkbox', () => (
+  .add('Select', () => (
     <Formik
-      initialValues={{ name: 'Tony' }}
+      initialValues={{ color: 'red' }}
       onSubmit={(values, actions) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={values => (
+      render={({
+        handleSubmit,
+        isSubmitting,
+        values,
+        handleReset,
+        ...props
+      }) => (
         <Form>
           <Field
-            id="MyCheckbox"
-            label="MyCheckboxLabel"
-            name="name"
-            component={BaseCheckbox}
+            name="color"
+            label="Color"
+            valueOptions={[
+              { value: 'red', label: 'Red' },
+              { value: 'green', label: 'Green' },
+              { value: 'blue', label: 'Blue' },
+            ]}
+            component={BaseSelect}
           />
         </Form>
       )}
     />
   ))
-  .add('CheckboxGroup', () => (
+  .add('Checkbox', () => (
     <Formik
-      initialValues={{ name: 'Tony' }}
+      initialValues={{ color: 'red' }}
       onSubmit={(values, actions) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={values => (
+      render={({
+        handleSubmit,
+        isSubmitting,
+        values,
+        handleReset,
+        ...props
+      }) => (
         <Form>
           <Field
-            id="MyCheckbox"
-            label="MyCheckboxGroupLabel"
-            name="name"
-            component={CheckboxGroup}
+            name="color"
+            label="Color"
+            valueOptions={[
+              { value: 'red', label: 'Red' },
+              { value: 'green', label: 'Green' },
+              { value: 'blue', label: 'Blue' },
+            ]}
+            component={BaseCheckbox}
           />
         </Form>
       )}
