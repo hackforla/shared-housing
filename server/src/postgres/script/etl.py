@@ -6,10 +6,10 @@ from sql_queries import *
 import datetime
 
 def process_clientinfo(filepath):
-    df = pd.read_csv('clientinfo.txt', sep='\t')
+    df = pd.read_csv('../tsv_files/clientinfo.txt', sep='\t')
     df.columns = ['clientid', 'firstname', 'lastname', 'email', 'birthdate', 'gender', 'ethnicity']
-    for value in range(df.values):
-        print(df.values[0])
+    for value in df.values:
+        print(value)
     return
 
     try:
