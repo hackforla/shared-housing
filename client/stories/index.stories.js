@@ -54,6 +54,48 @@ storiesOf('Forms', module)
         </Form>
       )}
     />
+  ))
+  .add('Checkbox', () => (
+    <Formik
+      initialValues={{ name: 'Tony' }}
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          actions.setSubmitting(false);
+        }, 1000);
+      }}
+      render={values => (
+        <Form>
+          <Field
+            id="MyCheckbox"
+            label="MyCheckboxLabel"
+            name="name"
+            component={BaseCheckbox}
+          />
+        </Form>
+      )}
+    />
+  ))
+  .add('CheckboxGroup', () => (
+    <Formik
+      initialValues={{ name: 'Tony' }}
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          actions.setSubmitting(false);
+        }, 1000);
+      }}
+      render={values => (
+        <Form>
+          <Field
+            id="MyCheckbox"
+            label="MyCheckboxGroupLabel"
+            name="name"
+            component={CheckboxGroup}
+          />
+        </Form>
+      )}
+    />
   ));
 
 storiesOf('Button', module)

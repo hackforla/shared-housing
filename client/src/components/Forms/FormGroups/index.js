@@ -1,1 +1,2 @@
-export { InputGroup } from './InputGroup'
+export { InputGroup } from './InputGroup';
+export { CheckboxGroup } from './CheckboxGroup';

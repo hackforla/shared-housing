@@ -5,8 +5,8 @@ import { FormControlLabel, Checkbox } from '@material-ui/core';
 export const BaseCheckbox = ({ field, ...props }) => {
   return (
     <FormControlLabel
-      control={<Checkbox type="string" field={field} {...props} />}
-      field={field}
+      control={<Checkbox type="string" {...field} {...props} />}
+      {...field}
       {...props}
     />
   );
