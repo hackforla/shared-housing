@@ -9,6 +9,7 @@ import {
   BaseRadio,
   BaseSelect,
   BaseCheckbox,
+  BaseSlider,
 } from '../src/components/Forms/Base';
 import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
 
@@ -100,6 +101,35 @@ storiesOf('Forms', module)
               { value: 'blue', label: 'Blue' },
             ]}
             component={BaseCheckbox}
+          />
+        </Form>
+      )}
+    />
+  ))
+  .add('Slider', () => (
+    <Formik
+      initialValues={{ happiness: 5 }}
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          actions.setSubmitting(false);
+        }, 1000);
+      }}
+      render={({
+        handleSubmit,
+        isSubmitting,
+        values,
+        handleReset,
+        ...props
+      }) => (
+        <Form>
+          <Field
+            name="happiness"
+            label="Happiness Level"
+            min={0}
+            max={5}
+            step={1}
+            component={BaseSlider}
           />
         </Form>
       )}
