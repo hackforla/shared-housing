@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -16,34 +16,34 @@ import TextField from '@material-ui/core/TextField';
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 150
-  }
+    width: 150,
+  },
 }));
 
 const months = {
-  'Jan' : '01',
-  'Feb' : '02',
-  'Mar' : '03',
-  'Apr' : '04',
-  'May' : '05',
-  'Jun' : '06',
-  'Jul' : '07',
-  'Aug' : '08',
-  'Sep' : '09',
-  'Oct' : '10',
-  'Nov' : '11',
-  'Dec' : '12'
-}
+  Jan: '01',
+  Feb: '02',
+  Mar: '03',
+  Apr: '04',
+  May: '05',
+  Jun: '06',
+  Jul: '07',
+  Aug: '08',
+  Sep: '09',
+  Oct: '10',
+  Nov: '11',
+  Dec: '12',
+};
 
-const [, month, day, year] = new Date().toString().split(" ")
-const currentDate = [`${year}-${months[month]}-${day}`].join(" ");
+const [, month, day, year] = new Date().toString().split(' ');
+const currentDate = [`${year}-${months[month]}-${day}`].join(' ');
 
-export default DatePickers = (field, ...props) => {
+const DatePickers = (field, ...props) => {
   const classes = useStyles();
 
   return (
@@ -55,7 +55,7 @@ export default DatePickers = (field, ...props) => {
         label="Date"
         type="date"
         InputLabelProps={{
-          shrink: true
+          shrink: true,
         }}
         {...field}
         {...props}
@@ -64,37 +64,39 @@ export default DatePickers = (field, ...props) => {
   );
 };
 
-const [,,,,localTime] = new Date().toString().split(" ")
-const currentTime = localTime.slice(0,5)
+const [, , , , localTime] = new Date().toString().split(' ');
+const currentTime = localTime.slice(0, 5);
 
-export default TimePickers = (field, ...props) => {
-    const classes = useStyles();
+const TimePickers = (field, ...props) => {
+  const classes = useStyles();
 
-    return (
-        <div>
-            <TextField
-            className={classes.textField}
-            defaultValue= {currentTime}
-            id="time"
-            label="Choose time"
-            type="time"
-            InputLabelProps={{
-                shrink: true,
-            }}
-            inputProps={{
-                step: 300 // 5 min
-            }}
-            {...field}
-            {...props}
-            />
-        </div>
-    );
-}
+  return (
+    <div>
+      <TextField
+        className={classes.textField}
+        defaultValue={currentTime}
+        id="time"
+        label="Choose time"
+        type="time"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+        {...field}
+        {...props}
+      />
+    </div>
+  );
+};
 
 DatePickers.propTypes = {
-  handleChange: PropTypes.func.isRequired
-}
+  handleChange: PropTypes.func.isRequired,
+};
 
 TimePickers.propTypes = {
-  handleChange: PropTypes.func.isRequired
-}
+  handleChange: PropTypes.func.isRequired,
+};
+
+export { DatePickers, TimePickers };
