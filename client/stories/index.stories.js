@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { Formik, Form, Field } from 'formik';
-import { Button, Welcome } from '@storybook/react/demo';
+import { Welcome } from '@storybook/react/demo';
 import {
   BaseRadio,
   BaseSelect,
@@ -27,11 +26,10 @@ storiesOf('Forms', module)
       initialValues={{ name: 'Tony' }}
       onSubmit={(values, actions) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={values => (
+      render={() => (
         <Form>
           <Field
             id="MyRadio"
@@ -48,17 +46,10 @@ storiesOf('Forms', module)
       initialValues={{ color: 'red' }}
       onSubmit={(values, actions) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={({
-        handleSubmit,
-        isSubmitting,
-        values,
-        handleReset,
-        ...props
-      }) => (
+      render={() => (
         <Form>
           <Field
             name="color"
@@ -79,17 +70,10 @@ storiesOf('Forms', module)
       initialValues={{ color: 'red' }}
       onSubmit={(values, actions) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={({
-        handleSubmit,
-        isSubmitting,
-        values,
-        handleReset,
-        ...props
-      }) => (
+      render={() => (
         <Form>
           <Field
             name="color"
@@ -104,18 +88,6 @@ storiesOf('Forms', module)
         </Form>
       )}
     />
-  ));
-
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>
-      <span role="img" aria-label="so cool">
-        😀 😎 👍 💯
-      </span>
-    </Button>
   ));
 
 // storiesOf('Pickers', module)
