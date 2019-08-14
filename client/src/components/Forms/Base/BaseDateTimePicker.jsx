@@ -43,7 +43,7 @@ const months = {
 const [, month, day, year] = new Date().toString().split(' ');
 const currentDate = [`${year}-${months[month]}-${day}`].join(' ');
 
-const DatePickers = (field, ...props) => {
+const BaseDatePicker = (field, ...props) => {
   const classes = useStyles();
 
   return (
@@ -67,7 +67,7 @@ const DatePickers = (field, ...props) => {
 const [, , , , localTime] = new Date().toString().split(' ');
 const currentTime = localTime.slice(0, 5);
 
-const TimePickers = (field, ...props) => {
+const BaseTimePicker = (field, ...props) => {
   const classes = useStyles();
 
   return (
@@ -91,12 +91,12 @@ const TimePickers = (field, ...props) => {
   );
 };
 
-DatePickers.propTypes = {
+BaseDatePicker.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };
 
-TimePickers.propTypes = {
+BaseTimePicker.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };
 
-export { DatePickers, TimePickers };
+export { BaseDatePicker, BaseTimePicker };

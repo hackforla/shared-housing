@@ -5,8 +5,9 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 import { Formik, Form, Field } from 'formik';
 import { Button, Welcome } from '@storybook/react/demo';
-import { DatePickers, TimePickers } from '../src/components/common';
 import {
+  BaseDatePicker,
+  BaseTimePicker,
   BaseRadio,
   BaseSelect,
   BaseCheckbox,
@@ -127,7 +128,7 @@ storiesOf('Forms', module)
           <Field
             name="TimePicker"
             label="TimePicker"
-            component={TimePickers}
+            component={BaseTimePicker}
             {...props}
           />
         </Form>
@@ -153,7 +154,7 @@ storiesOf('Forms', module)
           <Field
             name="DatePicker"
             label="DatePicker"
-            component={DatePickers}
+            component={BaseDatePicker}
             {...props}
           />
         </Form>
