@@ -6,6 +6,8 @@ import { linkTo } from '@storybook/addon-links';
 import { Formik, Form, Field } from 'formik';
 import { Button, Welcome } from '@storybook/react/demo';
 import {
+  BaseDatePicker,
+  BaseTimePicker,
   BaseRadio,
   BaseSelect,
   BaseCheckbox,
@@ -32,7 +34,7 @@ storiesOf('Forms', module)
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={values => (
+      render={() => (
         <Form>
           <Field
             id="MyRadio"
@@ -70,6 +72,7 @@ storiesOf('Forms', module)
               { value: 'blue', label: 'Blue' },
             ]}
             component={BaseSelect}
+            {...props}
           />
         </Form>
       )}
@@ -101,6 +104,59 @@ storiesOf('Forms', module)
               { value: 'blue', label: 'Blue' },
             ]}
             component={BaseCheckbox}
+            {...props}
+          />
+        </Form>
+      )}
+    />
+  ))
+  .add('TimePicker', () => (
+    <Formik
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          actions.setSubmitting(false);
+        }, 1000);
+      }}
+      render={({
+        handleSubmit,
+        isSubmitting,
+        values,
+        handleReset,
+        ...props
+      }) => (
+        <Form>
+          <Field
+            name="TimePicker"
+            label="TimePicker"
+            component={BaseTimePicker}
+            {...props}
+          />
+        </Form>
+      )}
+    />
+  ))
+  .add('DatePicker', () => (
+    <Formik
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          actions.setSubmitting(false);
+        }, 1000);
+      }}
+      render={({
+        handleSubmit,
+        isSubmitting,
+        values,
+        handleReset,
+        ...props
+      }) => (
+        <Form>
+          <Field
+            name="DatePicker"
+            label="DatePicker"
+            component={BaseDatePicker}
+            {...props}
           />
         </Form>
       )}
@@ -147,6 +203,3 @@ storiesOf('Button', module)
       </span>
     </Button>
   ));
-
-// storiesOf('Pickers', module)
-//   .add('DateTime', () => <DatePickers />);
