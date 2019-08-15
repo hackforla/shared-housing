@@ -52,7 +52,7 @@ storiesOf('Forms', module)
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={() => (
+      render={(props) => (
         <Form>
           <Field
             name="color"
@@ -77,7 +77,7 @@ storiesOf('Forms', module)
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={() => (
+      render={(props) => (
         <Form>
           <Field
             name="color"
@@ -177,29 +177,3 @@ storiesOf('Forms', module)
   ));
 
 
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>
-      <span role="img" aria-label="so cool">
-        😀 😎 👍 💯
-      </span>
-    </Button>
-  ));
