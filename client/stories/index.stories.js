@@ -11,6 +11,7 @@ import {
   BaseSelect,
   BaseCheckbox,
   BaseSlider,
+  BaseTextArea,
 } from '../src/components/Forms/Base';
 import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
 
@@ -52,7 +53,7 @@ storiesOf('Forms', module)
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={(props) => (
+      render={props => (
         <Form>
           <Field
             name="color"
@@ -77,7 +78,7 @@ storiesOf('Forms', module)
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={(props) => (
+      render={props => (
         <Form>
           <Field
             name="color"
@@ -174,6 +175,26 @@ storiesOf('Forms', module)
         </Form>
       )}
     />
+  ))
+  .add('BaseTextArea', () => (
+    <Formik
+      initialValues={{ comments: '' }}
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          actions.setSubmitting(false);
+        }, 1000);
+      }}
+      render={({
+        handleSubmit,
+        isSubmitting,
+        values,
+        handleReset,
+        ...props
+      }) => (
+        <Form>
+          <Field name="comments" label="Comments" component={BaseTextArea} />
+        </Form>
+      )}
+    />
   ));
-
-
