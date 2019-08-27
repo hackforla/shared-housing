@@ -50,7 +50,7 @@
     "clsx": "^1.0.4",
     "formik": "^1.5.8",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
+    "react": "^16.9.0",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.12.6",
     "react-router": "^5.0.0",
