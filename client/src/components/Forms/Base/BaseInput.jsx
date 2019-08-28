@@ -1,7 +1,7 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { InputBase } from '@material-ui/core'
-import clsx from 'clsx'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { InputBase } from '@material-ui/core';
+import clsx from 'clsx';
 
 /*
 This base input set the base style for all inputs and
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const BaseInput = ({ field,...props }) => {
+export const BaseInput = ({ field, ...props }) => {
   const classes = useStyles();
   return (
     <InputBase
@@ -34,5 +34,7 @@ export const BaseInput = ({ field,...props }) => {
       {...field}
       {...props}
     />
-  )
+  );
 };
+
+export default BaseInput;
