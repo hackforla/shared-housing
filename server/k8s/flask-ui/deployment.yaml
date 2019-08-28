@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: SharedHousingApi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: SharedHousingApi
+  template:
+    metadata:
+      labels:
+        app: SharedHousingApi
+    spec:
+      containers:
+      - name: sh-api
+        image: sh-api
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+  
