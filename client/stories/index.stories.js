@@ -11,8 +11,6 @@ import {
   BaseSelect,
   BaseCheckbox,
   BaseSlider,
-  BaseTextArea,
-  BaseRadioGroup,
 } from '../src/components/Forms/Base';
 import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
 
@@ -54,7 +52,7 @@ storiesOf('Forms', module)
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={props => (
+      render={(props) => (
         <Form>
           <Field
             name="color"
@@ -79,7 +77,7 @@ storiesOf('Forms', module)
           actions.setSubmitting(false);
         }, 1000);
       }}
-      render={props => (
+      render={(props) => (
         <Form>
           <Field
             name="color"
@@ -172,61 +170,10 @@ storiesOf('Forms', module)
             max={5}
             step={1}
             component={BaseSlider}
-            {...props}
-          />
-        </Form>
-      )}
-    />
-  ))
-  .add('BaseTextArea', () => (
-    <Formik
-      initialValues={{ comments: '' }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
-      }}
-      render={({
-        handleSubmit,
-        isSubmitting,
-        values,
-        handleReset,
-        ...props
-      }) => (
-        <Form>
-          <Field
-            name="comments"
-            label="Comments"
-            component={BaseTextArea}
-            {...props}
-          />
-        </Form>
-      )}
-    />
-  ))
-  .add('RadioGroup', () => (
-    <Formik
-      initialValues={{ color: 'red' }}
-      onSubmit={(values, actions) => {
-        setTimeout(() => {
-          actions.setSubmitting(false);
-        }, 1000);
-      }}
-      render={props => (
-        <Form>
-          <Field
-            name="color"
-            label="Color"
-            valueOptions={[
-              { value: 'red', label: 'Red' },
-              { value: 'green', label: 'Green' },
-              { value: 'blue', label: 'Blue' },
-            ]}
-            component={BaseRadioGroup}
-            {...props}
           />
         </Form>
       )}
     />
   ));
+
+
