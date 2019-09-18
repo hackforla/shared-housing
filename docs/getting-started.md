@@ -1,10 +1,10 @@
-# Getting Started <a name="gettingstarte"></a>
+# Getting Started
 
 To get a started working on this project you will need to do the following
 
-- Fork this repo to your local repository
-- Pull your download your forked copy onto your local development environment
-- Open terminal and follow the list of the commands
+* Fork this repo to your local repository
+* Pull your download your forked copy onto your local development environment
+* Open terminal and follow the list of the commands
 
   ```bash
    cd client/
@@ -22,3 +22,4 @@ To get a started working on this project you will need to do the following
   ```bash
    npm run storybook
   ```
+
