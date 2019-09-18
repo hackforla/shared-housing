@@ -11,6 +11,7 @@
 * [License](./#license)
 
 Check out the documentation for in-depth project details: [Gitbook Documentation](https://shared-housing.gitbook.io/shared-housing/)
+
 ## Getting Started
 
 To get a started working on this project you will need to do the following
