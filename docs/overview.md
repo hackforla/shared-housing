@@ -3,8 +3,8 @@
 * [About Hack for LA](#about-hack-for-la)
 * [About LA Family Housing](#about-la-family-housing)
 * [Homeless Crisis](#homelessness-crisis\:-demographics-\&-statistics)
-  * [Demographics](./#demographics)
-* [Project Overview](./#projectoverview)
+  * [Demographics](#demographics\(LA-County\))
+* [Project Overview](#project-overview)
   * [Process Flow](./#processflow)
   * [Project Timeline](./#projecttimeline)
 
