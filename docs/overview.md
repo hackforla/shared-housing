@@ -5,8 +5,8 @@
 * [Homeless Crisis](#homelessness-crisis-demographics--statistics)
   * [Demographics](#demographicsla-county)
 * [Project Overview](#project-overview)
-  * [Process Flow](./#processflow)
-  * [Project Timeline](./#projecttimeline)
+  * [Process Flow](#process-flow-current)
+  * [Project Timeline](#project-timeline-rough-estimate)
 
 ## About Hack For LA
 
