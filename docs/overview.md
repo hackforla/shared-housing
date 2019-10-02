@@ -1,6 +1,6 @@
 # Overview
 
-* [About Hack for LA](./#AboutHackForLA)
+* [About Hack for LA](#About-Hack-For-LA)
 * [About LA Family Housing](./#lafamilyhousing)
 * [Homeless Crisis](./#homelesscrisis)
   * [Demographics](./#demographics)
