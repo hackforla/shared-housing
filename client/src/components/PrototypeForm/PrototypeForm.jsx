@@ -68,7 +68,7 @@ class PrototypeForm extends React.Component {
 
         <br />
 
-        <p htmlFor="music">Do you like music?</p>
+        <p>Do you like music?</p>
         <label htmlFor="musicYes">
           Yes
           <input
