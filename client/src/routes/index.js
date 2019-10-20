@@ -3,6 +3,7 @@ export const PATHS = {
   LOGIN: '/login',
   DASHBOARD: '/dashboard',
   HOME: '/',
+  PROTOTYPE: '/prototype',
 };
 
 export default { PATHS };
