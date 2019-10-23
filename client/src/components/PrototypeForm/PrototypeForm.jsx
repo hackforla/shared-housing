@@ -9,6 +9,8 @@ class PrototypeForm extends React.Component {
       petKind: '',
       party: '',
       music: 'no',
+      havechildren: '',
+      children: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,7 +27,7 @@ class PrototypeForm extends React.Component {
   }
 
   render() {
-    const { havePets, petKind, age } = this.state;
+    const { havePets, petKind, age, havechildren, children } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <p>Do you have pets? </p>
@@ -103,6 +105,48 @@ class PrototypeForm extends React.Component {
             type="text"
           />
         </label>
+        <br />
+
+        <p>Do you have children? </p>
+
+        <label htmlFor="childrenYes">
+          Yes
+          <input
+            onChange={this.handleChange}
+            id="childrenYes"
+            name="havechildren"
+            type="radio"
+            value="Yes"
+          />
+        </label>
+        <br />
+
+        <label htmlFor="childrenNo">
+          No
+          <input
+            onChange={this.handleChange}
+            id="childrenNo"
+            name="havechildren"
+            type="radio"
+            value="No"
+          />
+        </label>
+        <br />
+
+        {havechildren === 'Yes' && (
+          <label htmlFor="children">
+            Number of children?
+            <input
+              id="children"
+              onChange={this.handleChange}
+              value={children}
+              name="children"
+              type="text"
+            />
+            <br />
+          </label>
+        )}
+
         <br />
 
         <button type="submit">Submit</button>
