@@ -3,8 +3,13 @@ import json
 from flask import Flask, render_template, request, Response
 import psycopg2
 
-DB_HOST = os.environ['SHARED_HOUSING_DB_SVC_SERVICE_HOST']
-DB_PORT = os.environ['SHARED_HOUSING_DB_SVC_SERVICE_PORT']
+DEBUG = False
+if DEBUG:
+    DB_HOST = 'localhost'
+    DB_PORT = '8080'
+else:
+    DB_HOST = os.environ['SHARED_HOUSING_DB_SVC_SERVICE_HOST']
+    DB_PORT = os.environ['SHARED_HOUSING_DB_SVC_SERVICE_PORT']
 
 application = Flask(__name__)
 
@@ -31,13 +36,6 @@ def insert_client():
     conn.set_session(autocommit=True)
     cur = conn.cursor()
 
-    
-    # p_firstname varchar, 
-    # p_lastname varchar, 
-    # p_email varchar, 
-    # p_birthdate date, 
-    # p_gender varchar, 
-    # p_ethnicity varchar
     print('cursor created. calling proc...')
     cur.callproc('insertClient', ('tyler', 'thome', 'tyler.thome@outlook.com', '05-15-1906', 'male', 'klingon'))
     cur.close()

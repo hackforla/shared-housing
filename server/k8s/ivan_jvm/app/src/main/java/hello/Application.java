@@ -1,0 +1,43 @@
+package hello;
+
+import java.util.List;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@SpringBootApplication
+@RestController
+public class Application {
+
+    @RequestMapping("/")
+    public String home() {
+        return "Hello Docker World";
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+}
+
+class Response {
+    private int id;
+}
+
+interface ResponseConstraint {
+    private int responseId;
+    public boolean isConformant(Response response) {
+        return false;
+    }
+}
+
+class Candidate {
+    private int id;
+    private List<Response> responses;
+}
+
+class Location {
+    private int id;
+}
