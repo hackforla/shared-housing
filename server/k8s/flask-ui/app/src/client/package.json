@@ -5,7 +5,9 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "jest",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "build:local": "webpack --config webpack-local.config.js",
+    "watch:local": "webpack --config webpack-local.config.js --watch"
   },
   "author": "Hack for LA",
   "license": "ISC",
@@ -36,10 +38,13 @@
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
     "babel-polyfill": "^6.26.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "typeface-roboto": "0.0.75"
   }
 }
