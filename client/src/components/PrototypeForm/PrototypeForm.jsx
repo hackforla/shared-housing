@@ -1,5 +1,4 @@
 import React from 'react';
-import {} from '@material-ui/core';
 
 class PrototypeForm extends React.Component {
   constructor() {
