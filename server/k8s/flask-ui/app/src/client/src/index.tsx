@@ -1,73 +1,22 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
+import 'typeface-roboto';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { QuestionSetBuilder } from './components/QuestionSetBuilder';
+import { AdminDashboard } from './components/AdminDashboard';
 
+const AppContext = React.createContext({});
 
 export const App = () => {
 
-    const addClient = async () => await fetch(
-        '/add',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'items': [1, 2, 3],
-                'album': 'Abbey Road'
-            })
-        }).then(
-            (response: Response) => {
-                console.log(`got response: ${response.statusText}`);
-                return response.json();
-            }
-        ).then(
-            (parsedResponse: any) => {
-                console.log(`parsed response: ${JSON.stringify(parsedResponse)}`);
-            }
-        );
+    console.log('rendering app...');
 
-
-    const updateClient = async () => await fetch(
-        '/update',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'items': [1, 2, 3],
-                'album': 'Abbey Road'
-            })
-        }).then(
-            (response: Response) => {
-                console.log(`got response: ${response.statusText}`);
-                return response.json();
-            }
-        ).then(
-            (parsedResponse: any) => {
-                console.log(`parsed response: ${JSON.stringify(parsedResponse)}`);
-            }
-        );
-
-    return <div>
-        <button
-            onClick={
-                async () => {
-                    const response = await addClient();
-                }
-            }
-        >Add</button>
-        <button
-            onClick={
-                async () => {
-                    const response = await updateClient();
-                }
-            }
-        >Update</button>
-    </div>
+    return <AppContext.Provider value={{}}>
+        <AdminDashboard />
+    </AppContext.Provider>
+    
 }
 
 ReactDOM.render(
