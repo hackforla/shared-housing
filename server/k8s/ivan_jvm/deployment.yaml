@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: SharedHousingIvan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: SharedHousingIvan
+  template:
+    metadata:
+      labels:
+        app: SharedHousingIvan
+    spec:
+      containers:
+      - name: sh-ivan
+        image: spotify/foobar:0.1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+  

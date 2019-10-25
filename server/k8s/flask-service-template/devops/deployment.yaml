@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shared-housing-app
+  labels:
+    app: shared-housing-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shared-housing-app
+  template:
+    metadata:
+      labels:
+        app: shared-housing-app
+    spec:
+      containers:
+      - name: shared-housing-ui
+        image: shared-housing-ui
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+  

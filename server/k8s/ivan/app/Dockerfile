@@ -17,7 +17,7 @@ RUN pip3 install flask gunicorn psycopg2-binary
 WORKDIR /app
 
 COPY src/startup.sh /app/startup.sh
-COPY src/app.py /app/app.py
+COPY src/server.py /app/server.py
 COPY src/templates /app/templates
 COPY src/static /app/static
 
