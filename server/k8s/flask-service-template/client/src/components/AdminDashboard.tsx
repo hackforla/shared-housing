@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CssBaseline, List, ListItem, Paper, Dialog, Button } from '@material-ui/core';
+import { CssBaseline, List, ListItem, Paper, Dialog, Button, DialogTitle, DialogActions, DialogContent, TextField } from '@material-ui/core';
 import { QuestionSetBuilder } from './QuestionSetBuilder';
 import { QuestionSet } from '../models';
 
@@ -10,15 +10,20 @@ export interface AdminDashboardProps {
 
 export interface AdminDashboardState {
     questionSets: Array<QuestionSet>;
+    addingQuestionSet: boolean;
+    newQuestionSetName: string;
 };
 
 export enum AdminDashboardActionType {
-    AddQuestionSet
+    AddQuestionSet,
+    BeginNewQuestionSet,
+    CancelNewQuestionSet,
+    ChangeNewQuestionSetName
 };
 
 export interface AdminDashboardAction {
     type: AdminDashboardActionType;
-    payload?: QuestionSet;
+    payload?: QuestionSet | string;
 }
 
 export const AdminDashboard = (props: AdminDashboardProps) => {
@@ -28,10 +33,27 @@ export const AdminDashboard = (props: AdminDashboardProps) => {
             case AdminDashboardActionType.AddQuestionSet:
                 return {
                     ...state,
+                    addingQuestionSet: false,
+                    newQuestionSetName: '',
                     questionSets: [
                         ...state.questionSets,
-                        action.payload
+                        action.payload as QuestionSet
                     ]
+                };
+            case AdminDashboardActionType.BeginNewQuestionSet:
+                return {
+                    ...state,
+                    addingQuestionSet: true
+                };
+            case AdminDashboardActionType.ChangeNewQuestionSetName:
+                return {
+                    ...state,
+                    newQuestionSetName: action.payload as string
+                };
+            case AdminDashboardActionType.CancelNewQuestionSet:
+                return {
+                    ...state,
+                    addingQuestionSet: false
                 };
             default:
                 throw new Error(`Unsupported action: ${JSON.stringify(action)}`);
@@ -39,17 +61,17 @@ export const AdminDashboard = (props: AdminDashboardProps) => {
     };
 
     const initialState: AdminDashboardState = {
-        questionSets: new Array<QuestionSet>()
+        questionSets: new Array<QuestionSet>(),
+        newQuestionSetName: '',
+        addingQuestionSet: false
     };
 
     const [state, dispatch] = React.useReducer(reducer, initialState);
 
-    const [addingQuestionSet, setAddingQuestionSet] = React.useState(false);
-
     return <React.Fragment>
         <CssBaseline />
         <Paper>
-            <Button onClick={() => {setAddingQuestionSet(true);}}>Add Question Set</Button>
+            <Button onClick={() => { dispatch({ type: AdminDashboardActionType.BeginNewQuestionSet }); }}>Add Question Set</Button>
             <List>
                 {
                     state
@@ -62,7 +84,7 @@ export const AdminDashboard = (props: AdminDashboardProps) => {
                 }
             </List>
 
-            <Dialog
+            {/*<Dialog
                 open={addingQuestionSet}
                 onClose={() => { setAddingQuestionSet(false); }}
             >
@@ -77,6 +99,37 @@ export const AdminDashboard = (props: AdminDashboardProps) => {
                         }
                     }
                 />
+                </Dialog>*/}
+
+
+            <Dialog>
+                <DialogTitle>Question Set Name</DialogTitle>
+                <DialogContent>
+
+                    <TextField
+                        required
+                        id="questionSetName"
+                        label="ID"
+                        helperText="Name of this question set"
+                        value={state.newQuestionSetName}
+                        onChange={
+                            (event: React.ChangeEvent<HTMLInputElement>) => {
+                                dispatch({
+                                    type: AdminDashboardActionType.ChangeNewQuestionSetName,
+                                    payload: event.target.value
+                                });
+                            }
+                        }
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => { console.log(`adding question set: ${state.newQuestionSetName}`); }}>
+                        Create
+                </Button>
+                    <Button onClick={() => { dispatch({type: AdminDashboardActionType.CancelNewQuestionSet}) }}>
+                        Cancel
+                </Button>
+                </DialogActions>
             </Dialog>
 
 

@@ -18,13 +18,14 @@ export enum AdminDashboardActionType {
 
 export interface AdminDashboardAction {
     type: AdminDashboardActionType;
-    payload?: QuestionSet;
+    payload?: QuestionSet | string | number;
 }
 
 export const AdminDashboard = (props: AdminDashboardProps) => {
 
     const reducer = (state: AdminDashboardState, action: AdminDashboardAction) => {
         switch (action.type) {
+            // case AdminDashboardActionType.AddQuestionSet:
             case AdminDashboardActionType.AddQuestionSet:
                 return {
                     ...state,
