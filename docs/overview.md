@@ -1,12 +1,12 @@
 # Overview
 
-- [About Hack for LA](./#hackforla)
-- [About LA Family Housing](./#lafamilyhousing)
-- [Homeless Crisis](./#homelesscrisis)
-  - [Demographics](./#demographics)
-- [Project Overview](./#projectoverview)
-  - [Process Flow](./#processflow)
-  - [Project Timeline](./#projecttimeline)
+* [About Hack for LA](./#hackforla)
+* [About LA Family Housing](./#lafamilyhousing)
+* [Homeless Crisis](./#homelesscrisis)
+  * [Demographics](./#demographics)
+* [Project Overview](./#projectoverview)
+  * [Process Flow](./#processflow)
+  * [Project Timeline](./#projecttimeline)
 
 ## About Hack For LA
 
@@ -28,22 +28,22 @@ According to the [Los Angeles Homeless Service Authority](https://www.lahsa.org/
 
 ## Demographics\(LA County\)
 
-- 75% are unsheltered
-- 67% identify as male, 31% identify as female, 2% identify as transgender, and 0.3% identify as gender non-conforming.
-- 25% self-report experiencing serious mental inllness
-- 15% are families \(those in family units\)
-- 15% are under the age of 24\(9% are under the age of 18\)
-- 15% self-report a substance abuse disorder
-- 7% are veterans
-- 6% became homeless due to fleeing domestic or intimate partner violence
+* 75% are unsheltered
+* 67% identify as male, 31% identify as female, 2% identify as transgender, and 0.3% identify as gender non-conforming.
+* 25% self-report experiencing serious mental inllness
+* 15% are families \(those in family units\)
+* 15% are under the age of 24\(9% are under the age of 18\)
+* 15% self-report a substance abuse disorder
+* 7% are veterans
+* 6% became homeless due to fleeing domestic or intimate partner violence
 
 source [www.lahsa.org](http://www.lahsa.org)
 
-## Project Overview <a name="projectoverview"></a>
+## Project Overview
 
 ### Slide Deck
 
-Review the project overview slide deck here for detailed context: https://drive.google.com/open?id=1ZyUEjJqntZQ5SeTuT9m4hoDXytujzcmd
+Review the project overview slide deck here for detailed context: [https://drive.google.com/open?id=1ZyUEjJqntZQ5SeTuT9m4hoDXytujzcmd](https://drive.google.com/open?id=1ZyUEjJqntZQ5SeTuT9m4hoDXytujzcmd)
 
 ### Background & Client Request
 
@@ -51,18 +51,19 @@ LA Family Housing engaged the help fo Hack for LA organization to identify and d
 
 ### Current Matching Process - Pain Points
 
-- Process is manual (vetting & matching is done manually, via discussions among case managers)
-- Process takes too long (~1 month from unit identification to lease signing)
-- Eligibility criteria are not clearly defined (what criteria make for a successfull tenant match?)
+* Process is manual \(vetting & matching is done manually, via discussions among case managers\)
+* Process takes too long \(~1 month from unit identification to lease signing\)
+* Eligibility criteria are not clearly defined \(what criteria make for a successfull tenant match?\)
 
-## Process flow (Current) <a name="processflow"></a>
+## Process flow \(Current\)
 
 ![Current Process](https://github.com/hackforla/shared-housing/blob/master/public/CurrentProcess.png)
 
-> Read more about sequence-diagrams here: http://bramp.github.io/js-sequence-diagrams/
+> Read more about sequence-diagrams here: [http://bramp.github.io/js-sequence-diagrams/](http://bramp.github.io/js-sequence-diagrams/)
 
-## Project Timeline (Rough Estimate) <a name="projecttimeline"></a>
+## Project Timeline \(Rough Estimate\)
 
 ![Current Process](https://github.com/hackforla/shared-housing/blob/master/public/ProjectTimeline.png)
 
-> Read more about mermaid diagrams here: http://knsv.github.io/mermaid/
+> Read more about mermaid diagrams here: [http://knsv.github.io/mermaid/](http://knsv.github.io/mermaid/)
+

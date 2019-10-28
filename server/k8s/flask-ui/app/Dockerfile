@@ -3,8 +3,6 @@ FROM alpine:latest
 RUN apk update
 
 RUN apk add --no-cache ca-certificates
-
-
 RUN apk add -u python3 
 
 # https://github.com/frol/docker-alpine-python3/blob/master/Dockerfile
