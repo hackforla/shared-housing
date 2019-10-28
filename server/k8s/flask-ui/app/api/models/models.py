@@ -1,3 +1,5 @@
+""" Database models file. 
+Insert all tables, models, and schemas for the Database here."""
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 

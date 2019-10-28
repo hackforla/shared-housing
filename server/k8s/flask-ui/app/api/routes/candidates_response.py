@@ -1,3 +1,4 @@
+""" URI routes for when candidates respond to a question."""
 import os
 import sys
 sys.path.append(os.path.realpath('.'))
