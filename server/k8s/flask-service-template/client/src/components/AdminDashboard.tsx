@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { CssBaseline, List, ListItem, Paper, Dialog, Button, DialogTitle, DialogActions, DialogContent, TextField } from '@material-ui/core';
+import { CssBaseline, List, ListItem, Paper, Dialog, Button, DialogTitle, DialogActions, DialogContent, TextField, Container } from '@material-ui/core';
 import { QuestionSetBuilder } from './QuestionSetBuilder';
 import { QuestionSet } from '../models';
+import { QuestionnaireBuilder } from './QuestionnaireBuilder';
 
 
 export interface AdminDashboardProps {
@@ -68,9 +69,32 @@ export const AdminDashboard = (props: AdminDashboardProps) => {
 
     const [state, dispatch] = React.useReducer(reducer, initialState);
 
+    const submitQuestionSet = (set: QuestionSet) => {
+        dispatch({
+            type: AdminDashboardActionType.AddQuestionSet,
+            payload: set
+        });
+    };
+
     return <React.Fragment>
         <CssBaseline />
-        <Paper>
+        <Container component='main'>
+            <QuestionnaireBuilder submitQuestionSet={submitQuestionSet} />
+            <List>
+                {
+                    state
+                        .questionSets
+                        .map((questionSet: QuestionSet, index: number) => {
+                            return (
+                                <ListItem>{questionSet.name} ({questionSet.questions.length} questions)</ListItem>
+                            );
+                        })
+                }
+            </List>
+
+        </Container>
+
+        {/*<Paper>
             <Button onClick={() => { dispatch({ type: AdminDashboardActionType.BeginNewQuestionSet }); }}>Add Question Set</Button>
             <List>
                 {
@@ -84,25 +108,7 @@ export const AdminDashboard = (props: AdminDashboardProps) => {
                 }
             </List>
 
-            {/*<Dialog
-                open={addingQuestionSet}
-                onClose={() => { setAddingQuestionSet(false); }}
-            >
-
-                <QuestionSetBuilder
-                    addQuestionSet={
-                        (questionSet: QuestionSet) => {
-                            dispatch({
-                                type: AdminDashboardActionType.AddQuestionSet,
-                                payload: questionSet
-                            });
-                        }
-                    }
-                />
-                </Dialog>*/}
-
-
-            <Dialog>
+            <Dialog open={state.addingQuestionSet}>
                 <DialogTitle>Question Set Name</DialogTitle>
                 <DialogContent>
 
@@ -133,7 +139,7 @@ export const AdminDashboard = (props: AdminDashboardProps) => {
             </Dialog>
 
 
-        </Paper>
+        </Paper>*/}
 
     </React.Fragment>;
 }

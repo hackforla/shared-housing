@@ -1,5 +1,5 @@
 from functools import wraps
-
+import logging
 import os
 from os import environ as env
 import json
@@ -14,7 +14,7 @@ from flask import (
     session,
     url_for
 )
-import psycopg2
+# import psycopg2
 import pymongo
 from urllib.parse import quote_plus
 import pprint
@@ -24,10 +24,11 @@ from werkzeug.exceptions import HTTPException
 
 from dotenv import load_dotenv, find_dotenv
 
-DEBUG = False
+DEBUG = True
 if DEBUG:
     DB_HOST = 'localhost'
-    DB_PORT = '8080'
+    DB_PORT = 27017
+    MONGO_DATABASE = 'sharedhousing'
 else:
     DB_HOST = os.environ['SHAREDHOUSING_MONGO_SERVICE_HOST']
     DB_PORT = os.environ['SHAREDHOUSING_MONGO_SERVICE_PORT']
@@ -37,6 +38,11 @@ else:
             
 app = Flask(__name__)
 
+gunicorn_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers = gunicorn_logger.handlers
+app.logger.setLevel(gunicorn_logger.level)
+
+app.secret_key = '{}'.format(os.urandom(16))
 
 oauth = OAuth(app)
 
@@ -65,23 +71,27 @@ def requires_auth(f):
 
 @app.route('/auth0cb')
 def callback_handling():
-    # Handles response from token endpoint
+    app.logger.info('/auth0cb: start')
+
     auth0.authorize_access_token()
     resp = auth0.get('userinfo')
     userinfo = resp.json()
 
-    # Store the user information in flask session.
+    app.logger.info('userinfo:\n{}'.format(json.dumps(userinfo, indent=4)))
+
     session['jwt_payload'] = userinfo
     session['profile'] = {
         'user_id': userinfo['sub'],
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
+    app.logger.info('/auth0cb: end')
     return redirect('/dashboard')
 
 
 @app.route('/login')
 def login():
+    app.logger.info('/login')
     return auth0.authorize_redirect(redirect_uri='http://ivan-alpha.xyz/auth0cb')
 
 @app.route("/mongo")
@@ -91,9 +101,14 @@ def test_mongo():
 
     try:           
 
-        url = 'mongodb://{}:{}@{}:{}'.format(
-            quote_plus(MONGO_USERNAME),
-            quote_plus(MONGO_PASSWORD),
+        # url = 'mongodb://{}:{}@{}:{}'.format(
+        #     quote_plus(MONGO_USERNAME),
+        #     quote_plus(MONGO_PASSWORD),
+        #     DB_HOST,
+        #     DB_PORT
+        # )
+
+        url = 'mongodb://{}:{}'.format(
             DB_HOST,
             DB_PORT
         )
@@ -157,9 +172,13 @@ def questions():
                 'text': body['text']
             }        
 
-            url = 'mongodb://{}:{}@{}:{}'.format(
-                quote_plus(MONGO_USERNAME),
-                quote_plus(MONGO_PASSWORD),
+            # url = 'mongodb://{}:{}@{}:{}'.format(
+            #     quote_plus(MONGO_USERNAME),
+            #     quote_plus(MONGO_PASSWORD),
+            #     DB_HOST,
+            #     DB_PORT
+            # )
+            url = 'mongodb://{}:{}'.format(
                 DB_HOST,
                 DB_PORT
             )
@@ -181,12 +200,17 @@ def questions():
 
         if request.method == 'GET':
 
-            url = 'mongodb://{}:{}@{}:{}'.format(
-                quote_plus(MONGO_USERNAME),
-                quote_plus(MONGO_PASSWORD),
+            url = 'mongodb://{}:{}'.format(
                 DB_HOST,
                 DB_PORT
             )
+            
+            # url = 'mongodb://{}:{}@{}:{}'.format(
+            #     quote_plus(MONGO_USERNAME),
+            #     quote_plus(MONGO_PASSWORD),
+            #     DB_HOST,
+            #     DB_PORT
+            # )
 
             client = pymongo.MongoClient(url)
             db = client[MONGO_DATABASE]
@@ -221,21 +245,24 @@ def questions():
 
 @app.route('/logout')
 def logout():
+    app.logger.info('/logout')
     # Clear session stored data
     session.clear()
     # Redirect user to logout endpoint
-    params = {'returnTo': url_for('home', _external=True), 'client_id': 'KWjQUqHNbo2RniEUs9MfAK2JSwn3bMiZ'}
+    params = {'returnTo': url_for('index', _external=True), 'client_id': 'KWjQUqHNbo2RniEUs9MfAK2JSwn3bMiZ'}
     return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
 
 @app.route("/dashboard")
 @requires_auth
 def dashboard():
+    app.logger.info('/dashboard')
     return render_template('dashboard.html',
                            userinfo=session['profile'],
                            userinfo_pretty=json.dumps(session['jwt_payload'], indent=4))
 
 @app.route("/")
 def index():
+    app.logger.info('/index')
     return render_template("index.html")
 
 if __name__ == "__main__":

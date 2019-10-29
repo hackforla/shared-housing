@@ -11,8 +11,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[hash:8].js',
-        publicPath: "/static/"
+        filename: '[name].[hash:8].js'
     },
     optimization: {
         runtimeChunk: 'single',
@@ -120,7 +119,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebPackPlugin({
             template: "./src/index.html",
-            filename: "../dist/index.html"
+            filename: "../dist/dashboard.html"
         }),
         new webpack.HashedModuleIdsPlugin(),
         new MiniCssExtractPlugin({
