@@ -1,31 +1,14 @@
-/**
- * Brandon Ly - TypeScript configuration JSON
- *
- * For information on how to set up the tsconfig.json to be compatible with
- * Parcel, see https://parceljs.org/typeScript.html.
- *
- * TypeScript setup with Material UI:
- * https://material-ui.com/guides/typescript/
- *
- * Materail UI Org's custom tsconfig.json, for reference:
- * https://github.com/mui-org/material-ui/blob/master/tsconfig.json
- *
- * For a full reference about how to configure the tsconfig.json, see
- * https://www.typescriptlang.org/docs/handbook/tsconfig-json.html.
- *
- */
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "moduleResolution": "node",
-    "baseUrl": "./src",
-    "strict": true,
-    "noEmit": true,
-    "rootDirs": ["src", "stories"],
-    "paths": {
-      "~*": ["./*"],
-      "test/*": ["./test/*"]
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "lib": [
+            "es2015",
+            "dom"
+        ],
+        "target": "es5",
+        "jsx": "react"
     }
-  },
-  "include": ["src/**/*"]
 }
