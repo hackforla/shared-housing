@@ -1,3 +1,4 @@
+""" Migrate file updates database based on models file."""
 import os
 import sys
 sys.path.append(os.path.realpath('.'))
