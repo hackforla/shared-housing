@@ -1,3 +1,4 @@
+#Runs the flask application.
 from main import app 
 
 
