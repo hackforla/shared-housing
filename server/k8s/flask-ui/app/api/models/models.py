@@ -16,3 +16,14 @@ class QuestionResponse(db.Model):
 class ResponseSchema(ma.Schema):
     class Meta:
         fields = ('questionid', 'responseValue', 'candidateId')
+
+class Candidate(db.Model):
+    candidateId = db.Column(db.Intenger, primary_key=True)
+    name = db.Column(db.String(100))
+
+    def __init__(self, name):
+        self.name = name
+
+class CandidateSchema(ma.Schema):
+    class Meta:
+        fields = ('candidateId', 'name')
