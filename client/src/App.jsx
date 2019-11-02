@@ -23,4 +23,5 @@ const App = () => (
   </BrowserRouter>
 );
 
-export default withRoot(hot(module)(App));
+// export default withRoot(hot(module)(App));
+export default withRoot(App);

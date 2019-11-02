@@ -57,21 +57,39 @@ export const QuestionnaireBuilder = (props: QuestionnaireBuilderProps) => {
     };
 
     const reducer = (state: QuestionnaireBuilderState, action: QuestionnaireBuilderAction): QuestionnaireBuilderState => {
+<<<<<<< HEAD
+        
         switch (action.type) {
+
+=======
+        switch (action.type) {
+>>>>>>> 5a4500e1f5ad3041692c3ad6233ac06c7c63d97f
             case QuestionnaireBuilderActionType.EnterName:
                 return {
                     ...state,
                     phase: QuestionBuilderPhase.QuestionList
                 };
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5a4500e1f5ad3041692c3ad6233ac06c7c63d97f
             case QuestionnaireBuilderActionType.AddQuestion:
                 return {
                     ...state,
                     phase: QuestionBuilderPhase.AddQuestion
                 };
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5a4500e1f5ad3041692c3ad6233ac06c7c63d97f
             case QuestionnaireBuilderActionType.AddResponseValue:
                 return {
                     ...state
                 };
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5a4500e1f5ad3041692c3ad6233ac06c7c63d97f
             case QuestionnaireBuilderActionType.CompleteQuestion:
                 return {
                     ...state,
@@ -80,6 +98,10 @@ export const QuestionnaireBuilder = (props: QuestionnaireBuilderProps) => {
                         questions: [...state.questionSet.questions, action.payload as Question]
                     }
                 };
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5a4500e1f5ad3041692c3ad6233ac06c7c63d97f
             case QuestionnaireBuilderActionType.ChangeNameValue:
                 return {
                     ...state,
@@ -88,6 +110,11 @@ export const QuestionnaireBuilder = (props: QuestionnaireBuilderProps) => {
                         name: action.payload as string
                     }
                 };
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 5a4500e1f5ad3041692c3ad6233ac06c7c63d97f
             default:
                 throw new Error(`Unsupported action: ${JSON.stringify(action)}`);
         }

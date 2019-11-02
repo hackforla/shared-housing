@@ -1,7 +1,6 @@
 #!/bin/bash
 
-print
-
+# Helper function to call user attention to the instructions that follow
 function printDoneMessage {
     done_msg="BUILD COMPLETE"
     msglen=${#done_msg}
@@ -20,15 +19,36 @@ function printDoneMessage {
     while [ $x -lt $cols ]; do echo -n '='; let x=$x+1; done;
 }
 
-cd client && npm run build:local
+
+
+cd client
+if npm install; then
+    if npm run build:dev; then
+        echo "Client build complete.";
+    else
+        echo "Client build failed.";
+        exit 1;
+    fi
+else
+    echo "Client failed to install dependencies.";
+        exit 1;
+fi
 
 cd ..
+
+if [[ -d "server/templates" ]]; then
+    rm -rf server/templates
+fi
+
+if [[ -d "server/static" ]]; then
+    rm -rf server/static
+fi
+
 mkdir -p server/{templates,static}
 
+cp client/dist/dashboard.html server/templates
+cp server/templates/dashboard.html server/templates/index.html
 cp client/dist/* server/static
-mv server/static/dashboard.html server/templates
-cp client/src/index.html server/templates
-
 
 printDoneMessage
 
