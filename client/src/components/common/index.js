@@ -9,3 +9,4 @@ export { BaseInput } from '../Forms/Base/BaseInput';
 // export { RadioButton } from './RadioButton'
 export { Button } from './Button';
 export { Breadcrumbs } from './Breadcrumbs';
+export { NewsFeed } from './NewsFeed';
