@@ -1,10 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { SectionContainer } from '../components/common';
+import { SectionContainer, NewsFeed } from '../components/common';
 import Status from '../components/Home/Status';
 import Concept from '../components/Home/Concept';
 import Record from '../components/Home/Record';
 import UserJourneys from '../components/Home/UserJourneys';
+import { Typography } from '@material-ui/core';
 import Layout from './Layout';
 
 const useStyles = makeStyles(() => ({
@@ -27,6 +28,10 @@ export const HomePage = () => {
         <Record />
         <hr className={classes.divider} />
         <UserJourneys />
+      </SectionContainer>
+      <SectionContainer>
+        <Typography variant="h6">Development Changelog</Typography>
+        <NewsFeed />
       </SectionContainer>
     </Layout>
   );

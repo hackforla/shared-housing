@@ -4,6 +4,8 @@ from flask import Flask
 from config import Config
 from models.models import db, ma
 from routes.candidates_response import response_routes
+from routes.candidates import candidate_routes
+# creates app
 
 # Function that initializes the application. 
 def create_app(config_filename):
@@ -23,3 +25,4 @@ ma.init_app(app)
 
 # Blueprints for APIs
 app.register_blueprint(response_routes, url_prefix='/api/candidates')
+app.register_blueprint(candidate_routes, url_prefix='/api')
