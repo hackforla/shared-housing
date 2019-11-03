@@ -3,11 +3,6 @@ const webpack = require('webpack');
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-<<<<<<< HEAD:server/k8s/flask-service-template/client/webpack.config.js
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-=======
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
->>>>>>> prototype-project-structure:client/webpack-dev.config.js
 
 module.exports = {
     entry: {
