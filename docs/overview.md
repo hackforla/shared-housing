@@ -1,12 +1,12 @@
 # Overview
 
-* [About Hack for LA](./#hackforla)
-* [About LA Family Housing](./#lafamilyhousing)
-* [Homeless Crisis](./#homelesscrisis)
-  * [Demographics](./#demographics)
-* [Project Overview](./#projectoverview)
-  * [Process Flow](./#processflow)
-  * [Project Timeline](./#projecttimeline)
+* [About Hack for LA](#about-hack-for-la)
+* [About LA Family Housing](#about-la-family-housing)
+* [Homeless Crisis](#homelessness-crisis-demographics--statistics)
+  * [Demographics](#demographicsla-county)
+* [Project Overview](#project-overview)
+  * [Process Flow](#process-flow-current)
+  * [Project Timeline](#project-timeline-rough-estimate)
 
 ## About Hack For LA
 
