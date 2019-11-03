@@ -5,11 +5,13 @@ import './styles/main.css';
 import { HomePage, DashboardPage } from './pages';
 import PrototypeForm from './components/PrototypeForm/PrototypeForm';
 import withRoot from './withRoot';
+import MainNav from './components/MainNav';
 
 import { PATHS } from './routes';
 
 const App = () => (
   <BrowserRouter>
+    <MainNav />
     <Switch>
       <Route exact path={PATHS.HOME} render={() => <HomePage />} />
       <Route exact path={PATHS.DASHBOARD} render={() => <DashboardPage />} />
