@@ -1,3 +1,4 @@
 {
-  "presets": ["@babel/preset-react", "airbnb"]
+  "presets": ["@babel/preset-react", "airbnb"],
+  "plugins": ["@babel/plugin-transform-runtime"]
 }
