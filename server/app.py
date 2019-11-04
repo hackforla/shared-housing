@@ -12,7 +12,8 @@ from flask import (
     redirect,
     jsonify,
     session,
-    url_for
+    url_for,
+    send_from_directory
 )
 # import psycopg2
 import pymongo
@@ -23,6 +24,9 @@ from six.moves.urllib.parse import urlencode
 from werkzeug.exceptions import HTTPException
 
 from dotenv import load_dotenv, find_dotenv
+
+LOCAL_HOST = True
+
 
 DEBUG = True
 if DEBUG:
@@ -265,6 +269,19 @@ def index():
     app.logger.info('/index')
     return render_template("index.html")
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        app.root_path, 
+        'favicon.ico', 
+        mimetype='image/vnd.microsoft.icon'
+    )
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    if LOCAL_HOST:
+        print('running on 8765...')
+        app.run(host="0.0.0.0", port=8765)
+    else:
+        app.run(host="0.0.0.0", port=80)
+
     

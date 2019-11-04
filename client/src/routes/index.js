@@ -3,6 +3,7 @@ export const PATHS = {
   LOGIN: '/login',
   DASHBOARD: '/dashboard',
   HOME: '/',
+  DEMO: '/demo',
   PROTOTYPE_FORM: '/prototype-form',
 };
 

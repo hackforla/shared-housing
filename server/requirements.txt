@@ -1,6 +1,5 @@
 flask 
 gunicorn 
-psycopg2-binary
 pymongo
 python-dotenv
 requests

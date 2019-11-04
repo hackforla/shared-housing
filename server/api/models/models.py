@@ -1,31 +1,32 @@
-""" Database models file. 
-Insert all tables, models, and schemas for the Database here."""
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from datetime import date
+from marshmallow import Schema, fields, pprint
 
-db = SQLAlchemy()
-ma = Marshmallow()
+class CandidateSchema(Schema):
+    name = fields.Str()
+    uuid = fields.UUID()
 
-class QuestionResponse(db.Model):
-    questionId = db.Column(db.Integer, primary_key=True)
-    responseValue = db.Column(db.String(100))
-    candidateId = db.Column(db.Integer)
+class CandidateResponseSchema(Schema):
+    question_uuid = fields.UUID()
+    candidate_uuid = fields.UUID()
+    response_value = field.Str()    
 
-    def __init__(self, responseValue, candidateId):
-        self.responseValue = responseValue
-        self.candidateId = candidateId
+class QuestionSchema(Schema):
+    uuid = fields.UUID()
+    text = fields.Str()
+    response_values = fields.List(fields.Str())
 
-class ResponseSchema(ma.Schema):
-    class Meta:
-        fields = ('questionid', 'responseValue', 'candidateId')
+class HousingUnitSchema(Schema):
+    uuid = fields.UUID()
+    name = fields.Str()
 
-class Candidate(db.Model):
-    candidateId = db.Column(db.Intenger, primary_key=True)
-    name = db.Column(db.String(100))
+class ResponseConstraint(Schema):
+    uuid = fields.UUID()
+    question_uuid = fields.UUID()
+    housing_unit_uuid = fields.UUID()
 
-    def __init__(self, name):
-        self.name = name
+bowie = dict(name='David Bowie')
+album = dict(artist=bowie, title='Hunky Dory', release_date=date(1971, 12, 17))
 
-class CandidateSchema(ma.Schema):
-    class Meta:
-        fields = ('candidateId', 'name')
+schema = AlbumSchema()
+result = schema.dump(album)
+pprint(result, indent=2)
