@@ -4,6 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import outreachUserJourneyImage from '../../assets/images/outreach_user_journey_image.png';
+import stabilizationUserJourneyImage from '../../assets/images/stabilization_user_journey_image.png';
+import navUserJourneyImage from '../../assets/images/nav_user_journey_image.png';
+import tenantUserJourneyImage from '../../assets/images/tenant_user_journey_image.png';
 
 const useStyles = makeStyles(() => ({
   journeyTitle: {
@@ -14,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
   journeysImage: {
     width: '100%',
-    maxHeight: '550px',
+    height: '906px',
   },
   formControl: {
     width: '100%',
@@ -25,11 +29,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const JOURNEYPHOTOURLS = {
-  0: 'https://picsum.photos/id/1074/5472/2648',
-  1: 'https://picsum.photos/id/237/3500/1795',
-  2: 'https://picsum.photos/id/1020/4288/1848',
-  3: 'https://picsum.photos/id/1041/5184/2316',
+const JOURNEY_IMAGES = {
+  0: outreachUserJourneyImage,
+  1: stabilizationUserJourneyImage,
+  2: navUserJourneyImage,
+  3: tenantUserJourneyImage,
 };
 
 const UserJourney = () => {
@@ -51,7 +55,7 @@ const UserJourney = () => {
       <div className="journeys-photo-container">
         <img
           className={classes.journeysImage}
-          src={JOURNEYPHOTOURLS[journey]}
+          src={JOURNEY_IMAGES[journey]}
           alt="journey"
         />
       </div>
@@ -64,10 +68,10 @@ const UserJourney = () => {
           value={journey}
           onChange={handleChange}
         >
-          <MenuItem value={0}>None</MenuItem>
-          <MenuItem value={1}>One</MenuItem>
-          <MenuItem value={2}>Two</MenuItem>
-          <MenuItem value={3}>Three</MenuItem>
+          <MenuItem value={0}>Outreach - User Journey</MenuItem>
+          <MenuItem value={1}>Stabilization - User Journey</MenuItem>
+          <MenuItem value={2}>Nav - User Journey</MenuItem>
+          <MenuItem value={3}>Tenant - User Journey</MenuItem>
         </Select>
       </FormControl>
     </div>
