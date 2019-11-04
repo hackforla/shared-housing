@@ -66,6 +66,11 @@ const MainNav = () => {
     path: '/news',
   });
 
+  const DemoButton = buttonWithRoute({
+    name: 'Demo',
+    path: '/demo',
+  });
+
   return (
     <nav className={classes.root}>
       <AppBar color="primary">
@@ -74,6 +79,7 @@ const MainNav = () => {
             <MenuIcon className={classes.MenuIcon} />
             <NewsButton />
             <DashboardButton />
+            <DemoButton />
           </div>
         </Toolbar>
       </AppBar>
