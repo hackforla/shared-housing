@@ -2,6 +2,7 @@ from functools import wraps
 import logging
 import os
 from os import environ as env
+from bson import ObjectId
 import json
 from flask import (
     Flask, 
@@ -61,6 +62,179 @@ auth0 = oauth.register(
         'scope': 'openid profile email',
     },
 )
+
+class Repository:
+
+    def __init__(self):
+        
+        self.url = 'mongodb://{}:{}'.format(
+            DB_HOST,
+            DB_PORT
+        )
+
+    def _get_conn(self):
+        client = pymongo.MongoClient(self.url)
+        try:
+            # The ismaster command is cheap and does not require auth.
+            client.admin.command('ismaster')
+            return client
+        except ConnectionFailure:
+            print("Server not available")
+            return None
+
+    def get_candidates(self):
+        
+        self._log('get_candidates', 'acquiring connection...')
+
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+        
+        self._log('get_candidates', 'selecting database..')
+        db = client[MONGO_DATABASE]
+
+        self._log('get_candidates', 'selecting collection...')
+        collection = db.candidates
+
+        self._log('get_candidates', 'querying...')
+        cursor = collection.find()
+
+        self._log('get_candidates', 'mongo finished, populating result list...')
+        candidates = list(cursor)
+
+        for c in candidates:
+            c['_id'] = str(c['_id'])
+
+        self._log('get_candidates', 'candidates = {}'.format(candidates))
+        return candidates
+
+    def add_candidate(self, candidate):
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+
+        db = client[MONGO_DATABASE]
+        collection = db.candidates
+
+        result = collection.insert_one(candidate).inserted_id
+
+        return result
+
+    def delete_candidate(self, candidate_id):
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+
+        db = client[MONGO_DATABASE]
+        collection = db.candidates
+
+        result = collection.delete_one({'_id':ObjectId(candidate_id)})
+        self._log('delete_candidate', 'result.raw_result = {}'.format(result.raw_result))
+
+        return result
+
+    def update_candidate(self, candidate_id, candidate):
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+
+        db = client[MONGO_DATABASE]
+        collection = db.candidates
+
+        result = collection.update_one({'_id':ObjectId(candidate_id)}, {'$set': candidate })
+
+        self._log('update_candidate', 'result.raw_result = {}'.format(result.raw_result))
+
+        return result
+
+    def _log(self, method_name, message):
+        print('Repository:{}: {}'.format(method_name, message))
+
+
+repository = Repository()
+
+
+@app.route('/api/candidates', methods=['GET', 'POST'])
+def candidates():
+
+    print('candidates:{}'.format(request.method))
+    print('- request.json = {}'.format(json.dumps(request.json)))
+
+    if request.method == 'POST':
+
+        try:
+
+            mongo_id = repository.add_candidate(request.json)
+            resp = Response(str(mongo_id), status=200)
+            return resp
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return response
+
+    elif request.method == 'GET':
+
+        try:
+            candidates = repository.get_candidates()
+            response = jsonify(candidates)
+            response.status_code = 200
+            return response
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return Response
+
+    else:
+        response = Response('Unsupported HTTP method: {}'.format(request.method))
+        return response
+
+
+@app.route('/api/candidates/<candidate_id>', methods=['PUT', 'DELETE'])
+def candidates_by_id(candidate_id):
+
+    print('candidates:{}'.format(request.method))
+    print('- request.json = {}'.format(json.dumps(request.json)))
+
+    if request.method == 'PUT':
+
+        try:
+
+            result = repository.update_candidate(candidate_id, request.json)
+            
+            response = Response('OK', status=200)
+            return response
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return response
+
+    elif request.method == 'DELETE':
+
+        try:
+            result = repository.delete_candidate(candidate_id)
+            response = Response('OK', status=200)
+            return response
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return response
+
+    else:
+        response = Response('Unsupported HTTP method: {}'.format(request.method))
+        return response
+
 
 
 def requires_auth(f):
