@@ -12,6 +12,7 @@
   "scripts": {
     "build": "webpack --config webpack-local.config.js",
     "build:dev": "webpack --config webpack-dev.config.js",
+    "dev": "webpack-dev-server --config webpack-dev.config.js --open",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -36,9 +37,9 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-preset-airbnb": "^4.0.1",
+    "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
-    "babel-preset-env": "^1.7.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.4.0",
@@ -60,7 +61,8 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",

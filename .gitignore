@@ -3,3 +3,5 @@
 **/dist
 **/static
 **/templates
+
+*/.DS_Store
