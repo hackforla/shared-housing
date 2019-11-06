@@ -1,5 +1,4 @@
 import React from 'react';
-import { hot } from 'react-hot-loader';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './styles/main.css';
 import { HomePage, DashboardPage, DemoPage } from './pages';
