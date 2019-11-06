@@ -29,3 +29,16 @@ class Candidate(db.Model):
 class CandidateSchema(ma.Schema):
     class Meta:
         fields = ('candidateId', 'name')
+
+class Question(db.Model):
+    questionId = db.Column(db.Integer, primary_key=True)
+    questionText = db.Column(db.String(100))
+    questionId = db.Column(db.Integer)
+
+    def __init__(self, questionText, questionId):
+        self.questionText = questionText
+        self.questionId = questionId
+
+class QuestionSchema(ma.Schema):
+    class Meta:
+        fields = ('formId', 'questionText', 'questionId')
