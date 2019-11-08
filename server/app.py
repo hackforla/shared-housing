@@ -63,7 +63,7 @@ auth0 = oauth.register(
     },
 )
 
-class Repository:
+class MongoFacade:
 
     def __init__(self):
         
@@ -81,94 +81,127 @@ class Repository:
         except ConnectionFailure:
             print("Server not available")
             return None
-
-    def get_candidates(self):
+            
+    def get_collection(self, collection_name):
         
-        self._log('get_candidates', 'acquiring connection...')
+        self._log('get_collection', 'acquiring connection...')
 
         client = self._get_conn()
 
         if not client:
             raise Exception('Mongo server not available')
         
-        self._log('get_candidates', 'selecting database..')
         db = client[MONGO_DATABASE]
-
-        self._log('get_candidates', 'selecting collection...')
-        collection = db.candidates
-
-        self._log('get_candidates', 'querying...')
+        collection = db[collection_name]
         cursor = collection.find()
+        items = list(cursor)
 
-        self._log('get_candidates', 'mongo finished, populating result list...')
-        candidates = list(cursor)
+        for item in items:
+            item['_id'] = str(item['_id'])
 
-        for c in candidates:
-            c['_id'] = str(c['_id'])
+        self._log('get_collection', 'items = {}'.format(items))
+        return items
 
-        self._log('get_candidates', 'candidates = {}'.format(candidates))
-        return candidates
 
-    def add_candidate(self, candidate):
+    def insert_to_collection(self, collection_name, item):
         client = self._get_conn()
 
         if not client:
             raise Exception('Mongo server not available')
 
         db = client[MONGO_DATABASE]
-        collection = db.candidates
+        collection = db[collection_name]
 
-        result = collection.insert_one(candidate).inserted_id
+        result = collection.insert_one(item).inserted_id
 
         return result
 
-    def delete_candidate(self, candidate_id):
+    def delete_from_collection(self, collection_name, id):
         client = self._get_conn()
 
         if not client:
             raise Exception('Mongo server not available')
 
         db = client[MONGO_DATABASE]
-        collection = db.candidates
+        collection = db[collection_name]
 
-        result = collection.delete_one({'_id':ObjectId(candidate_id)})
-        self._log('delete_candidate', 'result.raw_result = {}'.format(result.raw_result))
+        result = collection.delete_one({'_id':ObjectId(id)})
+        self._log('delete_from_collection', 'result.raw_result = {}'.format(result.raw_result))
 
         return result
 
-    def update_candidate(self, candidate_id, candidate):
+    def update_in_collection(self, collection_name, id, item):
+
         client = self._get_conn()
 
         if not client:
             raise Exception('Mongo server not available')
 
         db = client[MONGO_DATABASE]
-        collection = db.candidates
+        collection = db[collection_name]
 
-        result = collection.update_one({'_id':ObjectId(candidate_id)}, {'$set': candidate })
+        result = collection.update_one({'_id':ObjectId(id)}, {'$set': item })
 
-        self._log('update_candidate', 'result.raw_result = {}'.format(result.raw_result))
+        self._log('update_in_collection', 'result.raw_result = {}'.format(result.raw_result))
 
         return result
 
     def _log(self, method_name, message):
-        print('Repository:{}: {}'.format(method_name, message))
+        print('MongoFacade:{}: {}'.format(method_name, message))
 
 
-repository = Repository()
+class Repository:
+
+    def __init__(self, collection_name):        
+        self.mongo_facade = MongoFacade()
+        self.collection_name = collection_name
+
+    def get(self):        
+        items = self.mongo_facade.get_collection(self.collection_name)
+        return items
+
+    def add(self, item):
+        result = self.mongo_facade.insert_to_collection(self.collection_name, item)
+        return result
+
+    def delete(self, id):
+        self.mongo_facade.delete_from_collection(self.collection_name, id)
+        return result
+
+    def update(self, id, item):
+        result = self.mongo_facade.update_in_collection(self.collection_name, id, item)
+        return result
+
+    def _log(self, method_name, message):
+        print('Repository[{}]:{}: {}'.format(self.collection_name, method_name, message))
 
 
-@app.route('/api/candidates', methods=['GET', 'POST'])
-def candidates():
+resource_types = [
+    'candidates',
+    'questions',
+    'locations',
+    'constraints'
+]
 
-    print('candidates:{}'.format(request.method))
-    print('- request.json = {}'.format(json.dumps(request.json)))
+repositories = dict()
+
+for resource_type in resource_types:
+    repositories[resource_type] = Repository(resource_type)
+
+# candidate_repository = Repository('candidates')
+# question_repository = Repository('questions')
+# location_repository = Repository('locations')
+# constraint_repository = Repository('constraints')
+
+# @app.route('/api/candidates', methods=['GET', 'POST'])
+@app.route('/api/<collection_name>', methods=['GET', 'POST'])
+def get_post_collection(collection_name):
 
     if request.method == 'POST':
 
         try:
-
-            mongo_id = repository.add_candidate(request.json)
+            # mongo_id = candidateRepository.add_candidate(request.json)
+            mongo_id = repositories[collection_name].add(request.json)
             resp = Response(str(mongo_id), status=200)
             return resp
 
@@ -181,8 +214,9 @@ def candidates():
     elif request.method == 'GET':
 
         try:
-            candidates = repository.get_candidates()
-            response = jsonify(candidates)
+            # candidates = candidateRepository.get_candidates()
+            items = repositories[collection_name].get()
+            response = jsonify(items)
             response.status_code = 200
             return response
 
@@ -197,18 +231,19 @@ def candidates():
         return response
 
 
-@app.route('/api/candidates/<candidate_id>', methods=['PUT', 'DELETE'])
-def candidates_by_id(candidate_id):
+# @app.route('/api/candidates/<candidate_id>', methods=['PUT', 'DELETE'])
+@app.route('/api/<collection_name>/<id>', methods=['PUT', 'DELETE'])
+def put_delete_collection(collection_name, id):
 
-    print('candidates:{}'.format(request.method))
-    print('- request.json = {}'.format(json.dumps(request.json)))
+    # print('candidates:{}'.format(request.method))
+    # print('- request.json = {}'.format(json.dumps(request.json)))
 
     if request.method == 'PUT':
 
         try:
 
-            result = repository.update_candidate(candidate_id, request.json)
-            
+            # result = candidateRepository.update_candidate(candidate_id, request.json)
+            result = repositories[collection_name].update(id, request.json)            
             response = Response('OK', status=200)
             return response
 
@@ -221,7 +256,8 @@ def candidates_by_id(candidate_id):
     elif request.method == 'DELETE':
 
         try:
-            result = repository.delete_candidate(candidate_id)
+            # result = candidateRepository.delete_candidate(candidate_id)
+            result = repositories[collection_name].delete(id)
             response = Response('OK', status=200)
             return response
 
