@@ -71,6 +71,11 @@ const MainNav = () => {
     path: '/demo',
   });
 
+  const PrototypeFormButton = buttonWithRoute({
+    name: 'Prototype-Form',
+    path: '/prototype-form',
+  });
+
   return (
     <nav className={classes.root}>
       <AppBar color="primary">
@@ -80,6 +85,7 @@ const MainNav = () => {
             <NewsButton />
             <DashboardButton />
             <DemoButton />
+            <PrototypeFormButton />
           </div>
         </Toolbar>
       </AppBar>
