@@ -8,7 +8,7 @@ class CandidateSchema(Schema):
 class CandidateResponseSchema(Schema):
     question_uuid = fields.UUID()
     candidate_uuid = fields.UUID()
-    response_value = field.Str()    
+    response_value = fields.Str()
 
 class QuestionSchema(Schema):
     uuid = fields.UUID()
@@ -27,6 +27,6 @@ class ResponseConstraint(Schema):
 bowie = dict(name='David Bowie')
 album = dict(artist=bowie, title='Hunky Dory', release_date=date(1971, 12, 17))
 
-schema = AlbumSchema()
+schema = CandidateSchema()
 result = schema.dump(album)
 pprint(result, indent=2)
