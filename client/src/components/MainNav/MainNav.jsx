@@ -76,6 +76,11 @@ const MainNav = () => {
     path: '/prototype-form',
   });
 
+  const StakeholdersButton = buttonWithRoute({
+    name: 'Stakeholders',
+    path: '/stakeholders',
+  });
+
   return (
     <nav className={classes.root}>
       <AppBar color="primary">
@@ -86,6 +91,7 @@ const MainNav = () => {
             <DashboardButton />
             <DemoButton />
             <PrototypeFormButton />
+            <StakeholdersButton />
           </div>
         </Toolbar>
       </AppBar>
