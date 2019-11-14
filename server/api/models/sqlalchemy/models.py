@@ -20,7 +20,7 @@ class ResponseSchema(ma.Schema):
         fields = ('questionid', 'responseValue', 'candidateId')
 
 class Candidate(db.Model):
-    candidateId = db.Column(db.Intenger, primary_key=True)
+    candidateId = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
     def __init__(self, name):
