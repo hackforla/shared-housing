@@ -29,3 +29,14 @@ class Candidate(db.Model):
 class CandidateSchema(ma.Schema):
     class Meta:
         fields = ('candidateId', 'name')
+
+class Location(db.Model):
+    locationId = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+
+    def __init__(self, name):
+        self.name = name
+
+class LocationSchema(ma.Schema):
+    class Meta:
+        fields = ('locationId', 'name')
