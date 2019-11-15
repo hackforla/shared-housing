@@ -1,6 +1,3 @@
-import os
-import sys
-sys.path.append(os.path.realpath('.'))
 from flask import Blueprint, request
 from models.sqlalchemy.models import Candidate, CandidateSchema, db
 
@@ -13,6 +10,7 @@ def get_candidate(candidateId):
     product = Candidate.query.get(candidateId)
     return candidate_schema.jsonify(product)
 
+
 @candidate_routes.route('/candidates', methods=['POST'])
 def add_candidate():
     name = request.json['name'] 
@@ -22,12 +20,14 @@ def add_candidate():
     db.session.commit()
     return candidate_schema.jsonify(new_candidate)
 
+
 @candidate_routes.route('/candidates/<candidateId>', methods=['PUT'])
 def put_candidate(candidateId):
     update_candidate = Candidate.query.filter_by(candidateId=candidateId)
     update_candidate.name = request.json['name']
     db.session.commit()
     return candidate_schema.jsonify(update_candidate)
+
 
 @candidate_routes.route('/candidates/<candidateId>', methods=['PATCH'])
 def patch_candidate(candidateId):
