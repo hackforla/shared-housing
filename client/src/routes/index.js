@@ -6,6 +6,7 @@ export const PATHS = {
   DEMO: '/demo',
   PROTOTYPE_FORM: '/prototype-form',
   STAKEHOLDERS: '/stakeholders',
+  TEAM_ROSTER: '/team',
 };
 
 export default { PATHS };

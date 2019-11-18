@@ -2,7 +2,7 @@ import React from 'react';
 // import { hot } from 'react-hot-loader';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './styles/main.css';
-import { HomePage, DashboardPage, DemoPage, StakeholdersPage } from './pages';
+import { HomePage, DashboardPage, DemoPage, StakeholdersPage, TeamRoster } from './pages';
 import PrototypeForm from './components/PrototypeForm/PrototypeForm';
 import withRoot from './withRoot';
 import MainNav from './components/MainNav';
@@ -26,6 +26,7 @@ const App = () => (
         path={PATHS.STAKEHOLDERS}
         render={() => <StakeholdersPage />}
       />
+      <Route exact path={PATHS.TEAM_ROSTER} render={() => <TeamRoster />} />
     </Switch>
   </BrowserRouter>
 );

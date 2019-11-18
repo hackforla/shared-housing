@@ -62,8 +62,8 @@ const UserJourney = () => {
 
       <FormControl variant="outlined" className={classes.formControl}>
         <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
+          labelid="user-journey-select-label"
+          id="user-journey-select"
           name="journey"
           value={journey}
           onChange={handleChange}
