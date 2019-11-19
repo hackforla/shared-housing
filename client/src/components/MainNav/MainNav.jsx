@@ -76,6 +76,11 @@ const MainNav = () => {
     path: '/prototype-form',
   });
 
+  const TeamRosterButton = buttonWithRoute({
+    name: 'Team Roster',
+    path: '/team',
+  });
+
   return (
     <nav className={classes.root}>
       <AppBar color="primary">
@@ -86,6 +91,7 @@ const MainNav = () => {
             <DashboardButton />
             <DemoButton />
             <PrototypeFormButton />
+            <TeamRosterButton />
           </div>
         </Toolbar>
       </AppBar>
