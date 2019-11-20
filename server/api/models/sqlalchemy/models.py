@@ -1,7 +1,8 @@
-""" Database models file. 
+""" Database models file.
 Insert all tables, models, and schemas for the Database here."""
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from sqlalchemy import Column, Integer, String, Float
 
 db = SQLAlchemy()
 ma = Marshmallow()
@@ -29,3 +30,17 @@ class Candidate(db.Model):
 class CandidateSchema(ma.Schema):
     class Meta:
         fields = ('candidateId', 'name')
+
+
+class HousingLocation(db.Model):
+    __tablename__ = 'locations'
+    location_id = Column(Integer, primary_key=True)
+    latitude = Column(Float)
+    longitude = Column(Float)
+    housing_type_id = Column(Integer)
+    beds_available = Column(Integer)
+
+
+class LocationSchema(ma.Schema):
+    class Meta:
+        fields = ('location_id', 'latitude', 'longitude', 'housing_type_id', 'beds_available')
