@@ -102,7 +102,7 @@ const ROSTER = {
   },
 };
 
-export default () => {
+export const TeamRoster = () => {
   const CLASSES = STYLES();
   const [team] = useState(ROSTER);
   const { management, design, development, alumni, other } = team;
@@ -149,3 +149,5 @@ export default () => {
     </SectionContainer>
   );
 };
+
+export default TeamRoster;
