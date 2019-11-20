@@ -23,6 +23,10 @@ const useStyles = makeStyles(theme => ({
   primary: {
     fontSize: '0.85rem',
   },
+  avatarImage: {
+    height: '100%',
+    width: 'auto',
+  },
 }));
 
 const githubCommitsURL = `
@@ -52,7 +56,11 @@ export function NewsFeed() {
             >
               <ListItemAvatar>
                 <Avatar>
-                  <img src={commit.author.avatar_url} alt="avatar" />
+                  <img
+                    src={commit.author.avatar_url}
+                    alt="avatar"
+                    className={classes.avatarImage}
+                  />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
