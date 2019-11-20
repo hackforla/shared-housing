@@ -75,7 +75,10 @@ const MainNav = () => {
     name: 'Prototype-Form',
     path: '/prototype-form',
   });
-
+  const StakeholdersButton = buttonWithRoute({
+    name: 'Stakeholders',
+    path: '/stakeholders',
+ });
   const TeamRosterButton = buttonWithRoute({
     name: 'Team Roster',
     path: '/team',
@@ -91,6 +94,7 @@ const MainNav = () => {
             <DashboardButton />
             <DemoButton />
             <PrototypeFormButton />
+            <StakeholdersButton />
             <TeamRosterButton />
           </div>
         </Toolbar>
