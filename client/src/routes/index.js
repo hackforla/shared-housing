@@ -7,6 +7,7 @@ export const PATHS = {
   PROTOTYPE_FORM: '/prototype-form',
   STAKEHOLDERS: '/stakeholders',
   TEAM_ROSTER: '/team',
+  AGILE_MANIFESTO: '/agile-manifesto',
 };
 
 export default { PATHS };
