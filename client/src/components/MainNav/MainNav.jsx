@@ -78,10 +78,14 @@ const MainNav = () => {
   const StakeholdersButton = buttonWithRoute({
     name: 'Stakeholders',
     path: '/stakeholders',
- });
+  });
   const TeamRosterButton = buttonWithRoute({
     name: 'Team Roster',
     path: '/team',
+  });
+  const AgileManifestoButton = buttonWithRoute({
+    name: 'Agile Manifesto',
+    path: '/agile-manifesto',
   });
 
   return (
@@ -96,6 +100,7 @@ const MainNav = () => {
             <PrototypeFormButton />
             <StakeholdersButton />
             <TeamRosterButton />
+            <AgileManifestoButton />
           </div>
         </Toolbar>
       </AppBar>
