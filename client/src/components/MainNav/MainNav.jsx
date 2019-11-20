@@ -56,6 +56,12 @@ const MainNav = () => {
       </Button>
     ));
   };
+
+  const HomeButton = buttonWithRoute({
+    name: 'Home',
+    path: '/',
+  });
+
   const DashboardButton = buttonWithRoute({
     name: 'Dashboard',
     path: '/dashboard',
@@ -78,7 +84,7 @@ const MainNav = () => {
   const StakeholdersButton = buttonWithRoute({
     name: 'Stakeholders',
     path: '/stakeholders',
- });
+  });
   const TeamRosterButton = buttonWithRoute({
     name: 'Team Roster',
     path: '/team',
@@ -90,6 +96,7 @@ const MainNav = () => {
         <Toolbar className={classes.ToolBar}>
           <div className={classes.LeftContent}>
             <MenuIcon className={classes.MenuIcon} />
+            <HomeButton />
             <NewsButton />
             <DashboardButton />
             <DemoButton />
