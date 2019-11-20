@@ -1,4 +1,4 @@
-from models.models import Candidate, Location
+from models.sqlalchemy.models import Candidate, Location
 
 
 def candidate_eligible_for_location(candidate: Candidate,
@@ -12,14 +12,14 @@ def candidate_eligible_for_location(candidate: Candidate,
                                   location-specific constraints
 
         Returns:
-            bool: a candidate's eligbility for a given location
+            bool: a candidate's eligibility for a given location
     '''
 
     responses = candidate['responses']
 
     for key, constraint in location['constraints'].items():
         if responses[key].responseValue in constraint.value_in\
-                responses[key].responseValue not in constraint.value_not_in:
+                and responses[key].responseValue not in constraint.value_not_in:
             continue
         else:
             return False
