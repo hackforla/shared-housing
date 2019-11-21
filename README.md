@@ -82,6 +82,9 @@ Before continuing to build the client application, return to the project root:
 cd ..
 ```
 
+---
+
+
 ### Deploy the app on the server
 
 ##### Build the React application
@@ -126,6 +129,8 @@ sudo journalctl -u app
 # View nginx logs, will contain errors that occurred at the HTTP level
 sudo journalctl -u nginx
 ```
+
+---
 
 
 ### Deploy the app locally
