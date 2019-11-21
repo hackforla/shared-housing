@@ -56,6 +56,12 @@ const MainNav = () => {
       </Button>
     ));
   };
+
+  const HomeButton = buttonWithRoute({
+    name: 'Home',
+    path: '/',
+  });
+
   const DashboardButton = buttonWithRoute({
     name: 'Dashboard',
     path: '/dashboard',
@@ -94,6 +100,7 @@ const MainNav = () => {
         <Toolbar className={classes.ToolBar}>
           <div className={classes.LeftContent}>
             <MenuIcon className={classes.MenuIcon} />
+            <HomeButton />
             <NewsButton />
             <DashboardButton />
             <DemoButton />
