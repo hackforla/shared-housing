@@ -155,7 +155,7 @@ chmod +x build-deb.sh
 cd server
 ```
 
-4. Launch the Flask application. Leave your terminal open after running this command, your server
+4. Launch the Flask application. Leave your terminal open after running this command, your server logs will print here as you interact with the React application from the browser
 
 ```bash
 python app.py
