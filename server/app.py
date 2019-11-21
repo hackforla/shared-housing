@@ -2,6 +2,7 @@ from functools import wraps
 import logging
 import os
 from os import environ as env
+from bson import ObjectId
 import json
 from flask import (
     Flask, 
@@ -61,6 +62,215 @@ auth0 = oauth.register(
         'scope': 'openid profile email',
     },
 )
+
+class MongoFacade:
+
+    def __init__(self):
+        
+        self.url = 'mongodb://{}:{}'.format(
+            DB_HOST,
+            DB_PORT
+        )
+
+    def _get_conn(self):
+        client = pymongo.MongoClient(self.url)
+        try:
+            # The ismaster command is cheap and does not require auth.
+            client.admin.command('ismaster')
+            return client
+        except ConnectionFailure:
+            print("Server not available")
+            return None
+            
+    def get_collection(self, collection_name):
+        
+        self._log('get_collection', 'acquiring connection...')
+
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+        
+        db = client[MONGO_DATABASE]
+        collection = db[collection_name]
+        cursor = collection.find()
+        items = list(cursor)
+
+        for item in items:
+            item['_id'] = str(item['_id'])
+
+        self._log('get_collection', 'items = {}'.format(items))
+        return items
+
+
+    def insert_to_collection(self, collection_name, item):
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+
+        db = client[MONGO_DATABASE]
+        collection = db[collection_name]
+
+        result = collection.insert_one(item).inserted_id
+
+        return result
+
+    def delete_from_collection(self, collection_name, id):
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+
+        db = client[MONGO_DATABASE]
+        collection = db[collection_name]
+
+        result = collection.delete_one({'_id':ObjectId(id)})
+        self._log('delete_from_collection', 'result.raw_result = {}'.format(result.raw_result))
+
+        return result
+
+    def update_in_collection(self, collection_name, id, item):
+
+        client = self._get_conn()
+
+        if not client:
+            raise Exception('Mongo server not available')
+
+        db = client[MONGO_DATABASE]
+        collection = db[collection_name]
+
+        result = collection.update_one({'_id':ObjectId(id)}, {'$set': item })
+
+        self._log('update_in_collection', 'result.raw_result = {}'.format(result.raw_result))
+
+        return result
+
+    def _log(self, method_name, message):
+        print('MongoFacade:{}: {}'.format(method_name, message))
+
+
+class Repository:
+
+    def __init__(self, collection_name):        
+        self.mongo_facade = MongoFacade()
+        self.collection_name = collection_name
+
+    def get(self):        
+        items = self.mongo_facade.get_collection(self.collection_name)
+        return items
+
+    def add(self, item):
+        result = self.mongo_facade.insert_to_collection(self.collection_name, item)
+        return result
+
+    def delete(self, id):
+        self.mongo_facade.delete_from_collection(self.collection_name, id)
+        return result
+
+    def update(self, id, item):
+        result = self.mongo_facade.update_in_collection(self.collection_name, id, item)
+        return result
+
+    def _log(self, method_name, message):
+        print('Repository[{}]:{}: {}'.format(self.collection_name, method_name, message))
+
+
+resource_types = [
+    'candidates',
+    'questions',
+    'locations',
+    'constraints'
+]
+
+repositories = dict()
+
+for resource_type in resource_types:
+    repositories[resource_type] = Repository(resource_type)
+
+# candidate_repository = Repository('candidates')
+# question_repository = Repository('questions')
+# location_repository = Repository('locations')
+# constraint_repository = Repository('constraints')
+
+# @app.route('/api/candidates', methods=['GET', 'POST'])
+@app.route('/api/<collection_name>', methods=['GET', 'POST'])
+def get_post_collection(collection_name):
+
+    if request.method == 'POST':
+
+        try:
+            # mongo_id = candidateRepository.add_candidate(request.json)
+            mongo_id = repositories[collection_name].add(request.json)
+            resp = Response(str(mongo_id), status=200)
+            return resp
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return response
+
+    elif request.method == 'GET':
+
+        try:
+            # candidates = candidateRepository.get_candidates()
+            items = repositories[collection_name].get()
+            response = jsonify(items)
+            response.status_code = 200
+            return response
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return Response
+
+    else:
+        response = Response('Unsupported HTTP method: {}'.format(request.method))
+        return response
+
+
+# @app.route('/api/candidates/<candidate_id>', methods=['PUT', 'DELETE'])
+@app.route('/api/<collection_name>/<id>', methods=['PUT', 'DELETE'])
+def put_delete_collection(collection_name, id):
+
+    # print('candidates:{}'.format(request.method))
+    # print('- request.json = {}'.format(json.dumps(request.json)))
+
+    if request.method == 'PUT':
+
+        try:
+
+            # result = candidateRepository.update_candidate(candidate_id, request.json)
+            result = repositories[collection_name].update(id, request.json)            
+            response = Response('OK', status=200)
+            return response
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return response
+
+    elif request.method == 'DELETE':
+
+        try:
+            # result = candidateRepository.delete_candidate(candidate_id)
+            result = repositories[collection_name].delete(id)
+            response = Response('OK', status=200)
+            return response
+
+        except Exception as e:
+            err = 'Error: {}'.format(e)
+            print(err)
+            response = Response(err, status=500)
+            return response
+
+    else:
+        response = Response('Unsupported HTTP method: {}'.format(request.method))
+        return response
+
 
 
 def requires_auth(f):
