@@ -43,7 +43,7 @@ From the `shared-housing` directory:
 1. Enter the client directory:
 
 ```bash
-npm install
+cd client
 ```
 
 2. Install all declared dependencies:
@@ -60,20 +60,31 @@ cd ..
 
 #### Install server dependencies
 
-From the `shared-housing` directory (optional: initialize your virtualenv or conda project before this step):
-
-1. Enter the server directory:
+From the `shared-housing` root, navigate to the server directory:
 
 ```bash
 cd server
 ```
 
-2. (Optional) Initialize your virtualenv or conda project
+(Optional) Initialize your virtualenv or conda project. This guide assumes packages will be installed globally, as this is the way the Docker image is configured to build. If you are using a virtual environment, remember to adjust any `pip` commands as needed, and activate/deactive your environment(s). This will be the only mention of the `conda` or `venv` commands in this guide.
 
-3. Install the Python packages
+```bash
+# create conda environment
+conda create -n sharedhousing python
+conda activate
+
+# OR: create virtualenv environment
+venv sharedhousing_env
+source sharedhousing_env/bin/activate
+```
+
+Install the Python packages
 
 ```bash
 pip install -r requirements.txt
+
+# OR
+conda install --file requirements.txt
 ```
 
 Before continuing to build the client application, return to the project root:
@@ -89,25 +100,25 @@ cd ..
 
 ##### Build the React application
 
-1. Ensure the build script is executable
+Ensure the build script is executable
 
 ```bash
 chmod +x build-deb.sh
 ```
 
-2. From the project root, run the following command to execute the build script:
+From the project root, run the following command to execute the build script:
 
 ```bash
 ./build-deb.sh
 ```
 
-3. Copy the files to the server.
+Copy the files to the server.
 
 ```bash
 scp -r server YOUR_USERNAME@ivan-alpha.xyz:/home/sharedhousing/app
 ```
 
-4. *If you made changes to the server-side code*, you also need to log in and reboot
+*If you made changes to the server-side code*, you also need to log in and reboot
 
 ```bash
 # Log in to server
@@ -120,7 +131,7 @@ sudo systemctl restart app
 sudo systemctl restart nginx
 ```
 
-5. If you encounter runtime issues that appear to be server-related, check the app logs and nginx logs.
+If you encounter runtime issues that appear to be server-related, check the app logs and nginx logs.
 
 ```bash
 # View app logs, will contain errors that occurred at the application level
@@ -137,25 +148,25 @@ sudo journalctl -u nginx
 
 ##### Build the React application
 
-1. Ensure the build script is executable
+Ensure the build script is executable
 
 ```bash
 chmod +x build-deb.sh
 ```
 
-2. From the project root, run the following command to execute the build script:
+From the project root, run the following command to execute the build script:
 
 ```bash
 ./build-deb.sh
 ```
 
-3. Navigate to the server directory
+Navigate to the server directory
 
 ```bash
 cd server
 ```
 
-4. Launch the Flask application. Leave your terminal open after running this command, your server logs will print here as you interact with the React application from the browser
+Launch the Flask application. Leave your terminal open after running this command, your server logs will print here as you interact with the React application from the browser
 
 ```bash
 python app.py
