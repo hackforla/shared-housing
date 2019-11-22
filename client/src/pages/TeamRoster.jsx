@@ -30,14 +30,18 @@ const ROSTER = {
       { name: 'Kimme Buranasombati', title: 'Project Manager', linkedin: '#' },
       { name: 'Derek Chu', title: 'Project Manager', linkedin: '#' },
       { name: 'Dean Church', title: 'Product Owner', linkedin: 'deanchurch' },
-      { name: 'Carolanne Fuchs', title: 'Project Manager', linkedin: '#' },
+      {
+        name: 'Carolanne Fuchs',
+        title: 'Project Manager',
+        linkedin: 'carolanne-fuchs-7880239b',
+      },
       { name: 'Brandon Mann', title: 'Project Manager', linkedin: '#' },
       { name: 'Martyna S.', title: 'Project Co-lead', linkedin: '#' },
       { name: 'Sebastian Walsh', title: 'Project Manager', linkedin: '#' },
       {
         name: 'Bonnie Wolfe',
         title: 'Client Relationship Manager',
-        linkedin: '#',
+        linkedin: 'bonnieawolfe',
       },
     ],
   },
@@ -54,10 +58,22 @@ const ROSTER = {
   development: {
     groupName: 'Software Development Team',
     members: [
-      { name: 'Roland Abregorivas', title: 'Tech Lead', linkedin: '#' },
+      {
+        name: 'Roland Abregorivas',
+        title: 'Tech Lead',
+        linkedin: 'rolandabregorivas',
+      },
       { name: 'Wiliam Buck', title: 'Software Developer', linkedin: 'wsbuck' },
-      { name: 'Albert Chavez', title: 'Software Developer', linkedin: '#' },
-      { name: 'Kirk Chu', title: 'Software Developer', linkedin: '#' },
+      {
+        name: 'Albert Chavez',
+        title: 'Software Developer',
+        linkedin: 'albertulysseschavez',
+      },
+      {
+        name: 'Kirk Chu',
+        title: 'Software Developer',
+        linkedin: 'kirk-chu-0abb3234',
+      },
       { name: 'Luis Garcia', title: 'Software Developer', linkedin: '#' },
       { name: 'Joel Henderson', title: 'Software Developer', linkedin: '#' },
       {
@@ -65,7 +81,7 @@ const ROSTER = {
         title: 'Software Developer',
         linkedin: 'ken-lee-7a600b110',
       },
-      { name: 'Eva Lieu', title: 'Software Developer', linkedin: '#' },
+      { name: 'Eva Lieu', title: 'Software Developer', linkedin: 'eva-lieu' },
       { name: 'Alex Marmalichi', title: 'Software Developer', linkedin: '#' },
       { name: 'Cat McLoughlin', title: 'Software Developer', linkedin: '#' },
       { name: 'Linda Mejia', title: 'Software Developer', linkedin: '#' },
@@ -78,7 +94,11 @@ const ROSTER = {
         linkedin: 'karlens',
       },
       { name: 'Louis Spencer', title: 'Software Developer', linkedin: '#' },
-      { name: 'Tyler Thome', title: 'Software Developer', linkedin: '#' },
+      {
+        name: 'Tyler Thome',
+        title: 'Software Developer',
+        linkedin: 'tylerthome',
+      },
       { name: 'Peter Tran', title: 'Software Developer', linkedin: '#' },
       { name: 'Dean Truong', title: 'Software Developer', linkedin: '#' },
       { name: 'Julian Ubaldo', title: 'Software Developer', linkedin: '#' },
@@ -87,8 +107,12 @@ const ROSTER = {
   alumni: {
     groupName: 'Alumni',
     members: [
-      { name: 'Marcel Hovsepian', title: 'Project Manager', linkedin: '#' },
-      { name: "Owen O'Malley", title: 'Project Manager', linkedin: '#' },
+      {
+        name: 'Marcel Hovsepian',
+        title: 'Project Manager',
+        linkedin: 'marcel-hovsepian',
+      },
+      { name: "Owen O'Malley", title: 'Project Manager', linkedin: 'notowen' },
       { name: 'Jiaxi (JC) Zhang', title: 'Project Manager', linkedin: '#' },
     ],
   },
@@ -117,7 +141,7 @@ export const TeamRoster = () => {
           {group.members.map(member => {
             return (
               <Link
-                href={`${URL_BASE_LINKEDIN}${member.linkedin}`}
+                href={`${URL_BASE_LINKEDIN}${member.linkedin}/`}
                 alt={`${member.name}'s linkedin profile`}
               >
                 <ListItem button>
