@@ -12,6 +12,7 @@ import {
   BaseSlider,
   BaseTextArea,
   BaseRadioGroup,
+  BaseSwitch,
 } from '../src/components/Forms/Base';
 import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
 
@@ -210,6 +211,29 @@ storiesOf('Forms', module)
             ]}
             component={BaseRadioGroup}
             {...props}
+          />
+        </Form>
+      )}
+    />
+  ))
+  .add('Switch', () => (
+    <Formik
+      onSubmit={(values, actions) => {
+        setTimeout(() => {
+          actions.setSubmitting(false);
+        }, 1000);
+      }}
+      render={() => (
+        <Form>
+          <Field
+            name="color"
+            label="Color"
+            valueOptions={[
+              { value: 'red', label: 'Red' },
+              { value: 'green', label: 'Green' },
+              { value: 'blue', label: 'Blue' },
+            ]}
+            component={BaseSwitch}
           />
         </Form>
       )}
