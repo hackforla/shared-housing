@@ -1,12 +1,14 @@
 import React from 'react';
-
 import { withRouter } from 'react-router-dom';
-
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
+import Sidebar from '../Dashboard/Base/BaseSidebar';
+
+const { useRef } = React;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,6 +43,8 @@ const useStyles = makeStyles(theme => ({
 
 const MainNav = () => {
   const classes = useStyles();
+
+  const sidebarRef = useRef();
 
   const buttonWithRoute = ({ name, onClick, path }) => {
     const handleClick = history => () => {
@@ -96,10 +100,19 @@ const MainNav = () => {
 
   return (
     <nav className={classes.root}>
+      <Sidebar ref={sidebarRef} />
       <AppBar color="primary">
         <Toolbar className={classes.ToolBar}>
-          <div className={classes.LeftContent}>
-            <MenuIcon className={classes.MenuIcon} />
+          <div className={classes.LeftContent}>        
+          <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => sidebarRef.current.handleDrawerOpen()}
+              edge="start"
+            >
+              <MenuIcon />
+            </IconButton>
+            {/*<MenuIcon className={classes.MenuIcon} />*/}
             <HomeButton />
             <NewsButton />
             <DashboardButton />
