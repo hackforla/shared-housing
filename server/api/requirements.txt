@@ -8,6 +8,8 @@ Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.0
 itsdangerous==1.1.0
 Jinja2==2.10.1
+jsonpatch==1.24
+jsonpointer==2.0
 Mako==1.1.0
 MarkupSafe==1.1.1
 marshmallow==3.2.1

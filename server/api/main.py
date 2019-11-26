@@ -2,9 +2,9 @@
 the database, marshamallow library and where we register our api blueprints."""
 from flask import Flask 
 from config import Config
-from models.models import db, ma
-from routes.candidates_response import response_routes
-from routes.candidates import candidate_routes
+from models.sqlalchemy.models import db, ma
+from routes.sqlalchemy.candidates_response import response_routes
+from routes.sqlalchemy.candidates import candidate_routes
 # creates app
 
 # Function that initializes the application. 

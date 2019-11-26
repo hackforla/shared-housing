@@ -1,4 +1,15 @@
 import React from 'react';
+import {
+  Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import SectionContainer from '../common/SectionContainer';
 
 class PrototypeForm extends React.Component {
   constructor() {
@@ -8,7 +19,6 @@ class PrototypeForm extends React.Component {
       children: '',
       age: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -32,161 +42,139 @@ class PrototypeForm extends React.Component {
     } = this.state;
 
     return (
-      <form style={{ padding: '20px' }} onSubmit={this.handleSubmit}>
-        <label htmlFor="age">
-          What is your age?
-          <br />
-          <input
-            onChange={this.handleChange}
-            id="age"
-            name="age"
-            value={age}
-            type="number"
-          />
-        </label>
+      <SectionContainer>
+        <Typography component="h1" variant="h4" align="center">
+          Example Form
+        </Typography>
+        <form style={{ padding: '20px' }} onSubmit={this.handleSubmit}>
+          {/* ========================== AGE =============================== */}
+          <div>
+            <TextField
+              type="text"
+              id="age"
+              label="What is your age?"
+              name="age"
+              value={age}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+          </div>
 
-        <p>Do you have pets? </p>
-
-        <label htmlFor="pets-yes">
-          Yes
-          <input
-            onChange={this.handleChange}
-            id="pets-yes"
-            name="have-pets"
-            type="radio"
-            value="Yes"
-          />
-        </label>
-        <br />
-
-        <label htmlFor="pets-no">
-          No
-          <input
-            onChange={this.handleChange}
-            id="pets-no"
-            name="have-pets"
-            type="radio"
-            value="No"
-          />
-        </label>
-        <br />
-
-        {havePets === 'Yes' && (
-          <React.Fragment>
-            <br />
-            <label htmlFor="pet">
-              What kind of pets?
-              <br />
-              <input
-                id="pet"
+          {/* ======================== PETS ================================ */}
+          <div>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Do you have pets?</FormLabel>
+              <RadioGroup
+                aria-label="pets"
+                name="have-pets"
                 onChange={this.handleChange}
-                value={petKind}
-                name="pet-kind"
+                row
+              >
+                <FormControlLabel value="Yes" label="Yes" control={<Radio />} />
+                <FormControlLabel value="No" label="No" control={<Radio />} />
+              </RadioGroup>
+            </FormControl>
+            <br />
+
+            {havePets === 'Yes' && (
+              <TextField
                 type="text"
-              />
-            </label>
-            <br />
-          </React.Fragment>
-        )}
-
-        <p>Do you have children? </p>
-
-        <label htmlFor="children-yes">
-          Yes
-          <input
-            onChange={this.handleChange}
-            id="children-yes"
-            name="have-children"
-            type="radio"
-            value="Yes"
-          />
-        </label>
-        <br />
-
-        <label htmlFor="children-no">
-          No
-          <input
-            onChange={this.handleChange}
-            id="children-no"
-            name="have-children"
-            type="radio"
-            value="No"
-          />
-        </label>
-        <br />
-
-        {haveChildren === 'Yes' && (
-          <React.Fragment>
-            <br />
-            <label htmlFor="children">
-              Number of children?
-              <br />
-              <input
-                id="children"
+                id="pet"
+                label="What kind of pets?"
+                name="pet-kind"
+                value={petKind}
                 onChange={this.handleChange}
-                value={children}
-                name="children"
-                type="number"
+                margin="normal"
+                variant="outlined"
               />
-            </label>
+            )}
+          </div>
+
+          {/* ======================= CHILDREN ============================= */}
+          <div>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">
+                Do you have any children?
+              </FormLabel>
+              <RadioGroup
+                aria-label="children"
+                name="have-children"
+                onChange={this.handleChange}
+                row
+              >
+                <FormControlLabel value="Yes" label="Yes" control={<Radio />} />
+                <FormControlLabel value="No" label="No" control={<Radio />} />
+              </RadioGroup>
+            </FormControl>
             <br />
-          </React.Fragment>
-        )}
 
-        <p>Are you outgoing?</p>
+            {haveChildren === 'Yes' && (
+              <TextField
+                type="text"
+                id="children"
+                label="How many children?"
+                name="children"
+                value={children}
+                onChange={this.handleChange}
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+          </div>
 
-        <label htmlFor="outgoing-yes">
-          Yes
-          <input
-            onChange={this.handleChange}
-            id="is-outgoing-yes"
-            name="is-outgoing"
-            type="radio"
-            value="Yes"
-          />
-        </label>
-        <br />
+          {/* ======================== OUTGOING ============================ */}
+          <div>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Are you outgoing?</FormLabel>
+              <RadioGroup
+                aria-label="outgoing"
+                name="is-outgoing"
+                onChange={this.handleChange}
+              >
+                <FormControlLabel
+                  value="Yes"
+                  label="Yes, I am outgoing."
+                  control={<Radio />}
+                />
+                <FormControlLabel
+                  value="No"
+                  label="No, I prefer staying in."
+                  control={<Radio />}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
 
-        <label htmlFor="is-outgoing-no">
-          No
-          <input
-            onChange={this.handleChange}
-            id="is-outgoing-no"
-            name="is-outgoing"
-            type="radio"
-            value="No"
-          />
-        </label>
-        <br />
+          {/* ========================== MUSIC ============================= */}
+          <div>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Do you like music?</FormLabel>
+              <RadioGroup
+                aria-label="music"
+                name="music"
+                onChange={this.handleChange}
+              >
+                <FormControlLabel
+                  value="Yes"
+                  label="Yes, I enjoy playing music out loud."
+                  control={<Radio />}
+                />
+                <FormControlLabel
+                  value="No"
+                  label="No, I prefer a quieter environment."
+                  control={<Radio />}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
 
-        <p>Do you like music?</p>
-        <label htmlFor="music-yes">
-          Yes
-          <input
-            id="music-yes"
-            onChange={this.handleChange}
-            name="music"
-            type="radio"
-            value="Yes"
-          />
-        </label>
-        <br />
-
-        <label htmlFor="music-no">
-          No
-          <input
-            id="music-no"
-            onChange={this.handleChange}
-            name="music"
-            type="radio"
-            value="no"
-          />
-        </label>
-        <br />
-        <br />
-
-        <button type="submit">Submit</button>
-      </form>
+          {/* ========================== BUTTON ============================ */}
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </form>
+      </SectionContainer>
     );
   }
 }

@@ -60,6 +60,12 @@ const MainNav = () => {
       </Button>
     ));
   };
+
+  const HomeButton = buttonWithRoute({
+    name: 'Home',
+    path: '/',
+  });
+
   const DashboardButton = buttonWithRoute({
     name: 'Dashboard',
     path: '/dashboard',
@@ -75,13 +81,30 @@ const MainNav = () => {
     path: '/demo',
   });
 
+  const PrototypeFormButton = buttonWithRoute({
+    name: 'Prototype-Form',
+    path: '/prototype-form',
+  });
+  const StakeholdersButton = buttonWithRoute({
+    name: 'Stakeholders',
+    path: '/stakeholders',
+  });
+  const TeamRosterButton = buttonWithRoute({
+    name: 'Team Roster',
+    path: '/team',
+  });
+  const AgileManifestoButton = buttonWithRoute({
+    name: 'Agile Manifesto',
+    path: '/agile-manifesto',
+  });
+
   return (
     <nav className={classes.root}>
       <Sidebar ref={sidebarRef} />
       <AppBar color="primary">
         <Toolbar className={classes.ToolBar}>
-          <div className={classes.LeftContent}>
-            <IconButton
+          <div className={classes.LeftContent}>        
+          <IconButton
               color="inherit"
               aria-label="open drawer"
               onClick={() => sidebarRef.current.handleDrawerOpen()}
@@ -89,10 +112,15 @@ const MainNav = () => {
             >
               <MenuIcon />
             </IconButton>
-
+            {/*<MenuIcon className={classes.MenuIcon} />*/}
+            <HomeButton />
             <NewsButton />
             <DashboardButton />
             <DemoButton />
+            <PrototypeFormButton />
+            <StakeholdersButton />
+            <TeamRosterButton />
+            <AgileManifestoButton />
           </div>
         </Toolbar>
       </AppBar>

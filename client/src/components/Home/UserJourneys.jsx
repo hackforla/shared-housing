@@ -4,10 +4,10 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import outreachUserJourneyImage from '../../assets/images/outreach_user_journey_image.png';
-import stabilizationUserJourneyImage from '../../assets/images/stabilization_user_journey_image.png';
-import navUserJourneyImage from '../../assets/images/nav_user_journey_image.png';
-import tenantUserJourneyImage from '../../assets/images/tenant_user_journey_image.png';
+import outreachUserJourneyImage from '../../assets/images/Home/outreach_user_journey_image.png';
+import stabilizationUserJourneyImage from '../../assets/images/Home/stabilization_user_journey_image.png';
+import navUserJourneyImage from '../../assets/images/Home/nav_user_journey_image.png';
+import tenantUserJourneyImage from '../../assets/images/Home/tenant_user_journey_image.png';
 
 const useStyles = makeStyles(() => ({
   journeyTitle: {
@@ -62,8 +62,8 @@ const UserJourney = () => {
 
       <FormControl variant="outlined" className={classes.formControl}>
         <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
+          labelid="user-journey-select-label"
+          id="user-journey-select"
           name="journey"
           value={journey}
           onChange={handleChange}

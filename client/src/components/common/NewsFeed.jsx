@@ -18,10 +18,10 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 420,
     backgroundColor: theme.palette.background.paper,
     overflow: 'auto',
-    maxHeight: 500,
   },
-  primary: {
-    fontSize: '0.85rem',
+  avatarImage: {
+    height: '100%',
+    width: 'auto',
   },
 }));
 
@@ -52,7 +52,11 @@ export function NewsFeed() {
             >
               <ListItemAvatar>
                 <Avatar>
-                  <img src={commit.author.avatar_url} alt="avatar" />
+                  <img
+                    src={commit.author.avatar_url}
+                    alt="avatar"
+                    className={classes.avatarImage}
+                  />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
