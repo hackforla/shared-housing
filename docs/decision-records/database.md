@@ -1,10 +1,4 @@
-# Architecture Decision Record
-
-This document follows the design decisions made by the Hack for LA Shared Housing team during development
-
-## Prototype
-
-# Title (short present tense imperative up to 50 characters)
+# Selecting a database management system
 
 Status: request for comments | proposed | accepted | rejected | deprecated | superseded
 
