@@ -10,10 +10,14 @@ const useAPI = (url, options) => {
       setLoading(true);
       try {
         const res = await fetch(url, options);
+        if (res.status !== 200) {
+          throw Error('error', res.status);
+        }
         const json = await res.json();
-        setData(json);
         setLoading(false);
+        setData(json);
       } catch (errorResp) {
+        setLoading(false);
         setError(errorResp);
       }
     }
