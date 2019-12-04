@@ -35,18 +35,48 @@ class CandidateSchema(ma.Schema):
     class Meta:
         fields = ('candidateId', 'name')
 
+
 class Question(db.Model):
     questionId = db.Column(db.Integer, primary_key=True)
     questionText = db.Column(db.String(100))
-    questionId = db.Column(db.Integer)
 
-    def __init__(self, questionText, questionId):
+    def __init__(self, questionText):
         self.questionText = questionText
-        self.questionId = questionId
+
 
 class QuestionSchema(ma.Schema):
     class Meta:
         fields = ('formId', 'questionText', 'questionId')
+
+
+class Form(db.Model):
+    form_id = db.Column(db.Integer, primary_key=True)
+    form_name = db.Column(db.String(100))
+    form_description = db.Column(db.String(100))
+
+    def __init__(self, form_name, form_description):
+        self.form_name = form_name
+        self.form_description = form_description
+
+
+class FormSchema(ma.Schema):
+    class Meta:
+        fields = ('formId', 'formName', 'formDescription')
+
+
+class FormQuestion(db.Model):
+    form_id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer, primary_key=True)
+
+    def __init__(self, form_id, question_id):
+        self.form_id = form_id
+        self.question_id = question_id
+
+
+class FormQuestionSchema(ma.Schema):
+    class Meta:
+        fields = ('formId', 'questionId')
+
 
 class HousingLocation(db.Model):
     __tablename__ = 'locations'
