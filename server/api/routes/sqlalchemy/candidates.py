@@ -5,13 +5,13 @@ candidate_schema = CandidateSchema()
 candidate_routes = Blueprint("candidate_routes", __name__)
 
 
-@candidate_routes.route('/candidates/<candidateId>', methods=['GET'])
-def get_candidate(candidateId):
-    product = Candidate.query.get(candidateId)
+@candidate_routes.route('/<candidate_id>', methods=['GET'])
+def get_candidate(candidate_id):
+    product = Candidate.query.get(candidate_id)
     return candidate_schema.jsonify(product)
 
 
-@candidate_routes.route('/candidates', methods=['POST'])
+@candidate_routes.route('/', methods=['POST'])
 def add_candidate():
     name = request.json['name'] 
     new_candidate = Candidate(name)
@@ -21,7 +21,8 @@ def add_candidate():
     return candidate_schema.jsonify(new_candidate)
 
 
-@candidate_routes.route('/candidates/<candidateId>', methods=['PUT'])
+# TODO(JOSH): does not actually update data, just returns query with the name changed
+@candidate_routes.route('/<candidateId>', methods=['PUT'])
 def put_candidate(candidateId):
     update_candidate = Candidate.query.filter_by(candidateId=candidateId)
     update_candidate.name = request.json['name']
@@ -29,7 +30,7 @@ def put_candidate(candidateId):
     return candidate_schema.jsonify(update_candidate)
 
 
-@candidate_routes.route('/candidates/<candidateId>', methods=['PATCH'])
+@candidate_routes.route('/<candidateId>', methods=['PATCH'])
 def patch_candidate(candidateId):
     print("patching..")
     pass
