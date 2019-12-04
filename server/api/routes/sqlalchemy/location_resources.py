@@ -1,9 +1,6 @@
 """REST API handling add, update and retrieval operations on the housing location resource."""
-import os
-import sys
-sys.path.append(os.path.realpath('.'))
 from flask import Blueprint, request, jsonify
-from models.models import HousingLocation, LocationSchema, db
+from models.sqlalchemy.models import HousingLocation, LocationSchema, db
 
 location_schema = LocationSchema()
 locations_schema = LocationSchema(many=True)
