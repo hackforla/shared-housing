@@ -19,8 +19,8 @@ def locations():
         if request.is_json():
             latitude = float(request.json('latitude'))
             longitude = float(request.json('longitude'))
-            housing_type_id = int(request.json('housing_type_id'))
-            beds_available = int(request.json('beds_available'))
+            housing_type_id = int(request.json('housingTypeId'))
+            beds_available = int(request.json('bedsAvailable'))
 
             location = HousingLocation(latitude=latitude,
                                        longitude=longitude,

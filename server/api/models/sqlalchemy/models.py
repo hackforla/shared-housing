@@ -2,25 +2,41 @@
 Insert all tables, models, and schemas for the Database here."""
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, text
 
 db = SQLAlchemy()
 ma = Marshmallow()
 
 
 class QuestionResponse(db.Model):
-    questionId = db.Column(db.Integer, primary_key=True)
+    questionId = db.Column(db.Integer, db.ForeignKey("question.questionId"), primary_key=True)
+    # question = db.relationship("Question")
     responseValue = db.Column(db.String(100))
-    candidateId = db.Column(db.Integer)
+    candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
+    # candidate = db.relationship("Candidate")
 
-    def __init__(self, responseValue, candidateId):
-        self.responseValue = responseValue
-        self.candidateId = candidateId
+    def __init__(self, response_value, candidate_id, question_id):
+        self.responseValue = response_value
+        self.candidateId = candidate_id
+        self.questionId = question_id
 
 
-class ResponseSchema(ma.Schema):
+class QuestionResponseSchema(ma.Schema):
     class Meta:
         fields = ('questionId', 'responseValue', 'candidateId')
+
+
+class LocationResponse(db.Model):
+    questionId = db.Column(db.Integer, db.ForeignKey("question.questionId"), primary_key=True)
+    # question = db.relationship("Question")
+    responseValue = db.Column(db.String(100))
+    locationId = db.Column(db.Integer, db.ForeignKey("location.locationId"), primary_key=True)
+    # location = db.relationship("HousingLocation")
+
+
+class QuestionResponseSchema(ma.Schema):
+    class Meta:
+        fields = ('questionId', 'responseValue', 'locationId')
 
 
 class Candidate(db.Model):
@@ -40,23 +56,23 @@ class Question(db.Model):
     questionId = db.Column(db.Integer, primary_key=True)
     questionText = db.Column(db.String(100))
 
-    def __init__(self, questionText):
-        self.questionText = questionText
+    def __init__(self, question_text):
+        self.questionText = question_text
 
 
 class QuestionSchema(ma.Schema):
     class Meta:
-        fields = ('formId', 'questionText', 'questionId')
+        fields = ('questionText', 'questionId')
 
 
 class Form(db.Model):
-    form_id = db.Column(db.Integer, primary_key=True)
-    form_name = db.Column(db.String(100))
-    form_description = db.Column(db.String(100))
+    formId = db.Column(db.Integer, primary_key=True)
+    formName = db.Column(db.String(100))
+    formDescription = db.Column(db.String(100))
 
     def __init__(self, form_name, form_description):
-        self.form_name = form_name
-        self.form_description = form_description
+        self.formName = form_name
+        self.formDescription = form_description
 
 
 class FormSchema(ma.Schema):
@@ -65,12 +81,12 @@ class FormSchema(ma.Schema):
 
 
 class FormQuestion(db.Model):
-    form_id = db.Column(db.Integer, primary_key=True)
-    question_id = db.Column(db.Integer, primary_key=True)
+    formId = db.Column(db.Integer, db.ForeignKey("form.formId"), primary_key=True)
+    questionId = db.Column(db.Integer, db.ForeignKey("question.questionId"), primary_key=True)
 
     def __init__(self, form_id, question_id):
-        self.form_id = form_id
-        self.question_id = question_id
+        self.formId = form_id
+        self.questionId = question_id
 
 
 class FormQuestionSchema(ma.Schema):
@@ -79,13 +95,12 @@ class FormQuestionSchema(ma.Schema):
 
 
 class HousingLocation(db.Model):
-    __tablename__ = 'locations'
+    __tablename__ = 'location'
     locationId = db.Column(db.Integer, primary_key=True)
-    location_id = Column(Integer, primary_key=True)
     latitude = Column(Float)
     longitude = Column(Float)
-    housing_type_id = Column(Integer)
-    beds_available = Column(Integer)
+    housingTypeId = Column(Integer)
+    bedsAvailable = Column(Integer)
     name = db.Column(db.String(100))
 
     def __init__(self, name):
@@ -94,4 +109,4 @@ class HousingLocation(db.Model):
 
 class LocationSchema(ma.Schema):
     class Meta:
-        fields = ('location_id', 'name', 'latitude', 'longitude', 'housing_type_id', 'beds_available')
+        fields = ('locationId', 'name', 'latitude', 'longitude', 'housingTypeId', 'bedsAvailable')
