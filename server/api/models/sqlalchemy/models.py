@@ -53,16 +53,18 @@ class Question(db.Model):
     candidateQuestion = db.Column(db.String(100))
     locationQuestion = db.Column(db.String(100))
     isConstraint = db.Column(db.Boolean)
+    inverseRelationship = db.Column(db.Boolean)
 
-    def __init__(self, candidate_question, location_question, is_constraint):
+    def __init__(self, candidate_question, location_question, is_constraint, inverse_relationship):
         self.candidateQuestion = candidate_question
         self.locationQuestion = location_question
         self.isConstraint = is_constraint
+        self.inverseRelationship = inverse_relationship
 
 
 class QuestionSchema(ma.Schema):
     class Meta:
-        fields = ('candidateQuestion', 'locationQuestion', 'questionId', 'isConstraint')
+        fields = ('candidateQuestion', 'locationQuestion', 'questionId', 'isConstraint', 'inverseRelationship')
 
 
 class Form(db.Model):
@@ -114,3 +116,17 @@ class HousingLocation(db.Model):
 class LocationSchema(ma.Schema):
     class Meta:
         fields = ('locationId', 'name', 'latitude', 'longitude', 'housingTypeId', 'bedsAvailable')
+
+
+class CandidateLocation(db.Model):
+    candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
+    locationId = db.Column(db.Integer, db.ForeignKey("location.locationId"), primary_key=True)
+
+    def __init__(self, candidate_id, location_id):
+        self.candidateId = candidate_id
+        self.locationId = location_id
+
+
+class CandidateLocationSchema(ma.Schema):
+    class Meta:
+        fields = ('candidateId', 'locationId')
