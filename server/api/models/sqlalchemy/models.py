@@ -10,10 +10,8 @@ ma = Marshmallow()
 
 class QuestionResponse(db.Model):
     questionId = db.Column(db.Integer, db.ForeignKey("question.questionId"), primary_key=True)
-    # question = db.relationship("Question")
     responseValue = db.Column(db.String(100))
     candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
-    # candidate = db.relationship("Candidate")
 
     def __init__(self, response_value, candidate_id, question_id):
         self.responseValue = response_value
@@ -28,13 +26,11 @@ class QuestionResponseSchema(ma.Schema):
 
 class LocationResponse(db.Model):
     questionId = db.Column(db.Integer, db.ForeignKey("question.questionId"), primary_key=True)
-    # question = db.relationship("Question")
     responseValue = db.Column(db.String(100))
     locationId = db.Column(db.Integer, db.ForeignKey("location.locationId"), primary_key=True)
-    # location = db.relationship("HousingLocation")
 
 
-class QuestionResponseSchema(ma.Schema):
+class LocationResponseSchema(ma.Schema):
     class Meta:
         fields = ('questionId', 'responseValue', 'locationId')
 
@@ -54,15 +50,19 @@ class CandidateSchema(ma.Schema):
 
 class Question(db.Model):
     questionId = db.Column(db.Integer, primary_key=True)
-    questionText = db.Column(db.String(100))
+    candidateQuestion = db.Column(db.String(100))
+    locationQuestion = db.Column(db.String(100))
+    isConstraint = db.Column(db.Boolean)
 
-    def __init__(self, question_text):
-        self.questionText = question_text
+    def __init__(self, candidate_question, location_question, is_constraint):
+        self.candidateQuestion = candidate_question
+        self.locationQuestion = location_question
+        self.isConstraint = is_constraint
 
 
 class QuestionSchema(ma.Schema):
     class Meta:
-        fields = ('questionText', 'questionId')
+        fields = ('candidateQuestion', 'locationQuestion', 'questionId', 'isConstraint')
 
 
 class Form(db.Model):
@@ -103,7 +103,11 @@ class HousingLocation(db.Model):
     bedsAvailable = Column(Integer)
     name = db.Column(db.String(100))
 
-    def __init__(self, name):
+    def __init__(self, latitude, longitude, housing_type_id, beds_available, name):
+        self.latitude = latitude
+        self.longitude = longitude
+        self.housingTypeId = housing_type_id
+        self.bedsAvailable = beds_available
         self.name = name
 
 
