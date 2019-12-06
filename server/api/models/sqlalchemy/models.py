@@ -29,6 +29,11 @@ class LocationResponse(db.Model):
     responseValue = db.Column(db.String(100))
     locationId = db.Column(db.Integer, db.ForeignKey("location.locationId"), primary_key=True)
 
+    def __init__(self, response_value, location_id, question_id):
+        self.responseValue = response_value
+        self.locationId = location_id
+        self.questionId = question_id
+
 
 class LocationResponseSchema(ma.Schema):
     class Meta:
