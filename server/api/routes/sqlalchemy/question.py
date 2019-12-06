@@ -10,8 +10,9 @@ def add_question():
     candidate_question = request.json['candidateQuestion']
     location_question = request.json['locationQuestion']
     is_constraint = request.json['isConstraint']
+    inverse_relationship = request.json['inverseRelationship']
 
-    new_question = Question(candidate_question, location_question, is_constraint)
+    new_question = Question(candidate_question, location_question, is_constraint, inverse_relationship)
  
     db.session.add(new_question)
     db.session.commit()
