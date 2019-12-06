@@ -16,16 +16,15 @@ def locations():
         return jsonify(result), 200
 
     else:
-        if request.is_json():
-            latitude = float(request.json('latitude'))
-            longitude = float(request.json('longitude'))
-            housing_type_id = int(request.json('housingTypeId'))
-            beds_available = int(request.json('bedsAvailable'))
+        if request.is_json:
+            # If a location is added lets kickstart the matching process
+            latitude = float(request.json['latitude'])
+            longitude = float(request.json['longitude'])
+            housing_type_id = int(request.json['housingTypeId'])
+            beds_available = int(request.json['bedsAvailable'])
+            name = request.json['name']
 
-            location = HousingLocation(latitude=latitude,
-                                       longitude=longitude,
-                                       housing_type_id=housing_type_id,
-                                       beds_available=beds_available)
+            location = HousingLocation(latitude, longitude, housing_type_id, beds_available, name)
             db.session.add(location)
             db.session.commit()
 
@@ -38,7 +37,7 @@ def locations():
 @location_routes.route('/<int:location_id>', methods=['GET', 'PUT', 'PATCH'])
 def location(location_id):
 
-    location = HousingLocation.query.filter_by(location_id=location_id).first()
+    location = HousingLocation.query.filter_by(locationId=location_id).first()
     if not location:
         return 404
 
@@ -61,3 +60,10 @@ def location(location_id):
 
     else:
         pass
+
+
+# TODO(JOSH): these results should be cached. I don't expect to have to recalculate the location's candidate that often.
+#  Unless data changes or something
+@location_routes.route('/<location_id>/candidates', methods=['GET'])
+def location_candidates(location_id):
+    pass
