@@ -22,7 +22,7 @@ def add_response(question_id, candidate_id):
 
 @response_routes.route('/<candidate_id>', methods=['GET'])
 def get_response(candidate_id):
-    responses = QuestionResponse.query.filter(text("candidateId=:candidate_id")).params(candidate_id=candidate_id).all()
+    responses = QuestionResponse.query.filter_by(candidateId=candidate_id).all()
     return responses_schema.jsonify(responses)
 
 
