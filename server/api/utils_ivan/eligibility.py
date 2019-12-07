@@ -1,8 +1,8 @@
-from models.sqlalchemy.models import Candidate, Location
+from server.api.models.sqlalchemy.models import Candidate, HousingLocation
 
 
 def candidate_eligible_for_location(candidate: Candidate,
-                                    location: Location) -> bool:
+                                    location: HousingLocation) -> bool:
     '''Determines candidate-location compatibility based on hard constraints
 
         Args:
