@@ -9,7 +9,6 @@ location_routes = Blueprint("location_routes", __name__)
 
 @location_routes.route('/', methods=['GET', 'POST'])
 def locations():
-
     if request.method == 'GET':
         location_lst = HousingLocation.query.all()
         result = locations_schema.dump(location_lst)
@@ -36,7 +35,6 @@ def locations():
 
 @location_routes.route('/<int:location_id>', methods=['GET', 'PUT', 'PATCH'])
 def location(location_id):
-
     location = HousingLocation.query.filter_by(locationId=location_id).first()
     if not location:
         return 404
