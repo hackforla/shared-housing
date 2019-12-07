@@ -30,7 +30,8 @@ def recalculate(location_id: int):
                 db.session.add(eligible_candidate)
                 db.session.commit()
         else:
+            # TODO(JOSH): delete is not working properly right now. Read Sqlalchemy docs to properly delete record
             candidate_location = CandidateLocation.query.get((candidate.candidateId, location_id))
             if candidate_location is not None:
-                CandidateLocation.query.filter_by(candidateId=candidate.candidateId, locationId=location_id)\
+                CandidateLocation.query.filter_by(candidateId=candidate.candidateId, locationId=location_id) \
                     .delete(synchronize_session=False)
