@@ -18,6 +18,8 @@ def candidate_eligible_for_location(candidate_responses: QuestionResponse,
         question = Question.query.get(location_response.questionId)
 
         if question is not None and question.isConstraint:
+            if len(candidate_responses) == 0:
+                return False
             while candidate_responses[candidate_response_index].questionId < question.questionId:
                 if candidate_response_index >= len(candidate_responses) - 1:
                     return False
