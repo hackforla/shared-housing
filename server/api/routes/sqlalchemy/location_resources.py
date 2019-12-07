@@ -44,17 +44,18 @@ def location(location_id):
         return jsonify(result)
 
     elif request.method == 'PUT':
-        if request.is_json():
-            location.latitude = float(request.json('latitude'))
-            location.longitude = float(request.json('longitude'))
-            location.housing_type_id = int(request.json('housing_type_id'))
-            location.beds_available = int(request.json('beds_available'))
+        if request.is_json:
+            location.latitude = float(request.json['latitude'])
+            location.longitude = float(request.json['longitude'])
+            location.housing_type_id = int(request.json['housingTypeId'])
+            location.beds_available = int(request.json['bedsAvailable'])
+            location.name = request.json['name']
 
             db.session.commit()
             result = location_schema.dump(location)
             return jsonify(result), 202
         else:
-            return 500
+            return jsonify(message='request not valid json'), 500
 
     else:
         pass
