@@ -7,9 +7,12 @@ question_routes = Blueprint("question_routes", __name__)
 
 @question_routes.route('/', methods=['POST'])
 def add_question():
-    question_text = request.json['questionText']
+    candidate_question = request.json['candidateQuestion']
+    location_question = request.json['locationQuestion']
+    is_constraint = request.json['isConstraint']
+    inverse_relationship = request.json['inverseRelationship']
 
-    new_question = Question(question_text)
+    new_question = Question(candidate_question, location_question, is_constraint, inverse_relationship)
  
     db.session.add(new_question)
     db.session.commit()

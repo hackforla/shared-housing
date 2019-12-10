@@ -1,16 +1,18 @@
 """ URI routes for when candidates respond to a question."""
 from flask import Blueprint, request, jsonify
-from models.sqlalchemy.models import QuestionResponse, ResponseSchema, db
+from models.sqlalchemy.models import QuestionResponse, QuestionResponseSchema, db, text
 
-response_schema = ResponseSchema()
+
+response_schema = QuestionResponseSchema()
+responses_schema = QuestionResponseSchema(many=True)
 response_routes = Blueprint("response_routes", __name__)
 
 
-@response_routes.route('/<candidate_id>', methods=['POST'])
-def add_response(candidate_id):
+@response_routes.route('/<question_id>/candidate/<candidate_id>', methods=['POST'])
+def add_response(question_id, candidate_id):
     response_value = request.json['responseValue']
 
-    new_response = QuestionResponse(response_value, candidate_id)
+    new_response = QuestionResponse(response_value, candidate_id, question_id)
  
     db.session.add(new_response)
     db.session.commit()
@@ -18,11 +20,10 @@ def add_response(candidate_id):
     return response_schema.jsonify(new_response)
 
 
-# TODO(JOSH): candidate id should not be query-able from question response table, needs to be a join
 @response_routes.route('/<candidate_id>', methods=['GET'])
 def get_response(candidate_id):
-    product = QuestionResponse.query.get(candidate_id)
-    return response_schema.jsonify(product)
+    responses = QuestionResponse.query.filter_by(candidateId=candidate_id).all()
+    return responses_schema.jsonify(responses)
 
 
 # TODO(JOSH): implement update function

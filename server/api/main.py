@@ -7,6 +7,8 @@ from routes.sqlalchemy.candidates_response import response_routes
 from routes.sqlalchemy.candidates import candidate_routes
 from routes.sqlalchemy.question import question_routes
 from routes.sqlalchemy.form import form_routes
+from routes.sqlalchemy.location_resources import location_routes
+from routes.sqlalchemy.location_response import location_response_routes
 # creates app
 
 
@@ -28,7 +30,9 @@ with app.app_context():
 ma.init_app(app)
 
 # Blueprints for APIs
-app.register_blueprint(response_routes, url_prefix='/api/v1/responses')
 app.register_blueprint(candidate_routes, url_prefix='/api/v1/candidates')
-app.register_blueprint(question_routes, url_prefix='/api/v1/questions')
 app.register_blueprint(form_routes, url_prefix='/api/v1/forms')
+app.register_blueprint(location_routes, url_prefix='/api/v1/locations')
+app.register_blueprint(location_response_routes, url_prefix='/api/v1/locationresponses')
+app.register_blueprint(question_routes, url_prefix='/api/v1/questions')
+app.register_blueprint(response_routes, url_prefix='/api/v1/responses')

@@ -30,7 +30,6 @@ def put_form(form_id):
     return jsonify(form_id), 201
 
 
-# TODO(JOSH): implement functionality to get all questions for a form id (look at relational ORM (peewee))
 @form_routes.route('/<form_id>/questions', methods=['GET'])
 def get_form_questions(form_id):
     pass
