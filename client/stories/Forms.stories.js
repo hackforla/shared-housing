@@ -15,6 +15,7 @@ import {
   BaseSwitch,
 } from '../src/components/Forms/Base';
 import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
+import UnitForm from '../src/components/Demo/UnitForm';
 
 storiesOf('Pages', module).add('Login', () => <LoginForm />);
 
@@ -238,4 +239,7 @@ storiesOf('Forms', module)
         </Form>
       )}
     />
+  ))
+  .add('UnitForm', () => (
+    <UnitForm initialValues={{ unitHandicapAccessible: 'no' }} />
   ));
