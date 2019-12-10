@@ -25,7 +25,11 @@ from six.moves.urllib.parse import urlencode
 from werkzeug.exceptions import HTTPException
 
 from dotenv import load_dotenv, find_dotenv
+from faker import Faker
+fake = Faker()
 
+# first, import a similar Provider or use the default one
+from faker.providers import BaseProvider
 LOCAL_HOST = True
 
 
@@ -62,6 +66,11 @@ auth0 = oauth.register(
         'scope': 'openid profile email',
     },
 )
+
+
+
+
+
 
 class MongoFacade:
 
@@ -176,6 +185,9 @@ class Repository:
         print('Repository[{}]:{}: {}'.format(self.collection_name, method_name, message))
 
 
+
+
+
 resource_types = [
     'candidates',
     'questions',
@@ -192,6 +204,42 @@ for resource_type in resource_types:
 # question_repository = Repository('questions')
 # location_repository = Repository('locations')
 # constraint_repository = Repository('constraints')
+
+
+class Provider(BaseProvider):
+
+    def candidate(self):
+        return {
+            'name': fake.name()
+        }
+
+    def location(self):
+        return {
+            'owner': fake.name(),
+            'address': fake.address(),
+        }
+
+
+def get_candidate_eligible(candidate_id, location_id):
+
+    candidates = [x for x in repositories['candidates'].get() if x['_id'] == candidate_id]
+    if len(candidates) < 1:
+        raise Exception('No candidate with id: {}'.format(candidate_id))
+
+    locations = [x for x in repositories['locations'].get() if x['_id'] == location_id]
+    if len(locations) < 1:
+        raise Exception('No location with id: {}'.format(location_id))
+    
+
+def generate_all(num_candidates, num_locations):
+
+    for i in range(num_candidates):
+        candidate = fake.candidate()
+        repositories['candidates'].add()
+
+    for i in range(num_locations):
+        location = fake.location()
+        repositories['locations'].add()
 
 # @app.route('/api/candidates', methods=['GET', 'POST'])
 @app.route('/api/<collection_name>', methods=['GET', 'POST'])
@@ -488,6 +536,7 @@ def favicon():
     )
 
 if __name__ == "__main__":
+    generate_all(5, 3)
     if LOCAL_HOST:
         print('running on 8765...')
         app.run(host="0.0.0.0", port=8765)

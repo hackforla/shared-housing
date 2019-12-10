@@ -46,8 +46,7 @@ fi
 
 mkdir -p server/{templates,static}
 
-cp client/dist/dashboard.html server/templates
-cp server/templates/dashboard.html server/templates/index.html
+cp client/dist/index.html server/templates
 cp client/dist/* server/static
 
 printDoneMessage
