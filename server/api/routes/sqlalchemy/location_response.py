@@ -34,4 +34,4 @@ def get_location_response(location_id):
 # TODO(JOSH): implement update function
 @location_response_routes.route('/<location_id>', methods=['PUT'])
 def put_location_response(location_id):
-    return jsonify(location_id), 201
+    return location_response_schema.jsonify(location_id), 201
