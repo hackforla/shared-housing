@@ -67,6 +67,8 @@ class Question(db.Model):
         self.inverseRelationship = inverse_relationship
 
 
+
+
 class QuestionSchema(ma.Schema):
     class Meta:
         fields = ('candidateQuestion', 'locationQuestion', 'questionId', 'isConstraint', 'inverseRelationship')
@@ -135,3 +137,46 @@ class CandidateLocation(db.Model):
 class CandidateLocationSchema(ma.Schema):
     class Meta:
         fields = ('candidateId', 'locationId')
+
+
+
+
+# PROPOSED
+
+# class LocationQuestion(db.Model):
+#     locationQuestionId = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String(100))    
+#     # candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
+
+#     def __init__(self, location_question_id, text):
+#         self.locationQuestionId = location_question_id
+#         self.text = text
+
+# class LocationQuestionResponseValue(db.Model):
+#     locationQuestionResponseValueId = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String(100))    
+#     locationQuestionId = db.Column(db.Integer, db.ForeignKey("locationQuestion.locationQuestionId"))
+
+#     def __init__(self, location_question_response_value_id, text, location_question_id):
+#         self.locationQuestionResponseValueId = location_question_response_value_id
+#         self.text = text
+#         self.locationQuestionId = location_question_id
+
+# class CandidateQuestion(db.Model):
+#     candidateQuestionId = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String(100))    
+
+#     def __init__(self, candidate_id, text):
+#         self.candidateQuestionId = candidate_id
+#         self.text = text
+
+
+# class CandidateQuestionResponseValue(db.Model):
+#     candidateQuestionResponseValueId = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String(100))    
+#     candidateQuestionId = db.Column(db.Integer, db.ForeignKey("candidateQuestion.candidateQuestionId"))
+
+#     def __init__(self, candidate_question_response_value_id, text, candidate_question_id):
+#         self.candidateQuestionResponseValueId = candidate_question_response_value_id
+#         self.text = text
+#         self.candidateQuestionId = candidate_question_id

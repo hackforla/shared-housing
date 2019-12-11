@@ -1,6 +1,6 @@
 """ The main file is where we initialize the flask application,
 the database, marshamallow library and where we register our api blueprints."""
-from flask import Flask 
+from flask import Flask, render_template, send_from_directory
 from config import Config
 from models.sqlalchemy.models import db, ma
 from routes.sqlalchemy.candidates_response import response_routes
@@ -10,7 +10,7 @@ from routes.sqlalchemy.form import form_routes
 from routes.sqlalchemy.location_resources import location_routes
 from routes.sqlalchemy.location_response import location_response_routes
 # creates app
-
+LOCAL_HOST = False
 
 # Function that initializes the application. 
 def create_app(config_filename):
@@ -18,21 +18,46 @@ def create_app(config_filename):
     app.config.from_object(config_filename)
     return app
 
-
+print('creating app...')
 app = create_app(Config)
 
 # Connects the database to the application.
+print('PG: initializing...')
 db.init_app(app)
 with app.app_context():
     db.create_all()
 
 # Bounds the scoped session created by SQLAlchemy to flask marshmallow schema.
+print('Marshmallow: initializing...')
 ma.init_app(app)
 
 # Blueprints for APIs
+print('registering blueprints...')
 app.register_blueprint(candidate_routes, url_prefix='/api/v1/candidates')
 app.register_blueprint(form_routes, url_prefix='/api/v1/forms')
 app.register_blueprint(location_routes, url_prefix='/api/v1/locations')
 app.register_blueprint(location_response_routes, url_prefix='/api/v1/locationresponses')
 app.register_blueprint(question_routes, url_prefix='/api/v1/questions')
 app.register_blueprint(response_routes, url_prefix='/api/v1/responses')
+
+
+
+@app.route("/")
+def index():
+    app.logger.info('/index')
+    return render_template("index.html")
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        app.root_path, 
+        'favicon.ico', 
+        mimetype='image/vnd.microsoft.icon'
+    )
+
+if __name__ == "__main__":
+    if LOCAL_HOST:
+        print('running on 8765...')
+        app.run(host="0.0.0.0", port=8765)
+    else:
+        app.run(host="0.0.0.0", port=80)

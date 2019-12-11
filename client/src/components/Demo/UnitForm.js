@@ -15,13 +15,50 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const UnitForm = ({ initialValues }) => {
+export const UnitForm = ({ initialValues }) => {
   const classes = useStyles();
 
   function handleSubmit(values, actions) {
     // eslint-disable-next-line no-console
-    console.log(values, actions);
+    console.log(`values: ${JSON.stringify(values)}`);
+    console.log(`actions: ${JSON.stringify(actions)}`);
+    // fetch(
+    //   `/api/v1/responses/1/candidate/1`,
+    //   {
+    //     method: 'POST',
+    //     headers:{
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       responseValue: 'yes'
+    //     })
+    //   }
+    // )
   }
+
+  const [state, setState] = React.useState({
+    questions: [],
+  });
+
+  const refreshQuestions = () => {
+    fetch('/api/v1/questions/')
+      .then(response => {
+        console.log(
+          'refreshQuestions: response.statusText = ' + response.statusText,
+        );
+        return response.json();
+      })
+      .then(data => {
+        setState({
+          ...state,
+          questions: data,
+        });
+      });
+  };
+
+  React.useEffect(() => {
+    refreshQuestions();
+  }, []);
 
   return (
     <Paper className={classes.root}>
@@ -31,6 +68,17 @@ const UnitForm = ({ initialValues }) => {
         onSubmit={handleSubmit}
         render={() => (
           <Form>
+            {state.questions.map((question, index) => (
+              <Field
+                name={question.questionId}
+                label={question.candidateQuestion}
+                valueOptions={[
+                  { value: 'yes', label: 'Yes' },
+                  { value: 'no', label: 'No' },
+                ]}
+                component={BaseRadioGroup}
+              />
+            ))}
             <Field
               name="unitHandicapAccessible"
               label="Is the unit handicap accessible?"
