@@ -16,7 +16,7 @@ import withRoot from './withRoot';
 import MainNav from './components/MainNav';
 
 import { PATHS } from './routes';
-import UnitForm from './components/Demo/UnitForm';
+import { DemoMenu } from './pages/Demo';
 
 const App = () => (
   <BrowserRouter>
@@ -25,7 +25,7 @@ const App = () => (
       <Route exact path={PATHS.HOME} render={() => <HomePage />} />
       <Route exact path={PATHS.NEWS} render={() => <NewsPage />} />
       <Route exact path={PATHS.DASHBOARD} render={() => <DashboardPage />} />
-      <Route exact path={PATHS.DEMO} render={() => <UnitForm />} />
+      <Route exact path={PATHS.DEMO} render={() => <DemoPage />} />
       <Route
         exact
         path={PATHS.PROTOTYPE_FORM}

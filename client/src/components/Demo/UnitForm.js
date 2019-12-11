@@ -21,6 +21,7 @@ export const UnitForm = ({ initialValues }) => {
   function handleSubmit(values, actions) {
     // eslint-disable-next-line no-console
     console.log(`values: ${JSON.stringify(values)}`);
+    // eslint-disable-next-line no-console
     console.log(`actions: ${JSON.stringify(actions)}`);
     // fetch(
     //   `/api/v1/responses/1/candidate/1`,
@@ -70,8 +71,9 @@ export const UnitForm = ({ initialValues }) => {
           <Form>
             {state.questions.map((question, index) => (
               <Field
+                key={index}
                 name={question.questionId}
-                label={question.candidateQuestion}
+                label={question.locationQuestion}
                 valueOptions={[
                   { value: 'yes', label: 'Yes' },
                   { value: 'no', label: 'No' },
