@@ -5,6 +5,8 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Switch, Route, NavLink, BrowserRouter } from 'react-router-dom';
 import { SectionContainer } from '../components/common';
 import { TenantForm, Results, UnitForm } from '../components/Demo';
+import { TenantsPage } from '../components/Demo/TenantForm';
+import { UnitsPage } from '../components/Demo/UnitForm';
 
 export const DemoMenu = () => {
   return (
@@ -55,9 +57,11 @@ export const DemoPage = () => {
             </Grid>
           </Grid>
           <Switch>
-            <Route exact path="/demo/tenant" component={TenantForm} />
-            <Route exact path="/demo/unit" component={UnitForm} />
+            <Route exact path="/demo/tenant" component={TenantsPage} />
+            <Route exact path="/demo/unit" component={UnitsPage} />
             <Route exact path="/demo/results" component={Results} />
+            <Route exact path="/demo/tenants/:id" component={TenantForm} />
+            <Route exact path="/demo/units/:id" component={UnitForm} />
           </Switch>
         </main>
       </BrowserRouter>

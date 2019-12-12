@@ -5,6 +5,11 @@ candidate_schema = CandidateSchema()
 candidate_routes = Blueprint("candidate_routes", __name__)
 
 
+@candidate_routes.route('/', methods=['GET'])
+def get_all_candidates():
+    candidates = Candidate.query.all()
+    return candidate_schema.jsonify(candidates)
+
 @candidate_routes.route('/<candidate_id>', methods=['GET'])
 def get_candidate(candidate_id):
     product = Candidate.query.get(candidate_id)

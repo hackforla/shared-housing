@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {useParams} from 'react-router-dom';
+
+
 
 export const Results = () => {
+
+    const {id} = useParams();
+
+    const [state, setState] = useState({
+        result: {}
+    });
+
     return (
         <div>
             <h2>Results</h2>

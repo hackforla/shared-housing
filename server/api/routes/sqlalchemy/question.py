@@ -8,16 +8,7 @@ questions_schema = QuestionSchema(many=True)
 
 @question_routes.route('/', methods=['GET'])
 def get_questions():      
-
     questions_cur = Question.query.all()
-    # questions = []
-    # for question in questions_cur:
-    #     print('- adding question: {} ({})'.format(question, type(question)))
-    #     questions.append(question_schema.jsonify(question))
-
-    # questions_cur = Question.query.all()
-    # result = locations_schema.dump(location_lst)
-    # return jsonify(result), 200
     return questions_schema.jsonify(questions_cur)
 
 @question_routes.route('/', methods=['POST'])

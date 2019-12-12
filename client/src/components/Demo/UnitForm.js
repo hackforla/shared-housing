@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { BaseRadioGroup } from '../Forms/Base/BaseRadioGroup';
+import {useParams, useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 export const UnitForm = ({ initialValues }) => {
   const classes = useStyles();
+  const {id} = useParams();
 
   function handleSubmit(values, actions) {
     // eslint-disable-next-line no-console
@@ -63,7 +65,7 @@ export const UnitForm = ({ initialValues }) => {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h4">Unit Form</Typography>
+<Typography variant="h4">Unit Form: {id}</Typography>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -81,7 +83,7 @@ export const UnitForm = ({ initialValues }) => {
                 component={BaseRadioGroup}
               />
             ))}
-            <Field
+            {/* <Field
               name="unitHandicapAccessible"
               label="Is the unit handicap accessible?"
               valueOptions={[
@@ -89,7 +91,7 @@ export const UnitForm = ({ initialValues }) => {
                 { value: 'no', label: 'No' },
               ]}
               component={BaseRadioGroup}
-            />
+            /> */}
             <Button
               size="small"
               type="submit"
@@ -112,3 +114,63 @@ UnitForm.propTypes = {
 };
 
 export default UnitForm;
+
+
+export const UnitsPage = () => {
+
+  const history = useHistory();
+
+  const [state, setState] = React.useState({
+    units: []
+  });
+
+  const fetchUnits= async () => await fetch('/api/v1/locations')
+    .then((response) => {
+      if(response.status !== 200) {
+        throw new Error(`fetchUnits: HTTP response status: ${response.statusText}`);
+      } else {
+        return response.json();
+      }
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+  const  refreshUnits= async () => {
+    try {
+      const freshUnits = await fetchUnits();
+      setState({
+        ...state,
+        units: freshUnits
+      });
+    } catch (err) {
+      // TODO: show a modal with error details here?
+      throw err;
+    }
+  };
+
+  React.useEffect(() => {
+    refreshUnits();
+  });
+
+  const unitClicked = (event) => {
+    const id = event.target.id;
+    console.log(`unitClicked: ${id}`);
+    history.push(`/demo/units/${id}`);
+  };
+
+  return (
+    <div>
+      <h2>Tenants</h2>
+      {
+        state.units.map((unit, index) => {
+          return (
+            <div key={index}>
+              <div id={unit.locationId} onClick={unitClicked}>Name: {unit.name}</div>
+            </div>
+          );
+        })
+      }
+    </div>
+  );
+};

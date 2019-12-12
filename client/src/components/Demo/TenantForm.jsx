@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import {useParams, useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -102,6 +103,9 @@ export const TenantForm = () => {
     // )
   }
 
+
+   const {id} = useParams();
+
   const [state, setState] = React.useState({
     questions: [],
   });
@@ -112,9 +116,14 @@ export const TenantForm = () => {
         console.log(
           'refreshQuestions: response.statusText = ' + response.statusText,
         );
-        return response.json();
+        if(response.status !== 200) {
+          throw response.statusText;
+        } else {
+          return response.json();
+        }
       })
       .then(data => {
+        console.log(`refreshQuestions: data = ${JSON.stringify(data)}`);
         setState({
           ...state,
           questions: data,
@@ -128,9 +137,9 @@ export const TenantForm = () => {
 
   return (
     <div>
-      <h2>Tenant Form</h2>
+      <h2>Tenant Form: {id}</h2>
       {state.questions.map(mapQuestionToFormControl)}
-      <FormControl component="fieldset">
+      {/* <FormControl component="fieldset">
         <FormLabel component="legend">
           Do you require a handicap accessible unit?
         </FormLabel>
@@ -142,7 +151,68 @@ export const TenantForm = () => {
           <FormControlLabel value="no" control={<StyledRadio />} label="No" />
           <FormControlLabel value="yes" control={<StyledRadio />} label="Yes" />
         </RadioGroup>
-      </FormControl>
+      </FormControl> */}
+    </div>
+  );
+};
+
+export const TenantsPage = () => {
+
+  const history = useHistory();
+  const [state, setState] = useState({
+    tenants: []
+  });
+
+  const fetchTenants= async () => await fetch('/api/v1/candidates')
+    .then((response) => {
+      console.log(`fetchTenants: response.statusText = ${response.statusText}`);
+      if(response.status !== 200) {
+        throw new Error(`fetchTenants: HTTP response status: ${response.statusText}`);
+      } else {
+        return response.json();
+      }
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+  const  refreshTenants= async () => {
+    try {
+      const freshTenants = await fetchTenants();
+      console.log(`refreshTenants: freshTenants = ${JSON.stringify(freshTenants)}`);
+      setState({
+        ...state,
+        tenants: freshTenants
+      });
+    } catch (err) {
+      // TODO: show a modal with error details here?
+      console.log(`refreshTenants: err = ${JSON.stringify(err)}`);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    refreshTenants();
+  });
+
+  const tenantClicked = (event) => {
+    const id = event.target.id;
+    console.log(`tenantClicked: ${id}`);
+    history.push(`/demo/tenants/${id}`);
+  };
+
+  return (
+    <div>
+      <h2>Tenants</h2>
+      {
+        state.tenants.map((tenant, index) => {
+          return (
+            <div key={index}>
+              <div id={tenant.candidateId} onClick={tenantClicked}>Name: {tenant.name}</div>
+            </div>
+          );
+        })
+      }
     </div>
   );
 };
