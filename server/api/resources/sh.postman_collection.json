@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "candidatesResponses",
+			"name": "responses",
 			"item": [
 				{
 					"name": "update response",
@@ -15,14 +15,12 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{url}}{{responseRoutes}}/candidateId/response/responseId",
+							"raw": "{{url}}{{responseRoutes}}/3",
 							"host": [
 								"{{url}}{{responseRoutes}}"
 							],
 							"path": [
-								"candidateId",
-								"response",
-								"responseId"
+								"3"
 							]
 						}
 					},
@@ -34,13 +32,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}{{responseRoutes}}/1/responses",
+							"raw": "{{url}}{{responseRoutes}}/1",
 							"host": [
 								"{{url}}{{responseRoutes}}"
 							],
 							"path": [
-								"1",
-								"responses"
+								"1"
 							]
 						}
 					},
@@ -59,20 +56,134 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"responseValue\":\"test\"\n}"
+							"raw": "{\n\t\"responseValue\":\"true\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}{{responseRoutes}}/1/response",
+							"raw": "{{url}}{{responseRoutes}}/1/candidate/1",
 							"host": [
 								"{{url}}{{responseRoutes}}"
 							],
 							"path": [
 								"1",
-								"response"
+								"candidate",
+								"1"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a56acb05-c4b4-405e-970c-d9b9f91fcecc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "620cc912-f6ba-4286-8b98-57c6c1e86cad",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "location responses",
+			"item": [
+				{
+					"name": "update response",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{locationResponseRoutes}}/3",
+							"host": [
+								"{{url}}{{locationResponseRoutes}}"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get responses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{locationResponseRoutes}}/1",
+							"host": [
+								"{{url}}{{locationResponseRoutes}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"responseValue\":\"True\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}{{locationResponseRoutes}}/1/location/1",
+							"host": [
+								"{{url}}{{locationResponseRoutes}}"
+							],
+							"path": [
+								"1",
+								"location",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a56acb05-c4b4-405e-970c-d9b9f91fcecc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "620cc912-f6ba-4286-8b98-57c6c1e86cad",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -86,12 +197,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}{{candidateRoutes}}/candidates/1",
+							"raw": "{{url}}{{candidateRoutes}}/1",
 							"host": [
 								"{{url}}{{candidateRoutes}}"
 							],
 							"path": [
-								"candidates",
 								"1"
 							]
 						},
@@ -115,12 +225,12 @@
 							"raw": "{\n\t\"name\":\"josh\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}{{candidateRoutes}}/candidates",
+							"raw": "{{url}}{{candidateRoutes}}/",
 							"host": [
 								"{{url}}{{candidateRoutes}}"
 							],
 							"path": [
-								"candidates"
+								""
 							]
 						}
 					},
@@ -142,12 +252,11 @@
 							"raw": "{\n\t\"name\":\"tyler\"\n}"
 						},
 						"url": {
-							"raw": "{{url}}{{candidateRoutes}}/candidates/1",
+							"raw": "{{url}}{{candidateRoutes}}/1",
 							"host": [
 								"{{url}}{{candidateRoutes}}"
 							],
 							"path": [
-								"candidates",
 								"1"
 							]
 						}
@@ -170,17 +279,293 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}{{candidateRoutes}}/candidates/1",
+							"raw": "{{url}}{{candidateRoutes}}/1",
 							"host": [
 								"{{url}}{{candidateRoutes}}"
 							],
 							"path": [
-								"candidates",
 								"1"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "questions",
+			"item": [
+				{
+					"name": "update question",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{questionRoutes}}/1",
+							"host": [
+								"{{url}}{{questionRoutes}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get question",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{questionRoutes}}/1",
+							"host": [
+								"{{url}}{{questionRoutes}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"candidateQuestion\":\"Are you a felon?\",\n\t\"locationQuestion\":\"Can felons live here?\",\n\t\"isConstraint\":true,\n\t\"inverseRelationship\":false\n}"
+						},
+						"url": {
+							"raw": "{{url}}{{questionRoutes}}/",
+							"host": [
+								"{{url}}{{questionRoutes}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a56acb05-c4b4-405e-970c-d9b9f91fcecc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "620cc912-f6ba-4286-8b98-57c6c1e86cad",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "forms",
+			"item": [
+				{
+					"name": "update form",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{formRoutes}}/1",
+							"host": [
+								"{{url}}{{formRoutes}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get form",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{formRoutes}}/1",
+							"host": [
+								"{{url}}{{formRoutes}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"formName\":\"Client Form\",\n\t\"formDescription\":\"Form for client responses\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}{{formRoutes}}/",
+							"host": [
+								"{{url}}{{formRoutes}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a56acb05-c4b4-405e-970c-d9b9f91fcecc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "620cc912-f6ba-4286-8b98-57c6c1e86cad",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "locations",
+			"item": [
+				{
+					"name": "update location",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"latitude\":\"1.1\",\n\t\"longitude\":\"1.1\",\n\t\"housingTypeId\":1,\n\t\"bedsAvailable\":3,\n\t\"name\":\"shrine and 30th\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}{{locationRoutes}}/1",
+							"host": [
+								"{{url}}{{locationRoutes}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}{{locationRoutes}}/1",
+							"host": [
+								"{{url}}{{locationRoutes}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"latitude\":\"1.1\",\n\t\"longitude\":\"1.1\",\n\t\"housingTypeId\":1,\n\t\"bedsAvailable\":2,\n\t\"name\":\"shrine and 30th\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}{{locationRoutes}}/",
+							"host": [
+								"{{url}}{{locationRoutes}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a56acb05-c4b4-405e-970c-d9b9f91fcecc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "620cc912-f6ba-4286-8b98-57c6c1e86cad",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}

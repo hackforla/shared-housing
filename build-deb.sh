@@ -49,6 +49,8 @@ mkdir -p server/{templates,static}
 cp client/dist/index.html server/templates
 cp client/dist/* server/static
 
+cp -r server/{static,templates} server/api
+
 printDoneMessage
 
 
