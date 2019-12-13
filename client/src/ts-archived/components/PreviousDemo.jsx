@@ -293,7 +293,7 @@ export const CandidateMenu = () => {
     const mapCandidateToListItem = (candidate, index) => <li key={index}>{candidate['name']}</li>;
 
     const refreshCandidates = () => {
-        fetch('/api/candidates')
+        fetch('/api/v1/candidates')
             .then((response) => {
                 if (response.status === 200) {
                     return response.json();
@@ -348,7 +348,7 @@ export const CandidateMenu = () => {
 
         console.log(`submitNewCandidateClicked: payload = ${payload}`)
 
-        fetch('/api/candidates', {
+        fetch('/api/v1/candidates', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -396,7 +396,7 @@ export const CandidateMenu = () => {
 
         console.log(`updateCandidateClicked: payload = ${payload}`)
 
-        fetch(`/api/candidates/${state.editCandidate._id}`, {
+        fetch(`/api/v1/candidates/${state.editCandidate._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

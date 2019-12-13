@@ -4,6 +4,12 @@ from models.sqlalchemy.models import Question, QuestionSchema, db
 question_schema = QuestionSchema()
 question_routes = Blueprint("question_routes", __name__)
 
+questions_schema = QuestionSchema(many=True)
+
+@question_routes.route('/', methods=['GET'])
+def get_questions():      
+    questions_cur = Question.query.all()
+    return questions_schema.jsonify(questions_cur)
 
 @question_routes.route('/', methods=['POST'])
 def add_question():
@@ -13,7 +19,7 @@ def add_question():
     inverse_relationship = request.json['inverseRelationship']
 
     new_question = Question(candidate_question, location_question, is_constraint, inverse_relationship)
- 
+
     db.session.add(new_question)
     db.session.commit()
 

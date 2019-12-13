@@ -10,7 +10,11 @@ location_routes = Blueprint("location_routes", __name__)
 @location_routes.route('/', methods=['GET', 'POST'])
 def locations():
     if request.method == 'GET':
+        print('locations(): starting...')
         location_lst = HousingLocation.query.all()
+        print('locations:')
+        for c in location_lst:
+            print('- location: {}'.format(c))
         result = locations_schema.dump(location_lst)
         return jsonify(result), 200
 
