@@ -4,11 +4,20 @@ from models.sqlalchemy.models import Candidate, CandidateSchema, db
 candidate_schema = CandidateSchema()
 candidate_routes = Blueprint("candidate_routes", __name__)
 
+candidates_schema = CandidateSchema(many=True)
 
 @candidate_routes.route('/', methods=['GET'])
 def get_all_candidates():
+
+    print('get_all_candidates(): starting...')
     candidates = Candidate.query.all()
-    return candidate_schema.jsonify(candidates)
+
+    print('candidates:')
+    for c in candidates:
+        print('- candidate: {}'.format(c))
+
+    return candidates_schema.jsonify(candidates)
+
 
 @candidate_routes.route('/<candidate_id>', methods=['GET'])
 def get_candidate(candidate_id):

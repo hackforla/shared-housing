@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import {useParams, useHistory} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+
+import { useParams, useHistory } from 'react-router-dom';
+
+import './demo.css';
 
 const useStyles = makeStyles({
   root: {
@@ -55,10 +60,6 @@ const useStyles = makeStyles({
 function StyledRadio(props) {
   const classes = useStyles();
 
-  const [state, setState] = useState({
-    questions: [],
-  });
-
   return (
     <Radio
       className={classes.root}
@@ -70,25 +71,41 @@ function StyledRadio(props) {
   );
 }
 
-const mapQuestionToFormControl = (question, index) => (
-  <FormControl component="fieldset" key={index}>
-    <FormLabel component="legend">{question.candidateQuestion}</FormLabel>
-    <RadioGroup
-      defaultValue="no"
-      aria-label={question.questionId}
-      name="customized-radios"
-    >
-      <FormControlLabel value="no" control={<StyledRadio />} label="No" />
-      <FormControlLabel value="yes" control={<StyledRadio />} label="Yes" />
-    </RadioGroup>
-  </FormControl>
-);
 
 export const TenantForm = () => {
+
+
+  const mapQuestionToFormControl = (question, index) => (
+    <div className='sh-tenant-question'>
+      <FormControl component="fieldset" key={index}>
+        <FormLabel component="legend">{question.candidateQuestion}</FormLabel>
+        <RadioGroup
+          defaultValue="no"
+          aria-label={question.questionId}
+          name="customized-radios"
+          onChange={
+            (event) => {
+              let newState = { ...state };
+              newState.responses[`${question.questionId}`] = event.target.value;
+              setState(newState);
+            }
+          }
+        >
+          <FormControlLabel value="no" control={<StyledRadio />} label="No" />
+          <FormControlLabel value="yes" control={<StyledRadio />} label="Yes" />
+        </RadioGroup>
+      </FormControl>
+    </div>
+  );
+
   function handleSubmit(values, actions) {
+
     // eslint-disable-next-line no-console
     console.log(`values: ${JSON.stringify(values)}`);
+
+    // eslint-disable-next-line no-console
     console.log(`actions: ${JSON.stringify(actions)}`);
+
     // fetch(
     //   `/api/v1/responses/1/candidate/1`,
     //   {
@@ -101,13 +118,15 @@ export const TenantForm = () => {
     //     })
     //   }
     // )
+
   }
 
-
-   const {id} = useParams();
+  const { id } = useParams();
+  const history = useHistory();
 
   const [state, setState] = React.useState({
     questions: [],
+    responses: {}
   });
 
   const refreshQuestions = () => {
@@ -116,7 +135,7 @@ export const TenantForm = () => {
         console.log(
           'refreshQuestions: response.statusText = ' + response.statusText,
         );
-        if(response.status !== 200) {
+        if (response.status !== 200) {
           throw response.statusText;
         } else {
           return response.json();
@@ -132,13 +151,69 @@ export const TenantForm = () => {
   };
 
   React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(`React.useEffect: about to refresh...`);
     refreshQuestions();
   }, []);
+
+  const submitResponse = async (candidateId, questionId, value) => {
+    const url = `/api/v1/responses/${questionId}/candidate/${candidateId}`;
+    // eslint-disable-next-line no-console
+    console.log(`submitResponse: url = ${url}`);
+    return await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({responseValue: value})
+    }).then((r) => {
+      console.log(`${url}: returned: ${r.statusText}`);
+      if(r.status === 200) {
+        return r.text();
+      } else {
+        throw new Error(r.statusText);
+      }
+    }).catch((e) => {
+      throw e;
+    });
+  };
+
+  const submitTenantForm = async () => {
+    // eslint-disable-next-line no-console
+    console.log(`submitTenantForm: values = ${JSON.stringify(state)}`);
+    // eslint-disable-next-line no-console
+    console.log(`submitTenantForm: state.responses = ${JSON.stringify(state.responses)}`);
+    try {
+      for(let questionId in state.responses) {
+        const value = state.responses[questionId];
+        // eslint-disable-next-line no-console
+        console.log(`submitTenantForm: state.responses[${questionId}]: ${value}`);
+        const responseText = await submitResponse(id, questionId, value);
+        // eslint-disable-next-line no-console
+        console.log(`responseText = ${responseText}`);
+
+        history.push('/demo');
+
+      }
+    } catch(e) {
+      throw new Error(e);
+    }
+  };
 
   return (
     <div>
       <h2>Tenant Form: {id}</h2>
       {state.questions.map(mapQuestionToFormControl)}
+      <div>
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          onClick={submitTenantForm}
+        >
+          Save
+      </Button>
+      </div>
       {/* <FormControl component="fieldset">
         <FormLabel component="legend">
           Do you require a handicap accessible unit?
@@ -163,10 +238,10 @@ export const TenantsPage = () => {
     tenants: []
   });
 
-  const fetchTenants= async () => await fetch('/api/v1/candidates')
+  const fetchTenants = async () => await fetch('/api/v1/candidates')
     .then((response) => {
       console.log(`fetchTenants: response.statusText = ${response.statusText}`);
-      if(response.status !== 200) {
+      if (response.status !== 200) {
         throw new Error(`fetchTenants: HTTP response status: ${response.statusText}`);
       } else {
         return response.json();
@@ -176,7 +251,9 @@ export const TenantsPage = () => {
       throw err;
     });
 
-  const  refreshTenants= async () => {
+
+
+  const refreshTenants = async () => {
     try {
       const freshTenants = await fetchTenants();
       console.log(`refreshTenants: freshTenants = ${JSON.stringify(freshTenants)}`);
@@ -193,7 +270,7 @@ export const TenantsPage = () => {
 
   useEffect(() => {
     refreshTenants();
-  });
+  }, []);
 
   const tenantClicked = (event) => {
     const id = event.target.id;
@@ -208,7 +285,19 @@ export const TenantsPage = () => {
         state.tenants.map((tenant, index) => {
           return (
             <div key={index}>
-              <div id={tenant.candidateId} onClick={tenantClicked}>Name: {tenant.name}</div>
+              <div
+                id={tenant.candidateId}
+                onClick={tenantClicked}
+                className='sh-clickable'
+                style={{
+                  padding: '5px 10px',
+                  border: '1px solid black',
+                  borderRadius: '3px',
+                  margin: '3px 4px'
+                }}
+              >
+                Name: {tenant.name}
+              </div>
             </div>
           );
         })

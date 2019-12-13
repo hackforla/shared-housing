@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { BaseRadioGroup } from '../Forms/Base/BaseRadioGroup';
 import {useParams, useHistory} from 'react-router-dom';
+import './demo.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,7 +21,31 @@ export const UnitForm = ({ initialValues }) => {
   const classes = useStyles();
   const {id} = useParams();
 
-  function handleSubmit(values, actions) {
+  const history = useHistory();
+  
+  const submitResponse = async (locationId, questionId, value) => {
+    const url = `/api/v1/locationresponses/${questionId}/location/${locationId}`;
+    // eslint-disable-next-line no-console
+    console.log(`submitResponse: url = ${url}`);
+    return await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({responseValue: value})
+    }).then((r) => {
+      console.log(`${url}: returned: ${r.statusText}`);
+      if(r.status === 200) {
+        return r.text();
+      } else {
+        throw new Error(r.statusText);
+      }
+    }).catch((e) => {
+      throw e;
+    });
+  };
+
+  async function handleSubmit(values, actions) {
     // eslint-disable-next-line no-console
     console.log(`values: ${JSON.stringify(values)}`);
     // eslint-disable-next-line no-console
@@ -37,6 +62,19 @@ export const UnitForm = ({ initialValues }) => {
     //     })
     //   }
     // )
+    try {
+      for(let questionId in values) {
+        const value = values[questionId];
+        
+        const responseText = await submitResponse(id, questionId, value);
+        // eslint-disable-next-line no-console
+        console.log(`responseText = ${responseText}`);
+
+        history.push('/demo');
+      }
+    } catch(e) {
+      throw new Error(e);
+    }
   }
 
   const [state, setState] = React.useState({
@@ -136,7 +174,7 @@ export const UnitsPage = () => {
       throw err;
     });
 
-  const  refreshUnits= async () => {
+  const refreshUnits = async () => {
     try {
       const freshUnits = await fetchUnits();
       setState({
@@ -151,7 +189,7 @@ export const UnitsPage = () => {
 
   React.useEffect(() => {
     refreshUnits();
-  });
+  }, []);
 
   const unitClicked = (event) => {
     const id = event.target.id;
@@ -166,7 +204,19 @@ export const UnitsPage = () => {
         state.units.map((unit, index) => {
           return (
             <div key={index}>
-              <div id={unit.locationId} onClick={unitClicked}>Name: {unit.name}</div>
+              <div
+                id={unit.locationId}
+                onClick={unitClicked}
+                className='sh-clickable'
+                style={{
+                  padding: '5px 10px',
+                  border: '1px solid black',
+                  borderRadius: '3px',
+                  margin: '3px 4px'
+                }}
+              >
+                Address: {unit.name}
+              </div>
             </div>
           );
         })
