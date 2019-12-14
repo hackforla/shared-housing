@@ -10,7 +10,7 @@
     "IE 10"
   ],
   "scripts": {
-    "build": "webpack --config webpack-local.config.js",
+    "build": "webpack --config webpack-prod.config.js",
     "build:dev": "webpack --config webpack-dev.config.js",
     "dev": "webpack-dev-server --config webpack-dev.config.js --open",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,6 @@
     "build-storybook": "build-storybook"
   },
   "keywords": [],
-  "author": "Roland Abregorivas",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.5.4",
