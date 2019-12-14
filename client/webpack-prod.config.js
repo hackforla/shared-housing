@@ -11,7 +11,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash:8].js',
-    // publicPath: '/static/'
+    publicPath: '/static/',
   },
   optimization: {
     runtimeChunk: 'single',

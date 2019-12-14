@@ -23,7 +23,7 @@ function printDoneMessage {
 
 cd client
 if npm install; then
-    if npm run build:dev; then
+    if npm run build; then
         echo "Client build complete.";
     else
         echo "Client build failed.";
