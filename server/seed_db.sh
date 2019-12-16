@@ -18,3 +18,30 @@ curl \
     --data '{"name": "josh"}' \
     "http://localhost:5000/api/v1/responses/"
 
+
+curl \
+    --header "Content-Type: application/json" \
+    --request GET \
+    "http://localhost:5000/api/v2/candidatequestions/"
+
+curl \
+    --header "Content-Type: application/json" \
+    --request GET \
+    "http://localhost:5000/api/v2/locationquestions/"
+
+
+curl \
+    --header "Content-Type: application/json" \
+    --request GET \
+    "http://localhost:5000/api/v2/locationresponsevalues/"
+
+
+
+curl \
+    --header "Content-Type: application/json" \
+    --request GET \
+    "http://localhost:5000/api/v2/candidateresponsevalues/"
+
+
+
+# locationresponsevalues
