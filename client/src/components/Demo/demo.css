@@ -1,10 +1,14 @@
 .sh-clickable:hover {
-    cursor: pointer;
-    background-color: ivory;
+  cursor: pointer;
+  background-color: ivory;
 }
 
 .sh-tenant-question {
-    padding: 5px 10px;
-    margin: 2px 3px;
-    display: block;
+  padding: 5px 10px;
+  margin: 2px 3px;
+  display: block;
+}
+
+.selected {
+  background-color: #2ecc71;
 }
