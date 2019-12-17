@@ -37,11 +37,13 @@ from routes.sqlalchemy.location_resources import location_routes
 from routes.sqlalchemy.location_response import location_response_routes
 from routes.sqlalchemy.location_candidate import location_candidate_routes
 from routes.sqlalchemy.location_responses import location_response_routes_v2
-# from routes.sqlalchemy.candidate_response_routes_v2 import candidate_response_routes_v2
+from routes.sqlalchemy.candidate_responses import candidate_response_routes_v2
 from routes.sqlalchemy.location_questions import location_question_routes_v2
 from routes.sqlalchemy.candidate_questions import candidate_question_routes_v2
 from routes.sqlalchemy.location_response_values import location_response_value_routes_v2
 from routes.sqlalchemy.candidate_response_values import candidate_response_value_routes_v2
+from routes.sqlalchemy.rejected_values import rejected_value_routes
+
 
 
 # app.register_blueprint(location_response_routes_v2, url_prefix='/api/v2/locationresponses')
@@ -86,6 +88,7 @@ def seed_db_v1():
         {"candidateQuestion": "Do you require a handicap accessible unit?", "locationQuestion": "Is the unit handicap accessible?", "isConstraint": False, "inverseRelationship": False}
     ]
 
+    db.session.query(LocationCandidateRejectedResponseValue).delete()
     db.session.query(CandidateLocation).delete()
     db.session.query(QuestionResponse).delete()
     db.session.query(LocationResponse).delete()
@@ -202,9 +205,11 @@ ma.init_app(app)
 
 # Blueprints for APIs
 app.logger.debug('registering blueprints...')
+
 app.register_blueprint(candidate_routes, url_prefix='/api/v1/candidates')
-app.register_blueprint(form_routes, url_prefix='/api/v1/forms')
 app.register_blueprint(location_routes, url_prefix='/api/v1/locations')
+
+app.register_blueprint(form_routes, url_prefix='/api/v1/forms')
 app.register_blueprint(location_candidate_routes, url_prefix='/api/v1/locationcandidates')
 app.register_blueprint(location_response_routes, url_prefix='/api/v1/locationresponses')
 app.register_blueprint(question_routes, url_prefix='/api/v1/questions')
@@ -218,6 +223,7 @@ app.register_blueprint(location_response_value_routes_v2, url_prefix='/api/v2/lo
 app.register_blueprint(candidate_response_value_routes_v2, url_prefix='/api/v2/candidateresponsevalues')
 app.register_blueprint(location_question_routes_v2, url_prefix='/api/v2/locationquestions')
 app.register_blueprint(candidate_question_routes_v2, url_prefix='/api/v2/candidatequestions')
+app.register_blueprint(rejected_value_routes, url_prefix='/api/v2/rejectedvalues')
 
 
 

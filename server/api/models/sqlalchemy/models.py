@@ -231,15 +231,15 @@ class CandidateResponse(db.Model):
     candidateResponseValueId = db.Column(db.Integer, db.ForeignKey("candidateResponseValue.candidateResponseValueId"), primary_key=True)
     candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
 
-    def __init__(self, candidate_response_value_id, location_id, question_id):
-        self.questionId = question_id
+    def __init__(self, candidate_response_value_id, candidate_id, candidate_question_id):
+        self.candidateQuestionId = question_id
+        self.candidateId = candidate_id
         self.candidateResponseValueId = candidate_response_value_id
-        self.locationId = location_id
 
 
 class CandidateResponseSchema(ma.Schema):
     class Meta:
-        fields = ('candidateResponseValueId', 'locationId', 'questionId')
+        fields = ('candidateResponseValueId', 'locationId', 'candidateQuestionId')
 
 
 
@@ -250,25 +250,29 @@ class CandidateResponseSchema(ma.Schema):
 class LocationCandidateRejectedResponseValue(db.Model):
     locationResponseValueId = db.Column(db.Integer, db.ForeignKey("locationResponseValue.locationResponseValueId"),  primary_key=True)
     candidateResponseValueId = db.Column(db.Integer, db.ForeignKey("candidateResponseValue.candidateResponseValueId"),  primary_key=True)
+    reasonText = db.Column(db.String)
     
-    def __init__(self, location_response_value_id, candidate_response_value_id):
+    def __init__(self, location_response_value_id, candidate_response_value_id, reason_text):
         self.locationResponseValueId = location_response_value_id
         self.candidateResponseValueId = candidate_response_value_id
+        self.reasonText = reason_text
 
 class LocationCandidateRejectedResponseValueSchema(ma.Schema):
     class Meta:
-        fields = ('locationResponseValueId', 'candidateResponseValueId')
+        fields = ('locationResponseValueId', 'candidateResponseValueId', 'reasonText')
 
 
 class CandidateLocation(db.Model):
     candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
     locationId = db.Column(db.Integer, db.ForeignKey("location.locationId"), primary_key=True)
+    matchStrength = db.Column(db.Float)
 
-    def __init__(self, candidate_id, location_id):
+    def __init__(self, candidate_id, location_id, match_strength):
         self.candidateId = candidate_id
         self.locationId = location_id
+        self.matchStrength = match_strength
 
 
 class CandidateLocationSchema(ma.Schema):
     class Meta:
-        fields = ('candidateId', 'locationId')
+        fields = ('candidateId', 'locationId', 'matchStrength')
