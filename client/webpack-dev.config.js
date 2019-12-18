@@ -91,11 +91,6 @@ module.exports = {
           'less-loader',
         ],
       },
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
     ],
   },
   plugins: [
