@@ -10,3 +10,4 @@ export { BaseInput } from '../Forms/Base/BaseInput';
 export { Button } from './Button';
 export { Breadcrumbs } from './Breadcrumbs';
 export { NewsFeed } from './NewsFeed';
+export { ComponentToggler } from './ComponentToggler.tsx';

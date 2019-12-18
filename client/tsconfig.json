@@ -19,13 +19,19 @@
     "jsx": "react",
     "moduleResolution": "node",
     "baseUrl": "./src",
+    "module": "es6",
+    "target": "es5",
+    "noImplicitAny": true,
     "strict": true,
-    "noEmit": true,
+    "allowJs": true,
     "rootDirs": ["src", "stories"],
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "~*": ["./*"],
       "test/*": ["./test/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/ts-archived/*"]
 }
