@@ -3,12 +3,15 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": [
+    "airbnb",
+    "prettier",
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -27,5 +30,12 @@
         "devDependencies": true
       }
     ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 }
