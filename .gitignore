@@ -3,3 +3,6 @@
 **/dist
 **/static
 **/templates
+
+*/.DS_Store
+**/__pycache__

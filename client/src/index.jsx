@@ -8,4 +8,4 @@ function renderApp() {
 
 renderApp();
 
-module.hot.accept();
+// module.hot.accept();

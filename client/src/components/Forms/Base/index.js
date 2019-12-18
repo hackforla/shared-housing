@@ -6,3 +6,4 @@ export { BaseSlider } from './BaseSlider';
 export { BaseDatePicker, BaseTimePicker } from './BaseDateTimePicker';
 export { BaseTextArea } from './BaseTextArea';
 export { BaseRadioGroup } from './BaseRadioGroup';
+export { BaseSwitch } from './BaseSwitch';

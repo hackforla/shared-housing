@@ -1,12 +1,15 @@
 #BACKEND GUIDE STUFF  
+
 This guide will cover the current state of the development using a top down approach. FYI frontend uses react.  
 The application stack is:  
-kubernetes - container management   
-docker - container software  
-flask - web framework  
-python - programming language  
+kubernetes - container orchestration
+docker - container runtime
+flask - web framework
+python - programming language
+mongodb - storage
 
 TODO: needs in depth decisions for why we chose the following technologies  
+
 ##Kubernetes  
 Relevant files: deployment.yaml, service.yaml  
 https://kubernetes.io/docs/home/  
@@ -54,3 +57,10 @@ AND... probably some more errors. We are still figuring this out ;)
 
 Now back to the guide. 
 To look at current tasks look at the issue section github https://github.com/hackforla/shared-housing/issues  
+
+
+## Get started
+
+### Build
+
+### Deploy
