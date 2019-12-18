@@ -21,13 +21,17 @@ def get_all():
 def get_all_matches_for_location(location_id):
 
     # get location responses
-    location_responses = HousingLocationResponse.query.filter_by(locationId=location_id)
-
-    # get constraints for location
-    constraints_list = LocationCandidateRejectedResponseValue.query.
+    location_responses = HousingLocationResponse.query.filter_by(locationId=location_id).all()
 
     # get all candidate responses
     candidate_responses_list = CandidateResponse.query.all()
+
+    # get constraints for location
+    for location_response in location_responses:
+        constraints = LocationCandidateRejectedResponseValue.query.filter_by(locationResponseValueId=location_response.location_response).all()
+        
+
+
 
     # filter
 

@@ -60,11 +60,22 @@ export const ConstraintsForm = () => {
     });
   };
 
-  const submitConstraint = () => {
+  const submitConstraint = async () => {
+    setState({
+      ...state,
+      editingReasonText: false,
+    });
+
     console.log(`Constraining: `);
     console.log(`- location rv ${state.selectedLocationResponseValueId}`);
-    console.log(`- candidate rv ${state.selectedLocationResponseValueId}`);
+    console.log(`- candidate rv ${state.selectedCandidateResponseValueId}`);
     console.log(`- reason: ${state.reasonText}`);
+
+    const responseText = await ClientApi.addRejectedValue({
+      locationResponseValueId: state.selectedLocationResponseValueId,
+      candidateResponseValueId: state.selectedCandidateResponseValueId,
+      reasonText: state.reasonText,
+    });
   };
 
   return (
