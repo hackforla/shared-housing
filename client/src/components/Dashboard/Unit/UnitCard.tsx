@@ -30,37 +30,34 @@ interface IUnitCardProps {
   address2: string;
   handicapAccessible: boolean;
   matches: number;
-};
+}
 
-
-export function UnitCard({ 
+export function UnitCard({
   image,
   name,
   address1,
   address2,
   handicapAccessible,
   matches,
- }: IUnitCardProps) {
+}: IUnitCardProps) {
   const classes = useStyles();
 
-  function formatMatchesText(matches: number) {
-    if (matches > 1) {
-      return `${matches} Matches`;
-    } else if (matches === 1) {
-      return `${matches} Match`;
+  function formatMatchesText(matchesInput: number) {
+    let formattedText;
+    if (matchesInput > 1) {
+      formattedText = `${matchesInput} Matches`;
+    } else if (matchesInput === 1) {
+      formattedText = `${matchesInput} Match`;
     } else {
-      ''
+      formattedText = '';
     }
+    return formattedText;
   }
 
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={image}
-          title={name}
-        />
+        <CardMedia className={classes.media} image={image} title={name} />
         <CardContent>
           <Grid container>
             <Grid item xs={6}>
@@ -74,24 +71,15 @@ export function UnitCard({
               </Typography>
             </Grid>
           </Grid>
-          <Typography variant="body2">
-            {address1}
-          </Typography>
-          <Typography variant="body2">
-            {address2}
-          </Typography>
+          <Typography variant="body2">{address1}</Typography>
+          <Typography variant="body2">{address2}</Typography>
         </CardContent>
         <CardActions disableSpacing>
-          {
-            handicapAccessible && (
-              <Typography>
-                <AccessibleIcon 
-                  aria-label="handicap accessible"
-                  color="action"
-                />
-              </Typography>
-            )
-          }
+          {handicapAccessible && (
+            <Typography>
+              <AccessibleIcon aria-label="handicap accessible" color="action" />
+            </Typography>
+          )}
         </CardActions>
       </CardActionArea>
     </Card>
