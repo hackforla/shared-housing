@@ -1,23 +1,12 @@
-import * as React from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-
 import { Switch, Route, NavLink, BrowserRouter } from 'react-router-dom';
-import { SectionContainer } from '../components/common';
+import { SectionContainer, ComponentToggler } from '../components/common';
 import { TenantForm, Results, UnitForm } from '../components/Demo';
 import { TenantsPage } from '../components/Demo/TenantForm';
 import { UnitsPage } from '../components/Demo/UnitForm';
 import { ConstraintsForm } from '../components/Demo/ConstraintsForm';
-
-export const DemoMenu = () => {
-  return (
-    <div>
-      <Typography component="h1" variant="h4" align="center">
-        Demo Menu
-      </Typography>
-    </div>
-  );
-};
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -35,6 +24,17 @@ const useStyles = makeStyles(theme =>
     },
   }),
 );
+
+const options = [
+  {
+    displayName: 'units',
+    component: <p> UnitList Component </p>,
+  },
+  {
+    displayName: 'tenants',
+    component: <p> TenantList Component </p>,
+  },
+];
 
 export const DemoPage = () => {
   const classes = useStyles();
@@ -68,6 +68,8 @@ export const DemoPage = () => {
             <Route exact path="/demo/units/:id" component={UnitForm} />
             <Route exact path="/demo/constraints" component={ConstraintsForm} />
           </Switch>
+
+          <ComponentToggler options={options} />
         </main>
       </BrowserRouter>
     </SectionContainer>

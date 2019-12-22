@@ -42,7 +42,7 @@ module.exports = {
       path.resolve(__dirname, '/src'),
       path.resolve(__dirname, 'node_modules/'),
     ],
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.js', '.jsx', '.tsx', '.ts', '.css'],
   },
 
   module: {
@@ -56,6 +56,11 @@ module.exports = {
         test: /\.(jsx?)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.s?css$/,

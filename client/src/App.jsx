@@ -16,7 +16,6 @@ import withRoot from './withRoot';
 import MainNav from './components/MainNav';
 
 import { PATHS } from './routes';
-import { DemoMenu } from './pages/Demo';
 
 const App = () => (
   <BrowserRouter>
