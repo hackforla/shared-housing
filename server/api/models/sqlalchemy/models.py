@@ -8,6 +8,55 @@ db = SQLAlchemy()
 ma = Marshmallow()
 
 
+
+###########################################################
+###################### CORE ###############################
+###########################################################
+
+
+class Candidate(db.Model):
+    candidateId = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+
+    def __init__(self, name):
+        self.name = name
+
+
+class CandidateSchema(ma.Schema):
+    class Meta:
+        fields = ('candidateId', 'name')
+
+
+class HousingLocation(db.Model):
+    __tablename__ = 'location'
+    locationId = db.Column(db.Integer, primary_key=True)
+    latitude = Column(Float)
+    longitude = Column(Float)
+    housingTypeId = Column(Integer)
+    bedsAvailable = Column(Integer)
+    name = db.Column(db.String(100))
+
+    def __init__(self, latitude, longitude, housing_type_id, beds_available, name):
+        self.latitude = latitude
+        self.longitude = longitude
+        self.housingTypeId = housing_type_id
+        self.bedsAvailable = beds_available
+        self.name = name
+
+class LocationSchema(ma.Schema):
+    class Meta:
+        fields = ('locationId', 'name', 'latitude', 'longitude', 'housingTypeId', 'bedsAvailable')
+
+
+
+
+
+###########################################################
+################ V1: Combined Question ####################
+###########################################################
+
+
+
 class QuestionResponse(db.Model):
     questionId = db.Column(db.Integer, db.ForeignKey("question.questionId"), primary_key=True)
     responseValue = db.Column(db.String(100))
@@ -38,19 +87,6 @@ class LocationResponse(db.Model):
 class LocationResponseSchema(ma.Schema):
     class Meta:
         fields = ('questionId', 'responseValue', 'locationId')
-
-
-class Candidate(db.Model):
-    candidateId = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-
-    def __init__(self, name):
-        self.name = name
-
-
-class CandidateSchema(ma.Schema):
-    class Meta:
-        fields = ('candidateId', 'name')
 
 
 class Question(db.Model):
@@ -103,80 +139,140 @@ class FormQuestionSchema(ma.Schema):
         fields = ('formId', 'questionId')
 
 
-class HousingLocation(db.Model):
-    __tablename__ = 'location'
-    locationId = db.Column(db.Integer, primary_key=True)
-    latitude = Column(Float)
-    longitude = Column(Float)
-    housingTypeId = Column(Integer)
-    bedsAvailable = Column(Integer)
-    name = db.Column(db.String(100))
-
-    def __init__(self, latitude, longitude, housing_type_id, beds_available, name):
-        self.latitude = latitude
-        self.longitude = longitude
-        self.housingTypeId = housing_type_id
-        self.bedsAvailable = beds_available
-        self.name = name
 
 
-class LocationSchema(ma.Schema):
+###########################################################
+################# V2: Separate Questions ##################
+###########################################################
+
+
+
+###########################################################
+#################### LOCATION #############################
+###########################################################
+
+class LocationQuestion(db.Model):
+    __tablename__ = 'locationQuestion'
+    locationQuestionId = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(100))    
+    # candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
+
+    def __init__(self, text):
+        self.text = text
+
+class LocationQuestionSchema(ma.Schema):
     class Meta:
-        fields = ('locationId', 'name', 'latitude', 'longitude', 'housingTypeId', 'bedsAvailable')
+        fields = ('locationQuestionId', 'text')
+
+class LocationResponseValue(db.Model):
+    __tablename__ = 'locationResponseValue'
+    locationResponseValueId = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(100))    
+    locationQuestionId = db.Column(db.Integer, db.ForeignKey("locationQuestion.locationQuestionId"))
+
+    def __init__(self, text, location_question_id):
+        self.text = text
+        self.locationQuestionId = location_question_id
+
+class LocationResponseValueSchema(ma.Schema):
+    class Meta:
+        fields = ('locationResponseValueId', 'text', 'locationQuestionId')
+
+class HousingLocationResponse(db.Model):
+    locationQuestionId = db.Column(db.Integer, db.ForeignKey("locationQuestion.locationQuestionId"), primary_key=True)
+    locationResponseValueId = db.Column(db.Integer, db.ForeignKey("locationResponseValue.locationResponseValueId"), primary_key=True)
+    locationId = db.Column(db.Integer, db.ForeignKey("location.locationId"), primary_key=True)
+
+    def __init__(self, location_response_value_id, location_id, location_question_id):
+        self.locationQuestionId = location_question_id
+        self.locationId = location_id
+        self.locationResponseValueId = location_response_value_id
+
+
+class HousingLocationResponseSchema(ma.Schema):
+    class Meta:
+        fields = ('questionId', 'locationId', 'locationResponseValueId')
+
+
+
+
+###########################################################
+#################### CANDIDATE ############################
+###########################################################
+class CandidateQuestion(db.Model):
+    __tablename__ = 'candidateQuestion'
+    candidateQuestionId = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(100))    
+
+    def __init__(self, text):
+        self.text = text
+
+class CandidateQuestionSchema(ma.Schema):
+    class Meta:
+        fields = ('candidateQuestionId', 'text')
+
+class CandidateResponseValue(db.Model):
+    __tablename__ = 'candidateResponseValue'
+    candidateResponseValueId = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(100))    
+    candidateQuestionId = db.Column(db.Integer, db.ForeignKey("candidateQuestion.candidateQuestionId"))
+
+    def __init__(self, text, candidate_question_id):
+        self.text = text
+        self.candidateQuestionId = candidate_question_id
+
+class CandidateResponseValueSchema(ma.Schema):
+    class Meta:
+        fields = ('candidateResponseValueId', 'text', 'candidateQuestionId')
+
+
+class CandidateResponse(db.Model):
+    candidateQuestionId = db.Column(db.Integer, db.ForeignKey("candidateQuestion.candidateQuestionId"), primary_key=True)
+    candidateResponseValueId = db.Column(db.Integer, db.ForeignKey("candidateResponseValue.candidateResponseValueId"), primary_key=True)
+    candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
+
+    def __init__(self, candidate_response_value_id, candidate_id, candidate_question_id):
+        self.candidateQuestionId = question_id
+        self.candidateId = candidate_id
+        self.candidateResponseValueId = candidate_response_value_id
+
+
+class CandidateResponseSchema(ma.Schema):
+    class Meta:
+        fields = ('candidateResponseValueId', 'locationId', 'candidateQuestionId')
+
+
+
+###########################################################
+#################### CONSTRAINTS ##########################
+###########################################################
+
+class LocationCandidateRejectedResponseValue(db.Model):
+    locationResponseValueId = db.Column(db.Integer, db.ForeignKey("locationResponseValue.locationResponseValueId"),  primary_key=True)
+    candidateResponseValueId = db.Column(db.Integer, db.ForeignKey("candidateResponseValue.candidateResponseValueId"),  primary_key=True)
+    reasonText = db.Column(db.String)
+    
+    def __init__(self, location_response_value_id, candidate_response_value_id, reason_text):
+        self.locationResponseValueId = location_response_value_id
+        self.candidateResponseValueId = candidate_response_value_id
+        self.reasonText = reason_text
+
+class LocationCandidateRejectedResponseValueSchema(ma.Schema):
+    class Meta:
+        fields = ('locationResponseValueId', 'candidateResponseValueId', 'reasonText')
 
 
 class CandidateLocation(db.Model):
     candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
     locationId = db.Column(db.Integer, db.ForeignKey("location.locationId"), primary_key=True)
+    matchStrength = db.Column(db.Float)
 
-    def __init__(self, candidate_id, location_id):
+    def __init__(self, candidate_id, location_id, match_strength):
         self.candidateId = candidate_id
         self.locationId = location_id
+        self.matchStrength = match_strength
 
 
 class CandidateLocationSchema(ma.Schema):
     class Meta:
-        fields = ('candidateId', 'locationId')
-
-
-
-
-# PROPOSED
-
-# class LocationQuestion(db.Model):
-#     locationQuestionId = db.Column(db.Integer, primary_key=True)
-#     text = db.Column(db.String(100))    
-#     # candidateId = db.Column(db.Integer, db.ForeignKey("candidate.candidateId"), primary_key=True)
-
-#     def __init__(self, location_question_id, text):
-#         self.locationQuestionId = location_question_id
-#         self.text = text
-
-# class LocationQuestionResponseValue(db.Model):
-#     locationQuestionResponseValueId = db.Column(db.Integer, primary_key=True)
-#     text = db.Column(db.String(100))    
-#     locationQuestionId = db.Column(db.Integer, db.ForeignKey("locationQuestion.locationQuestionId"))
-
-#     def __init__(self, location_question_response_value_id, text, location_question_id):
-#         self.locationQuestionResponseValueId = location_question_response_value_id
-#         self.text = text
-#         self.locationQuestionId = location_question_id
-
-# class CandidateQuestion(db.Model):
-#     candidateQuestionId = db.Column(db.Integer, primary_key=True)
-#     text = db.Column(db.String(100))    
-
-#     def __init__(self, candidate_id, text):
-#         self.candidateQuestionId = candidate_id
-#         self.text = text
-
-
-# class CandidateQuestionResponseValue(db.Model):
-#     candidateQuestionResponseValueId = db.Column(db.Integer, primary_key=True)
-#     text = db.Column(db.String(100))    
-#     candidateQuestionId = db.Column(db.Integer, db.ForeignKey("candidateQuestion.candidateQuestionId"))
-
-#     def __init__(self, candidate_question_response_value_id, text, candidate_question_id):
-#         self.candidateQuestionResponseValueId = candidate_question_response_value_id
-#         self.text = text
-#         self.candidateQuestionId = candidate_question_id
+        fields = ('candidateId', 'locationId', 'matchStrength')

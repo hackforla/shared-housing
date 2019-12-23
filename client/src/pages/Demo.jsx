@@ -6,6 +6,7 @@ import { SectionContainer, ComponentToggler } from '../components/common';
 import { TenantForm, Results, UnitForm } from '../components/Demo';
 import { TenantsPage } from '../components/Demo/TenantForm';
 import { UnitsPage } from '../components/Demo/UnitForm';
+import { ConstraintsForm } from '../components/Demo/ConstraintsForm';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -51,6 +52,9 @@ export const DemoPage = () => {
                   <NavLink to="/demo/unit">Unit Form</NavLink>
                 </Grid>
                 <Grid item>
+                  <NavLink to="/demo/constraints">Constraints</NavLink>
+                </Grid>
+                <Grid item>
                   <NavLink to="/demo/results">Results</NavLink>
                 </Grid>
               </Grid>
@@ -62,6 +66,7 @@ export const DemoPage = () => {
             <Route exact path="/demo/results" component={Results} />
             <Route exact path="/demo/tenants/:id" component={TenantForm} />
             <Route exact path="/demo/units/:id" component={UnitForm} />
+            <Route exact path="/demo/constraints" component={ConstraintsForm} />
           </Switch>
 
           <ComponentToggler options={options} />
