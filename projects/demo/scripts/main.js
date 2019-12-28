@@ -4,6 +4,8 @@
 //
 ////
 
+var cache = {};
+
 // Parse the JSON data object, which was loaded by the HTML head script tag.
 function ini() {
     
@@ -41,6 +43,25 @@ function ini() {
 
     _ids();
     _slots();
+}
+
+function calcScores() {
+    var scores = {};
+    data.takers.forEach(a => {
+        scores[a.id] = {};
+        data.takers.forEach(b => {
+            if (a != b) {
+                scores[a.id][b.id] = ScoreCalculator.byTakerTaker(a, b);
+            }
+        });
+    });
+    return scores;
+}
+
+function calcTakersCombinations() {
+    return combinations(data.takers).filter(combo => {
+        return combo.length < 2 || pairs(combo).every(pair => cache.scores[pair[0].id][pair[1].id] > 0);
+    });
 }
 
 ////
@@ -125,26 +146,13 @@ function render() {
         let area = elementById("personGroupingArea");
         let ul = element("UL");
         area.appendChild(ul);
-        // Calculate scores for all pairs
-        var scores = {};
-        data.takers.forEach(a => {
-            scores[a.id] = {};
-            data.takers.forEach(b => {
-                if (a != b) {
-                    scores[a.id][b.id] = ScoreCalculator.byTakerTaker(a, b);
-                }
-            });
-        });
-        // Generate all combinations and reject every combination that has any pair with a negative score
-        let combos = combinations(data.takers).filter(combo => {
-            return combo.length >= 2 && pairs(combo).every(pair => scores[pair[0].id][pair[1].id] > 0);
-        });
-        // Render
-        combos.forEach(combo => {
-            let html = combo.map(taker => taker.attributes.freeform0).join(", ");
-            let score = ScoreCalculator.byTakers(combo);
-            let li = element("LI").setInnerHTML("Score:" + score + " " + html);
-            ul.appendChild(li);
+        cache.takersCombinations.forEach(combo => {
+            if (combo.length >= 2) {
+                let html = combo.map(taker => taker.attributes.freeform0).join(", ");
+                let score = ScoreCalculator.byTakers(combo);
+                let li = element("LI").setInnerHTML("Score:" + score + " " + html);
+                ul.appendChild(li);
+            }
         });
     }
 
@@ -166,6 +174,8 @@ function render() {
     }
 
     _gather_area();
+    cache.scores = calcScores();
+    cache.takersCombinations = calcTakersCombinations();
     _person_grouping_area();
     _place_grouping_area();
 
