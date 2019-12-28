@@ -3,10 +3,11 @@
 <meta charset="UTF-8">
 <title>Match Demo</title>
 <link rel="stylesheet" href="styles/screen.css"/>
-<script type="text/javascript" src="scripts/data.js"></script>
 <script type="text/javascript" src="scripts/sixarm-rad.js"></script>
 <script type="text/javascript" src="scripts/sixarm-vet.js"></script>
 <script type="text/javascript" src="scripts/sixarm-table-sorter.js"></script>
+<script type="text/javascript" src="scripts/data.js"></script>
+<script type="text/javascript" src="scripts/main.js"></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
 
 <form>
 
-<table id="table0"></table>
+<div id="app"></div>
 
 </form>
 
@@ -37,56 +38,11 @@
 </table>
 
 <script>
-let inputTextSize = 10;
-
 window.addEventListener('load', function () {
-    let table = elementById("table0");
-    let tr = element("TR");
-    tr.appendChild(element("TD"));
-    data.makerTags.concat(data.takerTags).forEach(x => {
-        let td = element("TD");
-        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.name});
-        td.appendChild(input);
-        tr.appendChild(td);
-    });
-    table.appendChild(tr);
-    data.makers.forEach(x => {
-        let tr = element("TR");
-        let td = element("TD");
-        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.freeform0});
-        td.appendChild(input);
-        tr.appendChild(td);
-        data.makerTags.forEach(field => {
-            let td = element("TD");
-            let input = element("INPUT", {type: "checkbox"});
-            td.appendChild(input);
-            tr.appendChild(td);
-        });
-        table.appendChild(tr);
-    });
-    data.takers.forEach(x => {
-        let tr = element("TR");
-        let td = element("TD");
-        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.freeform0});
-        td.appendChild(input);
-        tr.appendChild(td);
-        data.makerTags.forEach(field => {
-            let td = element("TD");
-            let input = element("INPUT", {type: "checkbox"});
-            td.appendChild(input);
-            tr.appendChild(td);
-        });
-        data.takerTags.forEach(field => {
-            let td = element("TD");
-            let input = element("INPUT", {type: "checkbox"});
-            td.appendChild(input);
-            tr.appendChild(td);
-        });
-        table.appendChild(tr);
-    });
+    main();
 });
 </script>
-
+    
 <script>
 window.addEventListener('load', function () {
     TableSorter.makeSortable(elementById("scoreboard"));

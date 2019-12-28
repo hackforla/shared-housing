@@ -5,7 +5,7 @@
 ////
 
 let data = {
-    "makerTags": [
+    "makersTags": [
         {
             "type": "tag",
             "attributes": {
@@ -23,7 +23,7 @@ let data = {
             }
         }
     ],
-    "takerTags": [
+    "takersTags": [
         {
             "type": "tag",
             "attributes": {
