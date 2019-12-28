@@ -1,5 +1,36 @@
 ////
 //
+// Initialize
+//
+////
+
+// Parse the JSON data object, which was loaded by the HTML head script tag.
+function ini() {
+    
+    // Initialize array items by setting the id attribute.
+    //
+    // Example outcome:
+    //
+    //     data.partnersToMakers[0].id = "makers0";
+    //
+    function _id(items, name) {
+        for (var i = 0; i < items.length; i++) items[i].id = name + i; // TODO change to zid
+        return items;
+    }
+
+    function _ids() {
+        _id(data.makers, "makers");
+        _id(data.takers, "takers");
+        _id(data.makersTags, "makersTags");
+        _id(data.takersTags, "takersTags");
+    }
+
+    _ids();
+
+}
+
+////
+//
 // Render
 //
 ////
@@ -62,5 +93,6 @@ function render() {
 ////
 
 function main() {
+    ini();
     render();
 }
