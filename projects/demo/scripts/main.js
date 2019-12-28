@@ -14,7 +14,7 @@ function ini() {
     //     data.partnersToMakers[0].id = "makers0";
     //
     function _id(items, name) {
-        for (var i = 0; i < items.length; i++) items[i].id = name + i; // TODO change to zid
+        for (var i = 0; i < items.length; i++) items[i].id = name + "[" + i + "]"; // TODO change to zid
         return items;
     }
 
@@ -43,42 +43,42 @@ function render() {
     let tr = element("TR");
     table.appendChild(tr);
     tr.appendChild(element("TD"));
-    data.makersTags.concat(data.takersTags).forEach(x => {
+    data.makersTags.concat(data.takersTags).forEach(tag => {
         let td = element("TD");
-        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.name});
+        let input = element("INPUT", {id: tag.id + ".name", type: "text", size: inputTextSize, value: tag.attributes.name});
         td.appendChild(input);
         tr.appendChild(td);
     });
     table.appendChild(tr);
-    data.makers.forEach(x => {
+    data.makers.forEach(maker => {
         let tr = element("TR");
         let td = element("TD");
-        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.freeform0});
+        let input = element("INPUT", {id: maker.id + ".name", type: "text", size: inputTextSize, value: maker.attributes.freeform0});
         td.appendChild(input);
         tr.appendChild(td);
         data.makersTags.forEach(tag => {
             let td = element("TD");
-            let input = element("INPUT", {type: "checkbox"});
+            let input = element("INPUT", {id: maker.id + "." + tag.id, type: "checkbox"});
             td.appendChild(input);
             tr.appendChild(td);
         });
         table.appendChild(tr);
     });
-    data.takers.forEach(x => {
+    data.takers.forEach(taker => {
         let tr = element("TR");
         let td = element("TD");
-        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.freeform0});
+        let input = element("INPUT", {id: taker.id + ".name", type: "text", size: inputTextSize, value: taker.attributes.freeform0});
         td.appendChild(input);
         tr.appendChild(td);
         data.makersTags.forEach(tag => {
             let td = element("TD");
-            let input = element("INPUT", {type: "checkbox"});
+            let input = element("INPUT", {id: taker.id + "." + tag.id, type: "checkbox"});
             td.appendChild(input);
             tr.appendChild(td);
         });
         data.takersTags.forEach(tag => {
             let td = element("TD");
-            let input = element("INPUT", {type: "checkbox"});
+            let input = element("INPUT", {id: taker.id + "." + tag.id, type: "checkbox"});
             td.appendChild(input);
             tr.appendChild(td);
         });
