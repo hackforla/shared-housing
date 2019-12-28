@@ -7,7 +7,7 @@ src_top_dir="$html_dir/repos/github/hackforla/shared-housing"
 src_project_dir="$html_dir/repos/github/hackforla/shared-housing/projects/demo/"
 src_branch="tomdemo"
 
-cd "$src_top_dir" && git checkout "$branch" && git pull --rebase
+cd "$src_top_dir" && git checkout "$src_branch" && git pull --rebase
 
 dst_top_dir="$html"
 dst_project_dir="$html_dir/match/demo/"
