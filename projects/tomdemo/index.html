@@ -4,7 +4,9 @@
 <title>Matcher: Tom Demo</title>
 <link rel="stylesheet" href="styles/screen.css"/>
 <script type="text/javascript" src="scripts/data.js"></script>
-<script type="text/javascript" src="scripts/table_sorter.js"></script>
+<script type="text/javascript" src="scripts/sixarm-rad.js"></script>
+<script type="text/javascript" src="scripts/sixarm-vet.js"></script>
+<script type="text/javascript" src="scripts/sixarm-table-sorter.js"></script>
 </head>
 
 <body>
@@ -13,97 +15,8 @@
 
 <form>
 
-<table>
+<table id="table0"></table>
 
-<tr>
-<td></td>
-<td><input type="text" id="" size="8" value="Bird"></td>
-<td><input type="text" id="" size="8" value="Cat"></td>
-<td><input type="text" id="" size="8" value="Dog"></td>
-<td><input type="text" id="" size="8" value="Red"></td>
-<td><input type="text" id="" size="8" value="Green"></td>
-<td><input type="text" id="" size="8" value="Blue"></td>
-</tr>
-
-<tr>
-<td><input type="text" id="" size="25" value="Alice"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-</tr>
-
-<tr>
-<td><input type="text" id="" size="25" value="Bob"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-</tr>
-
-<tr>
-<td><input type="text" id="" size="25" value="Carol"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-</tr>
-
-<tr>
-<td><input type="text" id="" size="25" value="Dave"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-</tr>
-
-<tr>
-<td><input type="text" id="" size="25" value="Eve"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-</tr>
-
-<tr>
-<td><input type="text" id="" size="25" value="Frank"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-<td><input id="" type="checkbox"></td>
-</tr>
-
-</table>
-
-<table>
-
-<tr>
-<td></td>
-<td><input type="text" id="" size="8" value="Bird"></td>
-<td><input type="text" id="" size="8" value="Cat"></td>
-<td><input type="text" id="" size="8" value="Dog"></td>
-</tr>
-
-<tr>
-<td><input type="text" id="" size="25" value="Apartment A"></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox" checked></td>
-<td><input id="" type="checkbox" checked></td>
-</tr>
-
-</table>
 </form>
 
 <h2>People that can live togther</h2>
@@ -124,9 +37,61 @@
 </table>
 
 <script>
+let inputTextSize = 10;
+
+window.addEventListener('load', function () {
+    let table = elementById("table0");
+    let tr = element("TR");
+    tr.appendChild(element("TD"));
+    data.makerTags.concat(data.takerTags).forEach(x => {
+        let td = element("TD");
+        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.name});
+        td.appendChild(input);
+        tr.appendChild(td);
+    });
+    table.appendChild(tr);
+    data.makers.forEach(x => {
+        let tr = element("TR");
+        let td = element("TD");
+        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.freeform0});
+        td.appendChild(input);
+        tr.appendChild(td);
+        data.makerTags.forEach(field => {
+            let td = element("TD");
+            let input = element("INPUT", {type: "checkbox"});
+            td.appendChild(input);
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+    data.takers.forEach(x => {
+        let tr = element("TR");
+        let td = element("TD");
+        let input = element("INPUT", {type: "text", size: inputTextSize, value: x.attributes.freeform0});
+        td.appendChild(input);
+        tr.appendChild(td);
+        data.makerTags.forEach(field => {
+            let td = element("TD");
+            let input = element("INPUT", {type: "checkbox"});
+            td.appendChild(input);
+            tr.appendChild(td);
+        });
+        data.takerTags.forEach(field => {
+            let td = element("TD");
+            let input = element("INPUT", {type: "checkbox"});
+            td.appendChild(input);
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+});
+</script>
+
+<script>
 window.addEventListener('load', function () {
     TableSorter.makeSortable(elementById("scoreboard"));
 });
 </script>
+
 </body>
 </html>
