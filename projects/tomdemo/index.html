@@ -4,6 +4,7 @@
 <title>Matcher: Tom Demo</title>
 <link rel="stylesheet" href="styles/screen.css"/>
 <script type="text/javascript" src="scripts/data.js"></script>
+<script type="text/javascript" src="scripts/table_sorter.js"></script>
 </head>
 
 <body>
@@ -181,7 +182,7 @@
 
 <h2>Place to person</h2>
 
-<table>
+<table id="scoreboard">
 <tr><td><b>Flag</b></td><td><b>People</b></td></tr>
 <tr><td><span id="group2-a">Apartment A</span></td><td>Alice, Bob, Carol</td></tr>
 <tr><td><span id="group2-a">Apartment B</span></td><td>Eve</td></tr>
@@ -191,5 +192,10 @@
 <tr><td><span id="group2-a">Apartment F</span></td><td>Alice, Dave</td></tr>
 </table>
 
+<script>
+window.addEventListener('load', function () {
+    TableSorter.makeSortable(elementById("scoreboard"));
+});
+</script>
 </body>
 </html>
