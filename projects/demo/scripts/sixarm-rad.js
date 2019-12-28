@@ -42,6 +42,12 @@ Node.prototype.setSelected = function(boolean) {
     return this;
 };
 
+// Set selected.
+Node.prototype.withEventListener = function(eventName, targetFunction, useCapture) {
+    this.addEventListener(eventName, targetFunction, useCapture);
+    return this;
+};
+
 // Toogle node style display to show the node or hide the node.
 Node.prototype.toggle = function() {
     this.style.display = (this.style.display == "none") ? "block" : "none";

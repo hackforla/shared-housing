@@ -66,6 +66,16 @@ function calcTakersCombinations() {
 
 ////
 //
+// Refresh
+//
+////
+
+function refresh() {
+    console.log("refresh " +  this.id);
+}
+
+////
+//
 // Render
 //
 ////
@@ -73,15 +83,11 @@ function calcTakersCombinations() {
 function render() {
 
     function _input_text(id, value) {
-        return element("INPUT", {id: id, type: "text", size: 10, value: value});
-    }
-
-    function _input_checkbox(id, value) {
-        return element("INPUT", {id: id, type: "checkbox"}).setChecked([false, true][value]);
+        return element("INPUT", {id: id, type: "text", size: 10, value: value}).withEventListener('change', refresh); // TODO optimize scope to table header rows
     }
 
     function _input_select(id, value) {
-        let sel = element("SELECT", {id: id});
+        let sel = element("SELECT", {id: id}).withEventListener('change', refresh); // TODO optimize scope to just this select change
         let neutral = element("OPTION", {value: 0}).setInnerHTML("😐").setSelected(value == 0);
         let positive = element("OPTION", {value: 1}).setInnerHTML("✅").setSelected(value == 1);
         let negative = element("OPTION", {value: -1}).setInnerHTML("🚫").setSelected(value == -1);
@@ -164,7 +170,7 @@ function render() {
             data.takers.forEach(taker => {
                 let score = ScoreCalculator.byMakerTaker(maker, taker);
                 if (score >= 0) {
-                    let html = /* maker.attributes.freeform0 + ": " + */ "Score:" + score + " " + taker.attributes.freeform0;
+                    let html = "Score:" + score + " " + taker.attributes.freeform0;
                     let li = element("LI").setInnerHTML(html);
                     ul.appendChild(li);
                 }
