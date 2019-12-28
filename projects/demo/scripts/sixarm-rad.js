@@ -30,8 +30,15 @@ Node.prototype.setInnerHTML = function(innerHTML) {
     return this;
 };
 
+// Set checked.
 Node.prototype.setChecked = function(boolean) {
     this.checked = boolean;
+    return this;
+};
+
+// Set selected.
+Node.prototype.setSelected = function(boolean) {
+    this.selected = boolean;
     return this;
 };
 

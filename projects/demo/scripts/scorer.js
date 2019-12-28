@@ -9,7 +9,7 @@ class ScoreCalculator {
     static byMakerTaker(a, b) {
         var score = 0;
         data.makersTags.forEach(tag => {
-            score += (a.attributes[tag.id] == b.attributes[tag.id]);
+            score += (a.attributes[tag.id] * b.attributes[tag.id]);
         });
         return score;
     }
@@ -17,7 +17,7 @@ class ScoreCalculator {
     static byTakers(a, b) {
         var score = 0;
         data.makersTags.concat(data.takersTags).forEach(tag => {
-            score += (a.attributes[tag.id] === b.attributes[tag.id]);
+            score += (a.attributes[tag.id] * b.attributes[tag.id]);
         });
         return score;
     }

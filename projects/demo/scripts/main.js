@@ -29,12 +29,12 @@ function ini() {
     function _slots() {
         data.makers.forEach(maker => {
             data.makersTags.forEach(tag => { 
-                maker.attributes[tag.id] = Math.round(Math.random());
+                maker.attributes[tag.id] = randomIntMinMax(-1, 1);
             });
         });
         data.takers.forEach(taker => {
             data.makersTags.concat(data.takersTags).forEach(tag => { 
-                taker.attributes[tag.id] = Math.round(Math.random());
+                taker.attributes[tag.id] = randomIntMinMax(-1, 1);
             });
         });
     }
@@ -60,6 +60,17 @@ function render() {
         return element("INPUT", {id: id, type: "checkbox"}).setChecked([false, true][value]);
     }
 
+    function _input_select(id, value) {
+        let sel = element("SELECT", {id: id});
+        let neutral = element("OPTION", {value: 0}).setInnerHTML("").setSelected(value == 0);
+        let positive = element("OPTION", {value: 1}).setInnerHTML("✅").setSelected(value == 1);
+        let negative = element("OPTION", {value: -1}).setInnerHTML("🚫").setSelected(value == -1);
+        sel.appendChild(neutral);
+        sel.appendChild(positive);
+        sel.appendChild(negative);
+        return sel;
+    }
+
     function _gather_area() {
         let inputTextSize = 10;
         let app = elementById("app");
@@ -83,7 +94,7 @@ function render() {
             tr.appendChild(td);
             data.makersTags.forEach(tag => {
                 let td = element("TD");
-                let input = _input_checkbox(maker.id + "." + tag.id, maker.attributes[tag.id]);
+                let input = _input_select(maker.id + "." + tag.id, maker.attributes[tag.id]);
                 td.appendChild(input);
                 tr.appendChild(td);
             });
@@ -97,13 +108,13 @@ function render() {
             tr.appendChild(td);
             data.makersTags.forEach(tag => {
                 let td = element("TD");
-                let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
+                let input = _input_select(taker.id + "." + tag.id, taker.attributes[tag.id]);
                 td.appendChild(input);
                 tr.appendChild(td);
             });
             data.takersTags.forEach(tag => {
                 let td = element("TD");
-                let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
+                let input = _input_select(taker.id + "." + tag.id, taker.attributes[tag.id]);
                 td.appendChild(input);
                 tr.appendChild(td);
             });
