@@ -62,7 +62,7 @@ function render() {
 
     function _input_select(id, value) {
         let sel = element("SELECT", {id: id});
-        let neutral = element("OPTION", {value: 0}).setInnerHTML("").setSelected(value == 0);
+        let neutral = element("OPTION", {value: 0}).setInnerHTML("😐").setSelected(value == 0);
         let positive = element("OPTION", {value: 1}).setInnerHTML("✅").setSelected(value == 1);
         let negative = element("OPTION", {value: -1}).setInnerHTML("🚫").setSelected(value == -1);
         sel.appendChild(neutral);
