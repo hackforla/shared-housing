@@ -55,7 +55,7 @@ function calcScores() {
         scores[a.id] = {};
         data.takers.forEach(b => {
             if (a != b) {
-                scores[a.id][b.id] = ScoreCalculator.byTakerTakerWithVeto(a, b);;
+                scores[a.id][b.id] = ScoreCalculator.byTakerTakerWithVeto(a, b);
             }
         });
     });
@@ -66,7 +66,7 @@ function calcTakersCombinations() {
     return combinations(data.takers).filter(combo => {
         return combo.length < 2 || pairs(combo).every(pair => {
             let x = cache.scores[pair[0].id][pair[1].id];
-            return x != null && x > 0;
+            return x >= 0;
         });
     });
 }
