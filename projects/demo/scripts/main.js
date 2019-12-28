@@ -161,15 +161,14 @@ function render() {
         let ul = element("UL");
         area.appendChild(ul);
         data.makers.forEach(maker => {
-            html = maker.attributes.freeform0 + ": ";
             data.takers.forEach(taker => {
                 let score = ScoreCalculator.byMakerTaker(maker, taker);
                 if (score >= 0) {
-                    html += taker.attributes.freeform0 + " ";
+                    let html = /* maker.attributes.freeform0 + ": " + */ "Score:" + score + " " + taker.attributes.freeform0;
+                    let li = element("LI").setInnerHTML(html);
+                    ul.appendChild(li);
                 }
             });
-            let li = element("LI").setInnerHTML(html);
-            ul.appendChild(li);
         });
     }
 
