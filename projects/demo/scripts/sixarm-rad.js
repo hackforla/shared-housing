@@ -30,6 +30,11 @@ Node.prototype.setInnerHTML = function(innerHTML) {
     return this;
 };
 
+Node.prototype.setChecked = function(boolean) {
+    this.checked = boolean;
+    return this;
+};
+
 // Toogle node style display to show the node or hide the node.
 Node.prototype.toggle = function() {
     this.style.display = (this.style.display == "none") ? "block" : "none";

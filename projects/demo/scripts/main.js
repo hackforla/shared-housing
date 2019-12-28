@@ -14,7 +14,7 @@ function ini() {
     //     data.partnersToMakers[0].id = "makers0";
     //
     function _id(items, name) {
-        for (var i = 0; i < items.length; i++) items[i].id = name + "[" + i + "]"; // TODO change to zid
+        for (var i = 0; i < items.length; i++) items[i].id = name + i; // TODO change to zid
         return items;
     }
 
@@ -25,7 +25,22 @@ function ini() {
         _id(data.takersTags, "takersTags");
     }
 
+    // Initialize tag slots where we'll store user-input values.
+    function _slots() {
+        data.makers.forEach(maker => {
+            data.makersTags.forEach(tag => { 
+                maker.attributes[tag.id] = Math.round(Math.random());
+            });
+        });
+        data.takers.forEach(taker => {
+            data.makersTags.concat(data.takersTags).forEach(tag => { 
+                taker.attributes[tag.id] = Math.round(Math.random());
+            });
+        });
+    }
+
     _ids();
+    _slots();
 
 }
 
@@ -36,6 +51,15 @@ function ini() {
 ////
 
 function render() {
+
+    function _input_text(id, value) {
+        return element("INPUT", {id: id, type: "text", size: 10, value: value});
+    }
+
+    function _input_checkbox(id, value) {
+        return element("INPUT", {id: id, type: "checkbox"}).setChecked([false, true][value]);
+    }
+
     let inputTextSize = 10;
     let app = elementById("app");
     let table = element("TABLE");
@@ -45,7 +69,7 @@ function render() {
     tr.appendChild(element("TD"));
     data.makersTags.concat(data.takersTags).forEach(tag => {
         let td = element("TD");
-        let input = element("INPUT", {id: tag.id + ".name", type: "text", size: inputTextSize, value: tag.attributes.name});
+        let input = _input_text(tag.id + ".name", tag.attributes.name);
         td.appendChild(input);
         tr.appendChild(td);
     });
@@ -53,12 +77,12 @@ function render() {
     data.makers.forEach(maker => {
         let tr = element("TR");
         let td = element("TD");
-        let input = element("INPUT", {id: maker.id + ".name", type: "text", size: inputTextSize, value: maker.attributes.freeform0});
+        let input = _input_text(maker.id + ".name", maker.attributes.freeform0);
         td.appendChild(input);
         tr.appendChild(td);
         data.makersTags.forEach(tag => {
             let td = element("TD");
-            let input = element("INPUT", {id: maker.id + "." + tag.id, type: "checkbox"});
+            let input = _input_checkbox(maker.id + "." + tag.id, maker.attributes[tag.id]);
             td.appendChild(input);
             tr.appendChild(td);
         });
@@ -67,18 +91,18 @@ function render() {
     data.takers.forEach(taker => {
         let tr = element("TR");
         let td = element("TD");
-        let input = element("INPUT", {id: taker.id + ".name", type: "text", size: inputTextSize, value: taker.attributes.freeform0});
+        let input = _input_text(taker.id + ".name", taker.attributes.freeform0);
         td.appendChild(input);
         tr.appendChild(td);
         data.makersTags.forEach(tag => {
             let td = element("TD");
-            let input = element("INPUT", {id: taker.id + "." + tag.id, type: "checkbox"});
+            let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
             td.appendChild(input);
             tr.appendChild(td);
         });
         data.takersTags.forEach(tag => {
             let td = element("TD");
-            let input = element("INPUT", {id: taker.id + "." + tag.id, type: "checkbox"});
+            let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
             td.appendChild(input);
             tr.appendChild(td);
         });
