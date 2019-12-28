@@ -27,16 +27,20 @@ function ini() {
         _id(data.takersTags, "takersTags");
     }
 
+    function _slot_value() {
+        return [-1, 1, 0, 0, 0][5 * Math.random() | 0];
+    }
+
     // Initialize tag slots where we'll store user-input values.
     function _slots() {
         data.makers.forEach(maker => {
             data.makersTags.forEach(tag => { 
-                maker.attributes[tag.id] = randomIntMinMax(-1, 1);
+                maker.attributes[tag.id] = _slot_value();
             });
         });
         data.takers.forEach(taker => {
             data.makersTags.concat(data.takersTags).forEach(tag => { 
-                taker.attributes[tag.id] = randomIntMinMax(-1, 1);
+                taker.attributes[tag.id] = _slot_value();
             });
         });
     }
