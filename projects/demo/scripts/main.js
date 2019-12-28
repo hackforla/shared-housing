@@ -41,7 +41,6 @@ function ini() {
 
     _ids();
     _slots();
-
 }
 
 ////
@@ -126,17 +125,25 @@ function render() {
         let area = elementById("personGroupingArea");
         let ul = element("UL");
         area.appendChild(ul);
-        data.takers.forEach(taker => {
-            html = taker.attributes.freeform0 + ": ";
-            data.takers.forEach(other => {
-                if (taker != other) {
-                    let score = ScoreCalculator.byTakers(taker, other);
-                    if (score >=0) {
-                        html += other.attributes.freeform0 + " ";
-                    }
+        // Calculate scores for all pairs
+        var scores = {};
+        data.takers.forEach(a => {
+            scores[a.id] = {};
+            data.takers.forEach(b => {
+                if (a != b) {
+                    scores[a.id][b.id] = ScoreCalculator.byTakerTaker(a, b);
                 }
             });
-            let li = element("LI").setInnerHTML(html);
+        });
+        // Generate all combinations and reject every combination that has any pair with a negative score
+        let combos = combinations(data.takers).filter(combo => {
+            return combo.length >= 2 && pairs(combo).every(pair => scores[pair[0].id][pair[1].id] > 0);
+        });
+        // Render
+        combos.forEach(combo => {
+            let html = combo.map(taker => taker.attributes.freeform0).join(", ");
+            let score = ScoreCalculator.byTakers(combo);
+            let li = element("LI").setInnerHTML("Score:" + score + " " + html);
             ul.appendChild(li);
         });
     }
