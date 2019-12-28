@@ -28,7 +28,7 @@ function ini() {
     }
 
     function _slot_value() {
-        return [-1, 1, 0, 0, 0][5 * Math.random() | 0];
+        return [-1, 0, 0, 1][4 * Math.random() | 0];
     }
 
     // Initialize tag slots where we'll store user-input values.
@@ -173,11 +173,21 @@ function render() {
         let area = elementById("placeGroupingArea");
         let ul = element("UL");
         area.appendChild(ul);
+        // data.makers.forEach(maker => {
+        //     data.takers.forEach(taker => {
+        //         let score = ScoreCalculator.byMakerTaker(maker, taker);
+        //         if (score >= 0) {
+        //             let html = "Score:" + score + " " + taker.attributes.freeform0;
+        //             let li = element("LI").setInnerHTML(html);
+        //             ul.appendChild(li);
+        //         }
+        //     });
+        // });
         data.makers.forEach(maker => {
-            data.takers.forEach(taker => {
-                let score = ScoreCalculator.byMakerTaker(maker, taker);
+            cache.takersCombinations.forEach(takers => {
+                let score = ScoreCalculator.byMakerTakers(maker, takers);
                 if (score >= 0) {
-                    let html = "Score:" + score + " " + taker.attributes.freeform0;
+                    let html = "Score:" + score + " " + takers.map(taker => taker.attributes.freeform0).join(", ");
                     let li = element("LI").setInnerHTML(html);
                     ul.appendChild(li);
                 }
