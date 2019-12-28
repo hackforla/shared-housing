@@ -131,7 +131,9 @@ function render() {
             data.takers.forEach(other => {
                 if (taker != other) {
                     let score = ScoreCalculator.byTakers(taker, other);
-                    html += other.attributes.freeform0 + "(" +  score + ") ";
+                    if (score >=0) {
+                        html += other.attributes.freeform0 + " ";
+                    }
                 }
             });
             let li = element("LI").setInnerHTML(html);
@@ -147,7 +149,9 @@ function render() {
             html = maker.attributes.freeform0 + ": ";
             data.takers.forEach(taker => {
                 let score = ScoreCalculator.byMakerTaker(maker, taker);
-                html += taker.attributes.freeform0 + "(" +  score + ") ";
+                if (score >= 0) {
+                    html += taker.attributes.freeform0 + " ";
+                }
             });
             let li = element("LI").setInnerHTML(html);
             ul.appendChild(li);
