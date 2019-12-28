@@ -7,6 +7,7 @@
 <script type="text/javascript" src="scripts/sixarm-vet.js"></script>
 <script type="text/javascript" src="scripts/sixarm-table-sorter.js"></script>
 <script type="text/javascript" src="scripts/data.js"></script>
+<script type="text/javascript" src="scripts/scorer.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
 </head>
 
@@ -14,28 +15,15 @@
 
 <h1>Match Demo</h1>
 
-<form>
+<form><div id="app"></div></form>
 
-<div id="app"></div>
+<h2>People grouping: each person compared to the others</h2>
 
-</form>
+<div id="personGroupingArea"></div>
 
-<h2>People that can live togther</h2>
+<h2>Place grouping</h2>
 
-<table id="scoreboard">
-<tr><td><b>Group</b></td></tr>
-<tr><td>Alice, Bob, Carol</td></tr>
-<tr><td>Eve</td></tr>
-<tr><td>Carol, Dave</td></tr>
-<tr><td>Alice, Dave</td></tr>
-</table>
-
-<h2>Place to grouping</h2>
-
-<table id="scoreboard">
-<tr><td><b>Place</b></td><td><b>People</b></td></tr>
-<tr><td><span id="group2-a">Apartment A</span></td><td>Alice, Bob, Carol</td></tr>
-</table>
+<div id="placeGroupingArea"></div>
 
 <script>
 window.addEventListener('load', function () {

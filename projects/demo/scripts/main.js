@@ -60,54 +60,93 @@ function render() {
         return element("INPUT", {id: id, type: "checkbox"}).setChecked([false, true][value]);
     }
 
-    let inputTextSize = 10;
-    let app = elementById("app");
-    let table = element("TABLE");
-    app.appendChild(table);
-    let tr = element("TR");
-    table.appendChild(tr);
-    tr.appendChild(element("TD"));
-    data.makersTags.concat(data.takersTags).forEach(tag => {
-        let td = element("TD");
-        let input = _input_text(tag.id + ".name", tag.attributes.name);
-        td.appendChild(input);
-        tr.appendChild(td);
-    });
-    table.appendChild(tr);
-    data.makers.forEach(maker => {
+    function _gather_area() {
+        let inputTextSize = 10;
+        let app = elementById("app");
+        let table = element("TABLE");
+        app.appendChild(table);
         let tr = element("TR");
-        let td = element("TD");
-        let input = _input_text(maker.id + ".name", maker.attributes.freeform0);
-        td.appendChild(input);
-        tr.appendChild(td);
-        data.makersTags.forEach(tag => {
+        table.appendChild(tr);
+        tr.appendChild(element("TD"));
+        data.makersTags.concat(data.takersTags).forEach(tag => {
             let td = element("TD");
-            let input = _input_checkbox(maker.id + "." + tag.id, maker.attributes[tag.id]);
+            let input = _input_text(tag.id + ".name", tag.attributes.name);
             td.appendChild(input);
             tr.appendChild(td);
         });
         table.appendChild(tr);
-    });
-    data.takers.forEach(taker => {
-        let tr = element("TR");
-        let td = element("TD");
-        let input = _input_text(taker.id + ".name", taker.attributes.freeform0);
-        td.appendChild(input);
-        tr.appendChild(td);
-        data.makersTags.forEach(tag => {
+        data.makers.forEach(maker => {
+            let tr = element("TR");
             let td = element("TD");
-            let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
+            let input = _input_text(maker.id + ".name", maker.attributes.freeform0);
             td.appendChild(input);
             tr.appendChild(td);
+            data.makersTags.forEach(tag => {
+                let td = element("TD");
+                let input = _input_checkbox(maker.id + "." + tag.id, maker.attributes[tag.id]);
+                td.appendChild(input);
+                tr.appendChild(td);
+            });
+            table.appendChild(tr);
         });
-        data.takersTags.forEach(tag => {
+        data.takers.forEach(taker => {
+            let tr = element("TR");
             let td = element("TD");
-            let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
+            let input = _input_text(taker.id + ".name", taker.attributes.freeform0);
             td.appendChild(input);
             tr.appendChild(td);
+            data.makersTags.forEach(tag => {
+                let td = element("TD");
+                let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
+                td.appendChild(input);
+                tr.appendChild(td);
+            });
+            data.takersTags.forEach(tag => {
+                let td = element("TD");
+                let input = _input_checkbox(taker.id + "." + tag.id, taker.attributes[tag.id]);
+                td.appendChild(input);
+                tr.appendChild(td);
+            });
+            table.appendChild(tr);
         });
-        table.appendChild(tr);
-    });
+    }
+
+    function _person_grouping_area() {
+        let area = elementById("personGroupingArea");
+        let ul = element("UL");
+        area.appendChild(ul);
+        data.takers.forEach(taker => {
+            html = taker.attributes.freeform0 + ": ";
+            data.takers.forEach(other => {
+                if (taker != other) {
+                    let score = ScoreCalculator.byTakers(taker, other);
+                    html += other.attributes.freeform0 + "(" +  score + ") ";
+                }
+            });
+            let li = element("LI").setInnerHTML(html);
+            ul.appendChild(li);
+        });
+    }
+
+    function _place_grouping_area() {
+        let area = elementById("placeGroupingArea");
+        let ul = element("UL");
+        area.appendChild(ul);
+        data.makers.forEach(maker => {
+            html = maker.attributes.freeform0 + ": ";
+            data.takers.forEach(taker => {
+                let score = ScoreCalculator.byMakerTaker(maker, taker);
+                html += taker.attributes.freeform0 + "(" +  score + ") ";
+            });
+            let li = element("LI").setInnerHTML(html);
+            ul.appendChild(li);
+        });
+    }
+
+    _gather_area();
+    _person_grouping_area();
+    _place_grouping_area();
+
 }
 
 ////
