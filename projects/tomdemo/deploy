@@ -1,16 +1,17 @@
 #!/bin/sh
+set -x
 
 html_dir=/var/www/html
+project="tomdemo"
 
-local_repo_dir="$html_dir/repos/github/hackforla/shared-housing"
-local_repo_src="$html_dir/repos/github/hackforla/shared-housing/projects/tomdemo"
-local_repo_branch="tomdemo"
+src_top_dir="$html_dir/repos/github/hackforla/shared-housing"
+src_project_dir="$html_dir/repos/github/hackforla/shared-housing/projects/$project/"
+src_branch="tomdemo"
 
-cd $local_repo_dir && git checkout "$branch" && git pull --rebase
+cd "$src_top_dir" && git checkout "$branch" && git pull --rebase
 
-deploy_html_dir="$html"
-deploy_organization="lafh"
-deploy_project="tomdemo"
-deploy_dst="$html_dir/$deploy_organization/$deploy_project/"
+dst_top_dir="$html"
+dst_organization="lafh"
+dst_project_dir="$html_dir/$dst_organization/$project/"
 
-rsync -av --delete $local_repo_src $deploy_dst
+rsync -av --delete $src_project_dir $dst_project_dir
