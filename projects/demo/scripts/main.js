@@ -88,13 +88,16 @@ function render() {
 
     function _input_select(id, value) {
         let sel = element("SELECT", {id: id}).withEventListener('change', refresh); // TODO optimize scope to just this select change
-        let neutral = element("OPTION", {value: 0}).setInnerHTML("😐").setSelected(value == 0);
-        let positive = element("OPTION", {value: 1}).setInnerHTML("✅").setSelected(value == 1);
-        let negative = element("OPTION", {value: -1}).setInnerHTML("🚫").setSelected(value == -1);
-        sel.appendChild(neutral);
-        sel.appendChild(positive);
-        sel.appendChild(negative);
+        sel.appendChildren([
+            _input_select_option(null, value,  1, "✅"),
+            _input_select_option(null, value,  0, "😐"),
+            _input_select_option(null, value, -1, "🚫"),
+        ]);
         return sel;
+    }
+
+    function _input_select_option(id, value, optionValue, innerHTML) {
+        return element("OPTION", {value: optionValue}).setSelected(value == optionValue).setInnerHTML(innerHTML);
     }
 
     function _gather_area() {
