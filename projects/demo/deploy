@@ -2,16 +2,14 @@
 set -x
 
 html_dir=/var/www/html
-project="tomdemo"
 
 src_top_dir="$html_dir/repos/github/hackforla/shared-housing"
-src_project_dir="$html_dir/repos/github/hackforla/shared-housing/projects/$project/"
+src_project_dir="$html_dir/repos/github/hackforla/shared-housing/projects/demo/"
 src_branch="tomdemo"
 
 cd "$src_top_dir" && git checkout "$branch" && git pull --rebase
 
 dst_top_dir="$html"
-dst_organization="lafh"
-dst_project_dir="$html_dir/$dst_organization/$project/"
+dst_project_dir="$html_dir/match/demo/"
 
 rsync -av --delete $src_project_dir $dst_project_dir
