@@ -55,7 +55,9 @@ function calcScores() {
         scores[a.id] = {};
         data.takers.forEach(b => {
             if (a != b) {
-                scores[a.id][b.id] = ScoreCalculator.byTakerTaker(a, b);
+                let score = ScoreCalculator.byTakerTakerWithVeto(a, b);
+                if (score == Number.NEGATIVE_INFINITY) console.log("veto");
+                scores[a.id][b.id] = score;
             }
         });
     });
@@ -64,7 +66,10 @@ function calcScores() {
 
 function calcTakersCombinations() {
     return combinations(data.takers).filter(combo => {
-        return combo.length < 2 || pairs(combo).every(pair => cache.scores[pair[0].id][pair[1].id] > 0);
+        return combo.length < 2 || pairs(combo).every(pair => {
+            let x = cache.scores[pair[0].id][pair[1].id];
+            return x != null && x > 0;
+        });
     });
 }
 
@@ -162,9 +167,11 @@ function render() {
         cache.takersCombinations.forEach(combo => {
             if (combo.length >= 2) {
                 let html = combo.map(taker => taker.attributes.freeform0).join(", ");
-                let score = ScoreCalculator.byTakers(combo);
-                let li = element("LI").setInnerHTML("Score:" + score + " " + html);
-                ul.appendChild(li);
+                let score = ScoreCalculator.byTakersWithVeto(combo);
+                if (score >= 0) {
+                    let li = element("LI").setInnerHTML("Score:" + score + " " + html);
+                    ul.appendChild(li);
+                }
             }
         });
     }
@@ -173,19 +180,9 @@ function render() {
         let area = elementById("placeGroupingArea");
         let ul = element("UL");
         area.appendChild(ul);
-        // data.makers.forEach(maker => {
-        //     data.takers.forEach(taker => {
-        //         let score = ScoreCalculator.byMakerTaker(maker, taker);
-        //         if (score >= 0) {
-        //             let html = "Score:" + score + " " + taker.attributes.freeform0;
-        //             let li = element("LI").setInnerHTML(html);
-        //             ul.appendChild(li);
-        //         }
-        //     });
-        // });
         data.makers.forEach(maker => {
             cache.takersCombinations.forEach(takers => {
-                let score = ScoreCalculator.byMakerTakers(maker, takers);
+                let score = ScoreCalculator.byMakerTakersWithVeto(maker, takers);
                 if (score >= 0) {
                     let html = "Score:" + score + " " + takers.map(taker => taker.attributes.freeform0).join(", ");
                     let li = element("LI").setInnerHTML(html);
