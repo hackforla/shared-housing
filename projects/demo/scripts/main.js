@@ -55,9 +55,7 @@ function calcScores() {
         scores[a.id] = {};
         data.takers.forEach(b => {
             if (a != b) {
-                let score = ScoreCalculator.byTakerTakerWithVeto(a, b);
-                if (score == Number.NEGATIVE_INFINITY) console.log("veto");
-                scores[a.id][b.id] = score;
+                scores[a.id][b.id] = ScoreCalculator.byTakerTakerWithVeto(a, b);;
             }
         });
     });
