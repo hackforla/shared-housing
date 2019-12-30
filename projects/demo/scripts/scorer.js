@@ -6,10 +6,14 @@
 
 class ScoreCalculator {
 
+    static byXYTag(x, y, tag) {
+        return data.slots[x.id][tag.id] * data.slots[y.id][tag.id];
+    }
+
     static byMakerTaker(maker, taker) {
         var score = 0;
         data.makersTags.forEach(tag => {
-            score += (maker.attributes[tag.id] * taker.attributes[tag.id])
+            score += ScoreCalculator.byXYTag(maker, taker, tag);
         });
         return score;
     }
@@ -19,7 +23,7 @@ class ScoreCalculator {
         var score = 0;
         try {
             data.makersTags.forEach(tag => {
-                let x = (maker.attributes[tag.id] * taker.attributes[tag.id]);
+                let x = ScoreCalculator.byXYTag(maker, taker, tag);
                 if (x < 0) {
                     score = Number.NEGATIVE_INFINITY;
                     throw BreakException;
@@ -61,7 +65,7 @@ class ScoreCalculator {
     static byTakerTaker(a, b) {
         var score = 0;
         data.makersTags.concat(data.takersTags).forEach(tag => {
-            score += (a.attributes[tag.id] * b.attributes[tag.id])
+            score += ScoreCalculator.byXYTag(a, b, tag);
         });
         return score;
     }
@@ -71,7 +75,7 @@ class ScoreCalculator {
         var score = 0;
         try {
             data.makersTags.concat(data.takersTags).forEach(tag => {
-                let x = (a.attributes[tag.id] * b.attributes[tag.id]);
+                let x = ScoreCalculator.byXYTag(a, b, tag);
                 if (x < 0) {
                     score = Number.NEGATIVE_INFINITY;
                     throw BreakException;
