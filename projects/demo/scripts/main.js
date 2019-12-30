@@ -87,6 +87,7 @@ function refresh() {
 function changeSelectValue() {
     let [partnerId, tagId] = this.id.split('.');
     data.slots[partnerId][tagId] = this.value;
+    render();
 }
 
 ////
@@ -116,8 +117,8 @@ function render() {
     }
 
     function _gather_area() {
-        let inputTextSize = 10;
         let app = elementById("app");
+        app.removeChildren();
         let table = element("TABLE");
         app.appendChild(table);
         let tr = element("TR");
@@ -168,6 +169,7 @@ function render() {
 
     function _person_grouping_area() {
         let area = elementById("personGroupingArea");
+        area.removeChildren();
         let ul = element("UL");
         area.appendChild(ul);
         cache.takersCombinations.forEach(combo => {
@@ -184,6 +186,7 @@ function render() {
 
     function _place_grouping_area() {
         let area = elementById("placeGroupingArea");
+        area.removeChildren();
         let ul = element("UL");
         area.appendChild(ul);
         data.makers.forEach(maker => {
