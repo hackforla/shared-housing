@@ -85,7 +85,8 @@ function refresh() {
 }
 
 function changeSelectValue() {
-    console.log("changeSelectValue " +  this.id);
+    let [partnerId, tagId] = this.id.split('.');
+    data.slots[partnerId][tagId] = this.value;
 }
 
 ////
