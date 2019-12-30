@@ -27,7 +27,7 @@ let data = {
         {
             "type": "tag",
             "attributes": {
-                "name": "Drink/Drug",
+                "name": "Substances",
             }
         },{
             "type": "tag",
@@ -68,7 +68,7 @@ let data = {
         },{
             "type": "taker",
             "attributes": {
-                "freeform0": "David",
+                "freeform0": "Dave",
             }
         },{
             "type": "taker",
@@ -79,6 +79,26 @@ let data = {
             "type": "taker",
             "attributes": {
                 "freeform0": "Frank",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Grace",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Helen",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Ivy",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Joe",
             }
         }
     ]
