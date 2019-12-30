@@ -33,14 +33,17 @@ function ini() {
 
     // Initialize tag slots where we'll store user-input values.
     function _slots() {
+        data.slots = {};
         data.makers.forEach(maker => {
+            data.slots[maker.id] = {};
             data.makersTags.forEach(tag => { 
-                maker.attributes[tag.id] = _slot_value();
+                data.slots[maker.id][tag.id] = _slot_value();
             });
         });
         data.takers.forEach(taker => {
+            data.slots[taker.id] = {};
             data.makersTags.concat(data.takersTags).forEach(tag => { 
-                taker.attributes[tag.id] = _slot_value();
+                data.slots[taker.id][tag.id] = _slot_value();
             });
         });
     }
@@ -130,7 +133,7 @@ function render() {
             tr.appendChild(td);
             data.makersTags.forEach(tag => {
                 let td = element("TD");
-                let input = _input_select(maker.id + "." + tag.id, maker.attributes[tag.id]);
+                let input = _input_select(maker.id + "." + tag.id, data.slots[maker.id][tag.id]);
                 td.appendChild(input);
                 tr.appendChild(td);
             });
@@ -144,13 +147,13 @@ function render() {
             tr.appendChild(td);
             data.makersTags.forEach(tag => {
                 let td = element("TD");
-                let input = _input_select(taker.id + "." + tag.id, taker.attributes[tag.id]);
+                let input = _input_select(taker.id + "." + tag.id, data.slots[taker.id][tag.id]);
                 td.appendChild(input);
                 tr.appendChild(td);
             });
             data.takersTags.forEach(tag => {
                 let td = element("TD");
-                let input = _input_select(taker.id + "." + tag.id, taker.attributes[tag.id]);
+                let input = _input_select(taker.id + "." + tag.id, data.slots[taker.id][tag.id]);
                 td.appendChild(input);
                 tr.appendChild(td);
             });
