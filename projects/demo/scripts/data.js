@@ -14,12 +14,12 @@ let data = {
         },{
             "type": "tag",
             "attributes": {
-                "name": "Dogs",
+                "name": "Cats",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Cats",
+                "name": "Dogs",
             }
         },{
             "type": "tag",
