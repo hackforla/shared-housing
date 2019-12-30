@@ -84,6 +84,10 @@ function refresh() {
     console.log("refresh " +  this.id);
 }
 
+function changeSelectValue() {
+    console.log("changeSelectValue " +  this.id);
+}
+
 ////
 //
 // Render
@@ -97,7 +101,7 @@ function render() {
     }
 
     function _input_select(id, value) {
-        let sel = element("SELECT", {id: id}).withEventListener('change', refresh); // TODO optimize scope to just this select change
+        let sel = element("SELECT", {id: id}).withEventListener('change', changeSelectValue); // TODO optimize scope to just this select change
         sel.appendChildren([
             _input_select_option(null, value,  1, "✅"),
             _input_select_option(null, value,  0, "😐"),
