@@ -14,7 +14,12 @@ let data = {
         },{
             "type": "tag",
             "attributes": {
-                "name": "Animals",
+                "name": "Dogs",
+            }
+        },{
+            "type": "tag",
+            "attributes": {
+                "name": "Cats",
             }
         },{
             "type": "tag",
@@ -38,6 +43,16 @@ let data = {
             "type": "tag",
             "attributes": {
                 "name": "Guests",
+            }
+        },{
+            "type": "tag",
+            "attributes": {
+                "name": "Music",
+            }
+        },{
+            "type": "tag",
+            "attributes": {
+                "name": "Sports",
             }
         }
     ],
