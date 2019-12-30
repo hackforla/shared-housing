@@ -9,17 +9,17 @@ let data = {
         {
             "type": "tag",
             "attributes": {
-                "name": "Bird",
+                "name": "ADA",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Cat",
+                "name": "Animals",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Dog",
+                "name": "MMC",
             }
         }
     ],
@@ -27,17 +27,17 @@ let data = {
         {
             "type": "tag",
             "attributes": {
-                "name": "Red",
+                "name": "Drink/Drug",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Green",
+                "name": "Smoking",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Blue",
+                "name": "Guests",
             }
         }
     ],
