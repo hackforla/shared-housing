@@ -1,4 +1,4 @@
-#BACKEND GUIDE STUFF  
+# BACKEND GUIDE STUFF  
 
 This guide will cover the current state of the development using a top down approach. FYI frontend uses react.  
 The application stack is:  
@@ -10,26 +10,26 @@ mongodb - storage
 
 TODO: needs in depth decisions for why we chose the following technologies  
 
-##Kubernetes  
+## Kubernetes  
 Relevant files: deployment.yaml, service.yaml  
 https://kubernetes.io/docs/home/  
 
-##Docker  
+## Docker  
 Relevant files: Dockerfile  
 https://docs.docker.com/get-started/  
 
-##Flask  
+## Flask  
 Relevant files: app.py   
 https://flask.palletsprojects.com/en/1.1.x/  
 
-##Python  
+## Python  
 Relevant files: .py files  
 https://docs.python.org/3/  
 
-#Local set up  - TODO: needs explanations
+# Local set up  - TODO: needs explanations
 Below are instructions for setting up your local machine. (These instructions were done on a mac so it might be different for you)  
 
-##python
+## python
 install python3.x  
 upgrade pip - this is the python package installer https://pip.pypa.io/en/stable/  
 set up your IDE  
@@ -40,11 +40,11 @@ set upstream to hack for la
 git pull upstream master to keep your local code up to date  
 git push to make sure your fork's master is up to date  
 
-##sample javascript project
+## sample javascript project
 run `brew install node`  
 some node command to transpile  
 
-##kubernetes/docker  
+## kubernetes/docker  
 download docker dmg from docker's website and enable kubernetes from preferences  
 run `brew cask install minikube` https://kubernetes.io/docs/tasks/tools/install-minikube/  
 run `minikube start --vm-driver=hyperkit`  
