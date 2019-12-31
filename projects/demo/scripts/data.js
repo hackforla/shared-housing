@@ -9,17 +9,22 @@ let data = {
         {
             "type": "tag",
             "attributes": {
-                "name": "Bird",
+                "name": "ADA",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Cat",
+                "name": "Cats",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Dog",
+                "name": "Dogs",
+            }
+        },{
+            "type": "tag",
+            "attributes": {
+                "name": "MMC",
             }
         }
     ],
@@ -27,17 +32,27 @@ let data = {
         {
             "type": "tag",
             "attributes": {
-                "name": "Red",
+                "name": "Substances",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Green",
+                "name": "Smoking",
             }
         },{
             "type": "tag",
             "attributes": {
-                "name": "Blue",
+                "name": "Guests",
+            }
+        },{
+            "type": "tag",
+            "attributes": {
+                "name": "Music",
+            }
+        },{
+            "type": "tag",
+            "attributes": {
+                "name": "Sports",
             }
         }
     ],
@@ -68,7 +83,7 @@ let data = {
         },{
             "type": "taker",
             "attributes": {
-                "freeform0": "David",
+                "freeform0": "Dave",
             }
         },{
             "type": "taker",
@@ -79,6 +94,26 @@ let data = {
             "type": "taker",
             "attributes": {
                 "freeform0": "Frank",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Grace",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Helen",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Ivy",
+            }
+        },{
+            "type": "taker",
+            "attributes": {
+                "freeform0": "Joe",
             }
         }
     ]
