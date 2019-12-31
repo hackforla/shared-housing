@@ -107,7 +107,7 @@ function render() {
         sel.appendChildren([
             _input_select_option(null, value,  1, "✅"),
             _input_select_option(null, value,  0, "😐"),
-            _input_select_option(null, value, -1, "🚫"),
+            _input_select_option(null, value, -1, "⛔"),
         ]);
         return sel;
     }
