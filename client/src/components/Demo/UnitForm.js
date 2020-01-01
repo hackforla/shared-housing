@@ -199,7 +199,7 @@ export const UnitsPage = () => {
 
   return (
     <div>
-      <h2>Tenants</h2>
+      <h2>Units</h2>
       {
         state.units.map((unit, index) => {
           return (
