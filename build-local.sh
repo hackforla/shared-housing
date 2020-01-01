@@ -49,11 +49,22 @@ mkdir -p server/api/{templates,static}
 mv client/dist/index.html server/api/templates
 mv client/dist/* server/api/static
 
+cd server
+
+if pip install -r requirements.txt; then
+    echo "Server dependencies installed.";
+else
+    echo "Server dependencies failed to install.";
+    exit 1;
+fi
+
+cd ..
+
 printDoneMessage
 
 
 # echo "------ BUILD COMPLETE ------"
 
-printf "\nUse the following command to push the build:\n\n    scp -r server/api/* sharedhousing@ivan-alpha.xyz:/home/sharedhousing/app\n"
+printf "\nUse the following command to start the server:\n\n    cd server/api && python run.py\n"
 
 
