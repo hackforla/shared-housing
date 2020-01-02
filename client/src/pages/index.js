@@ -5,3 +5,4 @@ export { DemoPage } from './Demo';
 export { StakeholdersPage } from './Stakeholders';
 export { TeamRoster } from './TeamRoster';
 export { AgileManifesto } from './AgileManifesto';
+export { UnitsPage } from './UnitsPage';
