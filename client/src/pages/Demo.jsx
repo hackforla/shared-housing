@@ -5,7 +5,7 @@ import { Switch, Route, NavLink, BrowserRouter } from 'react-router-dom';
 import { SectionContainer, ComponentToggler } from '../components/common';
 import { TenantForm, Results, UnitForm } from '../components/Demo';
 import { TenantsPage } from '../components/Demo/TenantForm';
-import { UnitsPage } from '../components/Demo/UnitForm';
+import { UnitsPage } from './UnitsPage';
 import { ConstraintsForm } from '../components/Demo/ConstraintsForm';
 
 const useStyles = makeStyles(theme =>
