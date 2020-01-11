@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core/';
+import { TenantListItem } from './TenantListItem';
 
 const columns = [
   { id: 'name', label: 'TENANT NAME', minWidth: 30 },
@@ -48,20 +49,7 @@ export function TenantList({ tenants }) {
 
           <TableBody>
             {tenants.map(tenant => {
-              return (
-                <TableRow hover>
-                  {columns.map(column => {
-                    const value = tenant[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number'
-                          ? column.format(value)
-                          : value}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
+              return <TenantListItem columns={columns} tenant={tenant} />;
             })}
           </TableBody>
         </Table>
