@@ -7,6 +7,7 @@ import {
 } from '../src/components/Dashboard/Base';
 import { UnitCard, UnitListItem } from '../src/components/Dashboard/Unit';
 import { TenantList } from '../src/components/Dashboard/Tenant/TenantList';
+import { TenantListItem } from '../src/components/Dashboard/Tenant/TenantListItem';
 import { ComponentToggler } from '../src/components/common';
 
 const options = [
@@ -58,6 +59,16 @@ storiesOf('Dashboard', module)
         { name: 'Joey Youngman', unitMatch: 18, handicap: 'Yes' },
         { name: 'Brian Transeau', unitMatch: 46, handicap: 'No' },
       ]}
+    />
+  ))
+  .add('TenantListItem', () => (
+    <TenantListItem
+      columns={[
+        { id: 'name', label: 'TENANT NAME', minWidth: 30 },
+        { id: 'unitMatch', label: 'UNIT MATCHES', minWidth: 30 },
+        { id: 'handicap', label: 'HANDICAP ONLY?', minWidth: 30 },
+      ]}
+      tenant={{ name: 'Laurent Veronnez', unitMatch: 66, handicap: 'Yes' }}
     />
   ))
   .add('ComponentToggler', () => <ComponentToggler options={options} />);
