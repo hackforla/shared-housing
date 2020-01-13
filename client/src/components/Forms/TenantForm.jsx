@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import { useParams, useHistory } from 'react-router-dom';
 
-import './demo.css';
+import './form.css';
 
 const useStyles = makeStyles({
   root: {
@@ -165,10 +165,10 @@ export const TenantForm = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({responseValue: value})
+      body: JSON.stringify({ responseValue: value })
     }).then((r) => {
       console.log(`${url}: returned: ${r.statusText}`);
-      if(r.status === 200) {
+      if (r.status === 200) {
         return r.text();
       } else {
         throw new Error(r.statusText);
@@ -184,7 +184,7 @@ export const TenantForm = () => {
     // eslint-disable-next-line no-console
     console.log(`submitTenantForm: state.responses = ${JSON.stringify(state.responses)}`);
     try {
-      for(let questionId in state.responses) {
+      for (let questionId in state.responses) {
         const value = state.responses[questionId];
         // eslint-disable-next-line no-console
         console.log(`submitTenantForm: state.responses[${questionId}]: ${value}`);
@@ -195,7 +195,7 @@ export const TenantForm = () => {
         history.push('/demo');
 
       }
-    } catch(e) {
+    } catch (e) {
       throw new Error(e);
     }
   };

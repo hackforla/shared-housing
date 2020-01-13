@@ -3,10 +3,10 @@ import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Switch, Route, NavLink, BrowserRouter } from 'react-router-dom';
 import { SectionContainer, ComponentToggler } from '../components/common';
-import { TenantForm, Results, UnitForm } from '../components/Demo';
-import { TenantsPage } from '../components/Demo/TenantForm';
+import { TenantForm, Results, UnitForm } from '../components/Forms';
+import { TenantsPage } from '../components/Forms/TenantForm';
 import { UnitsPage } from './UnitsPage';
-import { ConstraintsForm } from '../components/Demo/ConstraintsForm';
+import { ConstraintsForm } from '../components/Forms/ConstraintsForm';
 
 const useStyles = makeStyles(theme =>
   createStyles({
