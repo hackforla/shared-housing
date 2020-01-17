@@ -15,7 +15,7 @@ import {
   BaseSwitch,
 } from '../src/components/Forms/Base';
 import ExampleForm from '../src/components/Forms/FormikForms/ExampleForm';
-import UnitForm from '../src/components/Demo/UnitForm';
+import UnitForm from '../src/components/Forms/UnitForm';
 
 storiesOf('Pages', module).add('Login', () => <LoginForm />);
 
@@ -107,15 +107,15 @@ storiesOf('Forms', module)
         handleReset,
         ...props
       }) => (
-        <Form>
-          <Field
-            name="TimePicker"
-            label="TimePicker"
-            component={BaseTimePicker}
-            {...props}
-          />
-        </Form>
-      )}
+          <Form>
+            <Field
+              name="TimePicker"
+              label="TimePicker"
+              component={BaseTimePicker}
+              {...props}
+            />
+          </Form>
+        )}
     />
   ))
   .add('DatePicker', () => (
@@ -132,15 +132,15 @@ storiesOf('Forms', module)
         handleReset,
         ...props
       }) => (
-        <Form>
-          <Field
-            name="DatePicker"
-            label="DatePicker"
-            component={BaseDatePicker}
-            {...props}
-          />
-        </Form>
-      )}
+          <Form>
+            <Field
+              name="DatePicker"
+              label="DatePicker"
+              component={BaseDatePicker}
+              {...props}
+            />
+          </Form>
+        )}
     />
   ))
   .add('Slider', () => (
@@ -181,15 +181,15 @@ storiesOf('Forms', module)
         handleReset,
         ...props
       }) => (
-        <Form>
-          <Field
-            name="comments"
-            label="Comments"
-            component={BaseTextArea}
-            {...props}
-          />
-        </Form>
-      )}
+          <Form>
+            <Field
+              name="comments"
+              label="Comments"
+              component={BaseTextArea}
+              {...props}
+            />
+          </Form>
+        )}
     />
   ))
   .add('RadioGroup', () => (

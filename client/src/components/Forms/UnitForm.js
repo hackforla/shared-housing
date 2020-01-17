@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { useParams, useHistory } from 'react-router-dom';
-import { BaseRadioGroup } from '../Forms/Base/BaseRadioGroup';
+import { BaseRadioGroup } from './Base/BaseRadioGroup';
 
 const useStyles = makeStyles(theme => ({
   root: {
