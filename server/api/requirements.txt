@@ -22,7 +22,7 @@ Werkzeug==0.15.5
 Authlib==0.12.1
 cffi==1.13.1
 chardet==3.0.4
-cryptography==2.8
+cryptography==3.2
 Faker==3.0.0
 gunicorn==19.9.0
 idna==2.8
